@@ -1,0 +1,79 @@
+baseURL: https://rksinghdeo.github.io/
+languageCode: en-us
+title: Ramneek Singh — AWS Data Engineer
+
+theme: PaperMod
+
+pagination:
+  pagerSize: 10
+
+params:
+  env: production
+  author: Ramneek Singh
+  description: >
+    AWS Data Engineer specializing in serverless data pipelines, lakehouse
+    architecture, and cost-optimized ETL — cutting cloud bills and shipping
+    reliable data infrastructure for product and data teams.
+  keywords:
+    - AWS Data Engineer
+    - Serverless ETL
+    - Data Lakehouse
+    - Apache Iceberg
+    - AWS CDK
+    - Upwork
+
+  homeInfoParams:
+    Title: "Your data infrastructure should work for you — not the other way around."
+    Content: >
+      I build serverless AWS data pipelines that cut costs, reduce operational
+      toil, and get reliable data into the hands of your business faster.
+      5+ years shipping production ETL on AWS. Available on Upwork.
+
+  socialIcons:
+    - name: github
+      url: https://github.com/RkSinghDeo
+    - name: upwork
+      url: https://www.upwork.com/freelancers/ramneeksingh
+
+  cover:
+    hiddenInList: true
+
+  showReadingTime: false
+  showShareButtons: false
+  showPostNavLinks: false
+  showBreadCrumbs: false
+  showCodeCopyButtons: true
+  showToc: false
+  disableThemeToggle: false
+
+  label:
+    text: Ramneek Singh
+
+  profileMode:
+    enabled: false
+
+menu:
+  main:
+    - name: Results
+      url: /case-studies/
+      weight: 1
+    - name: Services
+      url: /services/
+      weight: 2
+    - name: About
+      url: /about/
+      weight: 3
+    - name: Contact
+      url: /contact/
+      weight: 4
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
