@@ -610,6 +610,37 @@ footer span {
   opacity: 0.5;
 }
 
+/* FLOATING SECTION STICKMEN */
+.float-section-stick {
+  position: absolute;
+  right: 20px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.8;
+  transform-origin: bottom center;
+}
+.float-section-stick.think { animation: fthink 5.2s ease-in-out infinite; top: 80px; }
+.float-section-stick.create { animation: fcreate 4s ease-in-out infinite; top: 80px; }
+.float-section-stick.done { animation: fdone 3.6s ease-in-out infinite; top: 80px; }
+@keyframes fthink {
+  0%,100% { transform: rotate(-2.5deg) translateY(0px); }
+  50%      { transform: rotate(2deg) translateY(-5px); }
+}
+@keyframes fcreate {
+  0%,100% { transform: rotate(-1.5deg) translateY(0px); }
+  30%      { transform: rotate(2.5deg) translateY(-7px); }
+  65%      { transform: rotate(-0.5deg) translateY(-3px); }
+}
+@keyframes fdone {
+  0%,100% { transform: rotate(-2deg) translateY(0px); }
+  25%      { transform: rotate(3deg) translateY(-9px); }
+  55%      { transform: rotate(-1deg) translateY(-4px); }
+}
+#services { position: relative; }
+#why { position: relative; }
+.cta-section { position: relative; }
+@media (max-width: 1080px) { .float-section-stick { display: none; } }
+
 /* MOBILE */
 @media (max-width: 768px) {
   body::before { display: none; }
@@ -874,6 +905,7 @@ footer span {
 
 <!-- SERVICES -->
 <section class="section" id="services" style="padding-top:0">
+  <canvas class="float-section-stick think" id="float-stick-services" width="54" height="96"></canvas>
   <div class="section-label">Services</div>
   <ul class="services-list">
     <li class="service-row">
@@ -905,6 +937,7 @@ footer span {
 
 <!-- WHY ME -->
 <section class="section" id="why" style="padding-top:0">
+  <canvas class="float-section-stick create" id="float-stick-why" width="54" height="96"></canvas>
   <div class="section-label">Why Me</div>
   <div class="why-grid">
     <div class="why-statement">5+ years.<br>Production scale.<br>Zero BS.</div>
@@ -966,6 +999,7 @@ footer span {
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
+  <canvas class="float-section-stick done" id="float-stick-cta" width="54" height="96"></canvas>
   <h2>Ready to ship?</h2>
   <p class="cta-sub">ramneek2307@gmail.com · github.com/RkSinghDeo</p>
   <div class="cta-btn-wrap">
@@ -1267,6 +1301,55 @@ function drawMetricUnderlines() {
   });
 }
 
+// ─── Section floating stickmen (thinking / creating / accomplished) ──────────
+function drawFloatSectionStick(id, colorKey, pose) {
+  const canvas = document.getElementById(id);
+  if (!canvas || !window.rough) return;
+  const rc = rough.canvas(canvas);
+  const ctx = canvas.getContext('2d');
+  const color = colorMap[colorKey] || colorMap.pencil;
+  const cx = 27, sw = 1.6, r = 1.4;
+  const o = { stroke: color, strokeWidth: sw, roughness: r };
+
+  if (pose === 'think') {
+    // Thinking: standing, one hand raised near chin, slight head tilt
+    rc.circle(cx, 14, 18, o);
+    rc.line(cx, 23, cx, 62, o);
+    rc.line(cx, 37, cx-16, 23, o);           // left arm up to chin
+    rc.line(cx-16, 23, cx-12, 28, o);        // forearm across (chin rest)
+    rc.line(cx, 37, cx+17, 50, o);           // right arm hanging
+    rc.line(cx, 62, cx-13, 90, o);
+    rc.line(cx, 62, cx+13, 90, o);
+    ctx.fillStyle = color; ctx.globalAlpha = 0.45; ctx.font = '8px serif';
+    ctx.fillText('...', cx-9, 8);
+    ctx.globalAlpha = 1;
+
+  } else if (pose === 'create') {
+    // Creating/building: leaning slightly, both arms forward and active
+    rc.circle(cx+2, 13, 18, o);              // head slightly fwd
+    rc.line(cx+2, 21, cx-2, 60, o);          // body angled
+    rc.line(cx, 35, cx-20, 44, o);           // left arm reaching
+    rc.line(cx, 35, cx+20, 26, o);           // right arm reaching up
+    rc.line(cx-2, 60, cx-16, 88, o);
+    rc.line(cx-2, 60, cx+14, 86, o);
+    ctx.fillStyle = color; ctx.globalAlpha = 0.55; ctx.font = '9px serif';
+    ctx.fillText('✦', cx+20, 23);
+    ctx.globalAlpha = 1;
+
+  } else if (pose === 'done') {
+    // Accomplished: one arm sky-high, slight jump energy
+    rc.circle(cx, 13, 18, o);
+    rc.line(cx, 21, cx, 60, o);
+    rc.line(cx, 36, cx-16, 48, o);           // left arm relaxed
+    rc.line(cx, 36, cx+15, 13, o);           // right arm punching sky
+    rc.line(cx, 60, cx-13, 88, o);
+    rc.line(cx, 60, cx+13, 88, o);
+    ctx.fillStyle = color; ctx.globalAlpha = 0.85; ctx.font = '11px serif';
+    ctx.fillText('★', cx+14, 10);
+    ctx.globalAlpha = 1;
+  }
+}
+
 // ─── Run on load ─────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   initCardBorders();
@@ -1281,6 +1364,10 @@ window.addEventListener('load', () => {
   drawStripStickman();
   drawMetricUnderlines();
   drawPins();
+  // Section floating stickmen
+  drawFloatSectionStick('float-stick-services', 'amber', 'think');
+  drawFloatSectionStick('float-stick-why',      'blue',  'create');
+  drawFloatSectionStick('float-stick-cta',      'sage',  'done');
 });
 
 window.addEventListener('resize', () => {

@@ -599,6 +599,35 @@ footer span {
   50%       { transform: rotate(2.5deg) translateY(-5px); }
 }
 @media (max-width: 680px) { .hero-stick { display: none; } }
+/* SECTION STICKMEN */
+.section-stick {
+  position: absolute;
+  right: 14px;
+  top: 72px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.82;
+  transform-origin: bottom center;
+}
+.section-stick.think { animation: sthink 5s ease-in-out infinite; }
+.section-stick.create { animation: screate 3.8s ease-in-out infinite; }
+.section-stick.done  { animation: sdone 4.6s ease-in-out infinite; }
+@keyframes sthink {
+  0%,100% { transform: rotate(-3deg) translateY(0px); }
+  50%      { transform: rotate(1.5deg) translateY(-4px); }
+}
+@keyframes screate {
+  0%,100% { transform: rotate(-1.5deg) translateY(0px) scaleX(1); }
+  40%      { transform: rotate(2deg) translateY(-3px) scaleX(1); }
+  70%      { transform: rotate(-1deg) translateY(-6px) scaleX(1); }
+}
+@keyframes sdone {
+  0%,100% { transform: rotate(-2deg) translateY(0px); }
+  30%      { transform: rotate(3deg) translateY(-8px); }
+  60%      { transform: rotate(-1deg) translateY(-4px); }
+}
+@media (max-width: 960px) { .section-stick { display: none; } }
+
 </style>
 </head>
 <body>
@@ -644,7 +673,8 @@ footer span {
     <canvas class="cs-accent-canvas" id="accent-1"></canvas>
   </div>
   <div class="cs-content">
-    <div class="cs-section-label">01 / The Situation</div>
+    <canvas class="section-stick think" id="stick-s1" width="44" height="88"></canvas>
+  <div class="cs-section-label">01 / The Situation</div>
     <h2>The Situation</h2>
     <p>A Fortune 500 wealth-management firm (one of several clients ranging from early-stage startups to enterprise) with 200+ Lambda functions all provisioned for peak load and never revisited. 40+ Glue jobs running on fixed DPU allocations that hadn't been tuned since launch. Monthly AWS bill hovering around <strong>$96,000</strong>.</p>
     <p>Finance was asking hard questions. Engineering said "we don't know what's driving it." No one had a dashboard. No one had ever run a right-sizing analysis. Cost Explorer showed the categories but not where to cut.</p>
@@ -658,7 +688,8 @@ footer span {
     <canvas class="cs-accent-canvas" id="accent-2"></canvas>
   </div>
   <div class="cs-content">
-    <div class="cs-section-label">02 / What I Built</div>
+    <canvas class="section-stick create" id="stick-s2" width="44" height="88"></canvas>
+  <div class="cs-section-label">02 / What I Built</div>
     <h2>What I Built</h2>
 
     <div class="arch-diagram-label">Architecture</div>
@@ -719,7 +750,8 @@ On-demand / weekly
     <canvas class="cs-accent-canvas" id="accent-3"></canvas>
   </div>
   <div class="cs-content">
-    <div class="cs-section-label">03 / Results</div>
+    <canvas class="section-stick done" id="stick-s3" width="44" height="88"></canvas>
+  <div class="cs-section-label">03 / Results</div>
     <h2>Results</h2>
 
     <div class="in-numbers">
@@ -899,6 +931,58 @@ window.addEventListener('load', () => {
   }
 
   // Accent lines
+  
+  // ─── Section stickmen (thinking / creating / accomplished) ─────────────────
+  function drawSectionStick(id, color, pose) {
+    const canvas = document.getElementById(id);
+    if (!canvas || !window.rough) return;
+    const rc = rough.canvas(canvas);
+    const ctx = canvas.getContext('2d');
+    const cx = 22, sw = 1.5, rough1 = 1.4;
+    const o = { stroke: color, strokeWidth: sw, roughness: rough1 };
+
+    if (pose === 'think') {
+      // Thinking: body upright, left arm bent — fist near chin, right arm folded down
+      rc.circle(cx, 12, 16, o);                              // head
+      rc.line(cx, 20, cx, 54, o);                            // body
+      rc.line(cx, 32, cx-14, 20, o);                         // left arm up to chin
+      rc.line(cx-14, 20, cx-10, 24, o);                      // forearm horizontal (chin rest)
+      rc.line(cx, 32, cx+15, 44, o);                         // right arm down
+      rc.line(cx, 54, cx-12, 80, o);                         // left leg
+      rc.line(cx, 54, cx+12, 80, o);                         // right leg
+      // tiny thought dots
+      ctx.fillStyle = color; ctx.globalAlpha = 0.5; ctx.font = '7px serif';
+      ctx.fillText('...', cx-8, 7);
+      ctx.globalAlpha = 1;
+
+    } else if (pose === 'create') {
+      // Creating: hunched forward, arms reaching out like typing/building
+      rc.circle(cx+3, 10, 16, o);                            // head leaning fwd
+      rc.line(cx+3, 18, cx-2, 52, o);                        // body angled fwd
+      rc.line(cx+1, 28, cx-18, 36, o);                       // left arm reaching fwd
+      rc.line(cx+1, 28, cx+18, 22, o);                       // right arm reaching up-fwd
+      rc.line(cx-2, 52, cx-16, 76, o);                       // left leg
+      rc.line(cx-2, 52, cx+12, 74, o);                       // right leg
+      // tiny spark at fingertip
+      ctx.fillStyle = color; ctx.globalAlpha = 0.55; ctx.font = '8px serif';
+      ctx.fillText('✦', cx+18, 19);
+      ctx.globalAlpha = 1;
+
+    } else if (pose === 'done') {
+      // Accomplished: one arm raised straight up, star sparkle
+      rc.circle(cx, 12, 16, o);                              // head
+      rc.line(cx, 20, cx, 54, o);                            // body
+      rc.line(cx, 32, cx-15, 44, o);                         // left arm relaxed down
+      rc.line(cx, 32, cx+14, 12, o);                         // right arm raised HIGH
+      rc.line(cx, 54, cx-12, 80, o);                         // left leg
+      rc.line(cx, 54, cx+12, 80, o);                         // right leg
+      // star at raised hand
+      ctx.fillStyle = color; ctx.globalAlpha = 0.8; ctx.font = '10px serif';
+      ctx.fillText('★', cx+14, 9);
+      ctx.globalAlpha = 1;
+    }
+  }
+
   ['accent-1','accent-2','accent-3'].forEach(id => {
     const c = document.getElementById(id);
     if (!c || !window.rough) return;
@@ -908,6 +992,10 @@ window.addEventListener('load', () => {
     rough.canvas(c).line(3, 0, 3, h, {
       roughness: 1.8, strokeWidth: 3, stroke: accent
     });
+  drawSectionStick('stick-s1', colorMap.rose, 'think');
+  drawSectionStick('stick-s2', colorMap.rose, 'create');
+  drawSectionStick('stick-s3', colorMap.rose, 'done');
+
   });
 
   // Tech pills
