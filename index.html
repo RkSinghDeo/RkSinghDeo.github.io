@@ -613,33 +613,55 @@ footer span {
 /* FLOATING SECTION STICKMEN */
 .float-section-stick {
   position: absolute;
-  right: 20px;
   pointer-events: none;
   z-index: 3;
-  opacity: 0.8;
+  opacity: 0.85;
   transform-origin: bottom center;
 }
-.float-section-stick.think { animation: fthink 5.2s ease-in-out infinite; top: 80px; }
-.float-section-stick.create { animation: fcreate 4s ease-in-out infinite; top: 80px; }
-.float-section-stick.done { animation: fdone 3.6s ease-in-out infinite; top: 80px; }
-@keyframes fthink {
-  0%,100% { transform: rotate(-2.5deg) translateY(0px); }
-  50%      { transform: rotate(2deg) translateY(-5px); }
+/* Services: presenter — center-right of section, away from the list rows */
+#float-stick-services {
+  right: 8px;
+  top: 50%;
+  margin-top: -80px;         /* half canvas height — vertically centred */
+  animation: fsway-slow 5.8s ease-in-out infinite;
 }
-@keyframes fcreate {
-  0%,100% { transform: rotate(-1.5deg) translateY(0px); }
-  30%      { transform: rotate(2.5deg) translateY(-7px); }
-  65%      { transform: rotate(-0.5deg) translateY(-3px); }
+/* Why Me: arms-crossed expert — lower right, below the why-statement */
+#float-stick-why {
+  right: 8px;
+  top: 50%;
+  margin-top: -80px;
+  animation: fsway-med 4.4s ease-in-out infinite;
+  animation-delay: 0.6s;
 }
-@keyframes fdone {
+/* CTA: handshake ready — bottom right, centred text doesn't go there */
+#float-stick-cta {
+  right: 48px;
+  bottom: 72px;
+  animation: fsway-bounce 3.8s ease-in-out infinite;
+  animation-delay: 1.1s;
+}
+@keyframes fsway-slow {
   0%,100% { transform: rotate(-2deg) translateY(0px); }
-  25%      { transform: rotate(3deg) translateY(-9px); }
-  55%      { transform: rotate(-1deg) translateY(-4px); }
+  50%      { transform: rotate(1.5deg) translateY(-6px); }
 }
-#services { position: relative; }
-#why { position: relative; }
+@keyframes fsway-med {
+  0%,100% { transform: rotate(-1.5deg) translateY(0px); }
+  40%      { transform: rotate(2deg) translateY(-5px); }
+  80%      { transform: rotate(-1deg) translateY(-2px); }
+}
+@keyframes fsway-bounce {
+  0%,100% { transform: rotate(-2deg) translateY(0px); }
+  30%      { transform: rotate(3deg) translateY(-10px); }
+  60%      { transform: rotate(-1deg) translateY(-5px); }
+}
+/* Give services and why sections right breathing room so stickman never overlaps */
+#services { position: relative; padding-right: 110px !important; }
+#why      { position: relative; padding-right: 110px !important; }
 .cta-section { position: relative; }
-@media (max-width: 1080px) { .float-section-stick { display: none; } }
+@media (max-width: 1100px) { .float-section-stick { display: none; }
+  #services { padding-right: 48px !important; }
+  #why      { padding-right: 48px !important; }
+}
 
 /* MOBILE */
 @media (max-width: 768px) {
@@ -905,7 +927,7 @@ footer span {
 
 <!-- SERVICES -->
 <section class="section" id="services" style="padding-top:0">
-  <canvas class="float-section-stick think" id="float-stick-services" width="54" height="96"></canvas>
+  <canvas class="float-section-stick" id="float-stick-services" width="82" height="160"></canvas>
   <div class="section-label">Services</div>
   <ul class="services-list">
     <li class="service-row">
@@ -937,7 +959,7 @@ footer span {
 
 <!-- WHY ME -->
 <section class="section" id="why" style="padding-top:0">
-  <canvas class="float-section-stick create" id="float-stick-why" width="54" height="96"></canvas>
+  <canvas class="float-section-stick" id="float-stick-why" width="82" height="160"></canvas>
   <div class="section-label">Why Me</div>
   <div class="why-grid">
     <div class="why-statement">5+ years.<br>Production scale.<br>Zero BS.</div>
@@ -999,7 +1021,7 @@ footer span {
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
-  <canvas class="float-section-stick done" id="float-stick-cta" width="54" height="96"></canvas>
+  <canvas class="float-section-stick" id="float-stick-cta" width="82" height="160"></canvas>
   <h2>Ready to ship?</h2>
   <p class="cta-sub">ramneek2307@gmail.com · github.com/RkSinghDeo</p>
   <div class="cta-btn-wrap">
@@ -1308,44 +1330,84 @@ function drawFloatSectionStick(id, colorKey, pose) {
   const rc = rough.canvas(canvas);
   const ctx = canvas.getContext('2d');
   const color = colorMap[colorKey] || colorMap.pencil;
-  const cx = 27, sw = 1.6, r = 1.4;
-  const o = { stroke: color, strokeWidth: sw, roughness: r };
+  const cx = 41;
+  const o  = { stroke: color, strokeWidth: 2,   roughness: 1.4 };
+  const oT = { stroke: color, strokeWidth: 1.2,  roughness: 2   };
 
-  if (pose === 'think') {
-    // Thinking: standing, one hand raised near chin, slight head tilt
-    rc.circle(cx, 14, 18, o);
-    rc.line(cx, 23, cx, 62, o);
-    rc.line(cx, 37, cx-16, 23, o);           // left arm up to chin
-    rc.line(cx-16, 23, cx-12, 28, o);        // forearm across (chin rest)
-    rc.line(cx, 37, cx+17, 50, o);           // right arm hanging
-    rc.line(cx, 62, cx-13, 90, o);
-    rc.line(cx, 62, cx+13, 90, o);
-    ctx.fillStyle = color; ctx.globalAlpha = 0.45; ctx.font = '8px serif';
-    ctx.fillText('...', cx-9, 8);
+  if (pose === 'presenter') {
+    // ── Services: Consultant presenting the menu ──────────────────────────
+    // Standing upright, left hand on hip (elbow out), right arm extended
+    // forward-up with a pointing finger — "here are your options"
+    const hy = 18, r = 12;
+    rc.circle(cx, hy, r*2, o);                         // head
+    rc.line(cx, hy+r, cx, hy+r+38, o);                 // body
+    // left arm: upper arm down-out, forearm back to hip (elbow out pose)
+    rc.line(cx, hy+r+10, cx-22, hy+r+20, o);           // upper L arm out
+    rc.line(cx-22, hy+r+20, cx-16, hy+r+10, o);        // forearm back (hip)
+    // right arm: extended forward-up, pointing
+    rc.line(cx, hy+r+10, cx+32, hy+r-4, o);            // upper R arm out-up
+    rc.line(cx+32, hy+r-4, cx+36, hy+r-12, o);         // forearm extends to finger
+    // legs: weight on right foot, confident stance
+    rc.line(cx, hy+r+38, cx-14, hy+r+68, o);           // L leg
+    rc.line(cx, hy+r+38, cx+10, hy+r+68, o);           // R leg (slightly inward)
+    // tiny price tag near pointing finger
+    rc.rectangle(cx+37, hy+r-24, 20, 14, { stroke: color, strokeWidth: 1, roughness: 2 });
+    ctx.fillStyle = color; ctx.globalAlpha = 0.55;
+    ctx.font = 'bold 7px DM Mono, monospace';
+    ctx.fillText('$$$', cx+38, hy+r-14);
     ctx.globalAlpha = 1;
+    // small dot for fingertip
+    rc.circle(cx+36, hy+r-12, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.5 });
 
-  } else if (pose === 'create') {
-    // Creating/building: leaning slightly, both arms forward and active
-    rc.circle(cx+2, 13, 18, o);              // head slightly fwd
-    rc.line(cx+2, 21, cx-2, 60, o);          // body angled
-    rc.line(cx, 35, cx-20, 44, o);           // left arm reaching
-    rc.line(cx, 35, cx+20, 26, o);           // right arm reaching up
-    rc.line(cx-2, 60, cx-16, 88, o);
-    rc.line(cx-2, 60, cx+14, 86, o);
-    ctx.fillStyle = color; ctx.globalAlpha = 0.55; ctx.font = '9px serif';
-    ctx.fillText('✦', cx+20, 23);
+  } else if (pose === 'expert') {
+    // ── Why Me: Arms-crossed confident expert ────────────────────────────
+    // Head tilted very slightly, body straight, both arms folded across chest
+    const hy = 18, r = 12;
+    rc.circle(cx+2, hy, r*2, o);                       // head (tiny tilt offset)
+    rc.line(cx+2, hy+r, cx+2, hy+r+38, o);             // body
+    // Arms crossed: each arm comes from shoulder, crosses over the body
+    // Right arm: upper arm comes right then sweeps left across body
+    rc.line(cx+2, hy+r+10, cx+24, hy+r+16, o);         // right shoulder out
+    rc.line(cx+24, hy+r+16, cx-14, hy+r+28, o);        // forearm sweeping left across
+    // Left arm: upper arm goes left then sweeps right across
+    rc.line(cx+2, hy+r+10, cx-20, hy+r+16, o);         // left shoulder out
+    rc.line(cx-20, hy+r+16, cx+18, hy+r+28, o);        // forearm sweeping right across
+    // Legs: planted, slightly apart — solid, grounded
+    rc.line(cx+2, hy+r+38, cx-12, hy+r+68, o);         // L leg
+    rc.line(cx+2, hy+r+38, cx+16, hy+r+68, o);         // R leg
+    // Small medal / badge near chest
+    rc.circle(cx+2, hy+r+22, 7, { stroke: color, strokeWidth: 1.2, roughness: 1.8, fill: color, fillStyle: 'solid', fillWeight: 0.15 });
+    ctx.fillStyle = color; ctx.globalAlpha = 0.75;
+    ctx.font = '8px serif';
+    ctx.fillText('✓', cx-1, hy+r+26);
     ctx.globalAlpha = 1;
+    // subtle "aura" lines — authority
+    rc.line(cx+2-28, hy-4, cx+2-22, hy-8, oT);
+    rc.line(cx+2+22, hy-4, cx+2+28, hy-8, oT);
 
-  } else if (pose === 'done') {
-    // Accomplished: one arm sky-high, slight jump energy
-    rc.circle(cx, 13, 18, o);
-    rc.line(cx, 21, cx, 60, o);
-    rc.line(cx, 36, cx-16, 48, o);           // left arm relaxed
-    rc.line(cx, 36, cx+15, 13, o);           // right arm punching sky
-    rc.line(cx, 60, cx-13, 88, o);
-    rc.line(cx, 60, cx+13, 88, o);
-    ctx.fillStyle = color; ctx.globalAlpha = 0.85; ctx.font = '11px serif';
-    ctx.fillText('★', cx+14, 10);
+  } else if (pose === 'handshake') {
+    // ── CTA: Arm extended, ready to shake — "let's do this" ─────────────
+    // Body leaning slightly forward, right arm thrust out horizontally
+    // toward the viewer, left arm slightly raised for balance/excitement
+    const hy = 18, r = 12;
+    rc.circle(cx+3, hy, r*2, o);                       // head (leaning fwd)
+    rc.line(cx+3, hy+r, cx+6, hy+r+40, o);             // body angled fwd
+    // Right arm: extended fully to the right / toward viewer
+    rc.line(cx+3, hy+r+10, cx+38, hy+r+14, o);         // upper R arm out far
+    rc.line(cx+38, hy+r+14, cx+44, hy+r+14, o);        // forearm straight (handshake)
+    // hand: small rough box suggesting an open palm
+    rc.rectangle(cx+44, hy+r+10, 8, 9, { stroke: color, strokeWidth: 1.3, roughness: 2 });
+    // Left arm raised — balance / excitement
+    rc.line(cx+3, hy+r+10, cx-22, hy+r-2, o);          // L arm up-left
+    // Legs stepping forward (right leg forward)
+    rc.line(cx+6, hy+r+40, cx-8, hy+r+70, o);          // L leg back
+    rc.line(cx+6, hy+r+40, cx+20, hy+r+66, o);         // R leg stepping fwd
+    // excitement sparks around
+    ctx.fillStyle = color; ctx.globalAlpha = 0.65;
+    ctx.font = '11px serif';
+    ctx.fillText('!', cx-26, hy+r+2);
+    ctx.font = '8px serif';
+    ctx.fillText('!', cx-20, hy-6);
     ctx.globalAlpha = 1;
   }
 }
@@ -1365,9 +1427,9 @@ window.addEventListener('load', () => {
   drawMetricUnderlines();
   drawPins();
   // Section floating stickmen
-  drawFloatSectionStick('float-stick-services', 'amber', 'think');
-  drawFloatSectionStick('float-stick-why',      'blue',  'create');
-  drawFloatSectionStick('float-stick-cta',      'sage',  'done');
+  drawFloatSectionStick('float-stick-services', 'amber',  'presenter');
+  drawFloatSectionStick('float-stick-why',      'blue',   'expert');
+  drawFloatSectionStick('float-stick-cta',      'sage',   'handshake');
 });
 
 window.addEventListener('resize', () => {
