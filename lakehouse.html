@@ -180,6 +180,7 @@ main { position: relative; z-index: 1; }
   display: grid;
   grid-template-columns: 6px 1fr;
   gap: 0 40px;
+  position: relative;
 }
 
 .cs-accent-line-wrap {
@@ -565,7 +566,7 @@ footer span {
 /* SECTION STICKMEN */
 .section-stick {
   position: absolute;
-  right: 8px;
+  right: 110px;
   top: 50%;
   margin-top: -80px;        /* vertically centred — adjustments per pose below */
   pointer-events: none;
@@ -594,7 +595,7 @@ footer span {
   60%      { transform: rotate(-1deg) translateY(-5px); }
 }
 /* Give every section that holds a stickman 130px right breathing room */
-.cs-section:has(.section-stick) { padding-right: 130px; }
+.cs-section:has(.section-stick) { padding-right: 210px; }
 @media (max-width: 1100px) {
   .section-stick { display: none; }
   .cs-section:has(.section-stick) { padding-right: 48px; }
