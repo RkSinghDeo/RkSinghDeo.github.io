@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iceberg Lakehouse -60% Query Time | Ramneek Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg:     #FDFCFA;
+  --ink:    #2A1F14;
+  --body:   #3D2B1F;
+  --pencil: #6B5040;
+  --rule:   #EAE7E2;
+  --rose:   #D29B8C;
+  --blue:   #9BB9D7;
+  --sage:   #91C3AA;
+  --lav:    #AFA0D2;
+  --amber:  #C8A97A;
+  --accent: var(--blue);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 67px,
+    var(--rule) 67px,
+    var(--rule) 68px
+  );
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 88px;
+  width: 1px;
+  height: 100%;
+  background: #E8D5CC;
+  z-index: 0;
+  pointer-events: none;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+main { position: relative; z-index: 1; }
+
+.cs-hero {
+  padding: 80px 48px 60px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cs-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+
+.cs-metric {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(64px, 10vw, 100px);
+  color: var(--ink);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.cs-sub {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  color: var(--body);
+  max-width: 680px;
+  line-height: 1.5;
+  margin-bottom: 48px;
+}
+
+.cs-hr-wrap {
+  position: relative;
+  height: 8px;
+}
+
+.cs-hr-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin: 28px 0 12px;
+}
+.mermaid { max-width: 740px; overflow-x: auto; }
+.mermaid svg {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 16px;
+  background: var(--bg);
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.08);
+  max-width: 100%;
+  height: auto;
+}
+
+/* HERO PIN */
+.hero-pin {
+  position: absolute;
+  top: 24px;
+  right: 60px;
+  z-index: 5;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.cs-hero { position: relative; }
+
+/* STAT STRIP */
+.cs-stat-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 16px 48px;
+  background: rgba(234,231,226,0.4);
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  font-weight: 600;
+}
+.cs-stat-strip .sep { color: var(--accent); opacity:0.5; }
+
+.cs-section {
+  padding: 64px 48px 64px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 6px 1fr;
+  gap: 0 40px;
+}
+
+.cs-accent-line-wrap {
+  position: relative;
+  width: 6px;
+}
+
+.cs-accent-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-content { padding-top: 4px; }
+
+.cs-section-label {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(6px);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+
+.cs-section h2 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.cs-section p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.7;
+  max-width: 740px;
+  margin-bottom: 16px;
+}
+
+.cs-section ul { list-style: none; margin-bottom: 16px; }
+
+.cs-section ul li {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.6;
+  padding: 6px 0 6px 20px;
+  position: relative;
+}
+
+.cs-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+}
+
+/* IN-NUMBERS CALLOUT */
+.in-numbers {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  margin-bottom: 32px;
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.10);
+  max-width: 740px;
+}
+.in-num-item {
+  background: var(--bg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.in-num-val {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1;
+}
+.in-num-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pencil);
+}
+
+/* CLIENT QUOTE */
+.client-quote {
+  margin-top: 32px;
+  padding: 20px 28px;
+  border-left: 3px solid var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--pencil);
+  font-weight: 500;
+  background: rgba(234,231,226,0.3);
+  max-width: 740px;
+}
+
+.pipeline-pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.7;
+  background: rgba(155, 185, 215, 0.06);
+  border-left: 3px solid var(--blue);
+  padding: 24px 28px;
+  margin: 24px 0;
+  overflow-x: auto;
+  max-width: 740px;
+}
+
+.results-table-wrap {
+  margin: 24px 0;
+  max-width: 740px;
+  overflow-x: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+}
+
+.results-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pencil);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--rule);
+}
+
+.results-table td {
+  padding: 12px 16px;
+  color: var(--body);
+  border-bottom: 1px solid var(--rule);
+}
+
+.results-table tr:last-child td { border-bottom: none; }
+.results-table .col-after { color: var(--blue); font-weight: 600; }
+.results-table .col-metric { color: var(--pencil); font-family: 'DM Mono', monospace; font-size: 13px; }
+
+.tech-stack {
+  padding: 48px 48px 48px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+}
+
+.tech-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin-bottom: 20px;
+}
+
+.tech-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.tech-pill-wrap { position: relative; display: inline-block; }
+
+.tech-pill-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.tech-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--body);
+  padding: 6px 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.cs-cta {
+  padding: 64px 48px 64px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.cs-cta p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cta-btn-wrap { position: relative; display: inline-block; flex-shrink: 0; }
+
+.cta-btn-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 14px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 48px 24px 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+footer span {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+@media (max-width: 768px) {
+  body::before { display: none; }
+  nav { padding: 0 20px; }
+  .cs-hero { padding: 48px 20px 40px; }
+  .cs-section { padding: 40px 20px; grid-template-columns: 4px 1fr; gap: 0 20px; }
+  .tech-stack { padding: 40px 20px; }
+  .cs-cta { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
+  footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+  .cs-metric { font-size: 56px; }
+  .cs-sub { font-size: 17px; }
+  .cs-stat-strip { padding: 12px 20px; }
+  .in-numbers { grid-template-columns: 1fr; }
+  .in-num-val { font-size: 40px; }
+}
+
+/* ── FLOATING HOME STICKMAN ─────────────────────────────────── */
+.float-home {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+.float-home:hover .float-home-inner { transform: scale(1.08); }
+.float-home-inner {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease;
+}
+.float-bg-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.float-stick-canvas {
+  position: relative;
+  z-index: 1;
+  transform-origin: bottom center;
+  animation: floatidle 2.4s ease-in-out infinite;
+}
+.float-home.is-scrolling .float-stick-canvas {
+  animation: floatwalk 0.36s ease-in-out infinite alternate;
+}
+.float-home-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pencil);
+  opacity: 0.6;
+}
+@keyframes floatidle {
+  0%,100% { transform: rotate(-2.5deg) translateY(0px); }
+  50%      { transform: rotate(2.5deg)  translateY(-5px); }
+}
+@keyframes floatwalk {
+  0%   { transform: rotate(-8deg) translateX(-3px) translateY(-1px); }
+  100% { transform: rotate(8deg)  translateX(3px)  translateY(2px);  }
+}
+
+/* BACK TO TOP */
+.float-top {
+  position: fixed;
+  bottom: 130px;
+  right: 36px;
+  z-index: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.float-top.visible { opacity: 1; pointer-events: auto; }
+.float-top-inner {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease;
+}
+.float-top:hover .float-top-inner { transform: scale(1.1) translateY(-2px); }
+.float-top-bg-canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.float-top-arrow { position: relative; z-index: 1; color: var(--pencil); transition: transform 0.2s; }
+.float-top-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pencil);
+  opacity: 0.6;
+}
+
+/* HERO STICKMAN */
+.hero-stick {
+  position: absolute;
+  right: 120px;
+  bottom: 40px;
+  pointer-events: none;
+  z-index: 4;
+  transform-origin: bottom center;
+  animation: herosway 3.8s ease-in-out infinite;
+}
+@keyframes herosway {
+  0%, 100% { transform: rotate(-2deg) translateY(0px); }
+  50%       { transform: rotate(2.5deg) translateY(-5px); }
+}
+@media (max-width: 680px) { .hero-stick { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9,22 9,12 15,12 15,22"/>
+    </svg>
+    Ramneek Singh
+  </a>
+</nav>
+
+<main>
+
+<div class="cs-hero">
+  <canvas class="hero-pin" id="hero-pin" width="28" height="42" style="transform:rotate(-8deg)"></canvas>
+  <canvas class="hero-stick" id="hero-stick" width="64" height="110"></canvas>
+  <div class="cs-tag">Iceberg Lakehouse</div>
+  <div class="cs-metric">-60% query time</div>
+  <p class="cs-sub">Hive to Iceberg migration. S3 API costs down 90%. Zero-downtime cutover.</p>
+  <div class="cs-hr-wrap">
+    <canvas class="cs-hr-canvas" id="hero-hr-canvas" height="8"></canvas>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="cs-stat-strip">
+  <span>10TB+ data migrated</span>
+  <span class="sep">·</span>
+  <span>3-layer medallion</span>
+  <span class="sep">·</span>
+  <span>Zero-downtime cutover</span>
+  <span class="sep">·</span>
+  <span>2-week parallel run</span>
+</div>
+
+<!-- SITUATION -->
+<div class="cs-section">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-1"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">01 / The Situation</div>
+    <h2>The Situation</h2>
+    <p>A B2B SaaS company with 10TB+ of Hive-partitioned data in S3. Athena queries timing out. Schema changes required full partition rewrites and 4–6 hours of engineering time. Analysts waiting 10+ minutes for dashboards. Nightly refresh failing 15% of the time.</p>
+    <p>The root cause: Hive's file layout was generating thousands of small files per partition, killing Athena's planning time and bloating S3 API costs. There was no CDC support, so every update was a full overwrite. Every schema change broke downstream consumers.</p>
+    <p>They needed Iceberg but couldn't afford a big-bang migration with downtime. The business ran 24/7.</p>
+  </div>
+</div>
+
+<!-- WHAT I BUILT -->
+<div class="cs-section" style="border-top:1px solid var(--rule)">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-2"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">02 / What I Built</div>
+    <h2>What I Built</h2>
+
+    <div class="arch-diagram-label">Architecture</div>
+    <div class="mermaid">
+graph TB
+    SRC["Source Systems
+API / SFTP / Kafka"] --> RAW["Raw S3 Prefix"]
+    RAW --> BJ["Glue PySpark
+bronze-ingestion"]
+    BJ --> BT[("Iceberg Bronze
+S3 Bucket")]
+    BT --> SJ["Glue PySpark
+silver-transform"]
+    SJ -->|"validate · dedup
+MERGE INTO"| ST[("Iceberg Silver
+S3 Bucket")]
+    ST --> GJ["Glue PySpark
+gold-aggregation"]
+    GJ -->|"MERGE INTO CDC"| GT[("Iceberg Gold
+S3 Bucket")]
+    GT --> RS["Redshift Serverless
++ dbt models"]
+    GT --> ATH["Amazon Athena
+direct queries"]
+    RS --> BI["BI Tools"]
+    </div>
+
+
+    <ul>
+      <li><strong>Bronze layer:</strong> Raw ingest with metadata columns (_ingested_at, _source_file), Glue job bookmarking for safe re-runs and exactly-once semantics.</li>
+      <li><strong>Silver layer:</strong> Deduplication via Spark window functions, MERGE INTO for CDC changes, null validation gates, Iceberg compaction on a schedule.</li>
+      <li><strong>Gold layer:</strong> Daily aggregation with MERGE INTO upserts, vectorized Parquet reads, dbt marts surfaced on Redshift Serverless for BI tools.</li>
+      <li><strong>Zero-downtime migration:</strong> Parallel Hive and Iceberg pipelines ran for 2 weeks. Cutover triggered automatically when row counts matched within 0.01%. No manual switchover window needed.</li>
+      <li><strong>CDK IaC:</strong> Every Glue job, S3 bucket, Glue Data Catalog database, and IAM role reproducible from scratch in under 15 minutes.</li>
+    </ul>
+
+    <pre class="pipeline-pre">S3 Raw Zone (source files)
+  └─► Glue Bronze Job (bookmark, metadata cols)
+        └─► Iceberg Bronze Table
+
+Iceberg Bronze Table
+  └─► Glue Silver Job (dedup, MERGE INTO CDC)
+        └─► Iceberg Silver Table
+
+Iceberg Silver Table
+  └─► Glue Gold Job (daily agg, MERGE INTO)
+        ├─► Iceberg Gold Table (Athena queries)
+        └─► Redshift Serverless (dbt marts, BI)
+
+Migration (parallel, 2 weeks)
+  ├─► Old Hive pipeline (read-only after cutover)
+  └─► New Iceberg pipeline
+        └─► Row count check (0.01% tolerance)
+              └─► Auto cutover on match</pre>  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="cs-section" style="border-top:1px solid var(--rule)">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-3"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">03 / Results</div>
+    <h2>Results</h2>
+
+    <div class="in-numbers">
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--blue)">-60%</span><span class="in-num-label">query time</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--blue)">-90%</span><span class="in-num-label">S3 API cost</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--blue)">-50%</span><span class="in-num-label">Glue cost</span></div>
+    </div>
+
+    <div class="results-table-wrap">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Before</th>
+            <th>After</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-metric">Athena P95 query</td>
+            <td>8–12 min</td>
+            <td class="col-after">3–4 min</td>
+          </tr>
+          <tr>
+            <td class="col-metric">S3 API costs</td>
+            <td>$1,200/mo</td>
+            <td class="col-after">$120/mo</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Glue job cost</td>
+            <td>$3,800/mo</td>
+            <td class="col-after">$1,900/mo</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Pipeline failures</td>
+            <td>15%</td>
+            <td class="col-after">&lt;0.5%</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Schema changes</td>
+            <td>4–6 hours</td>
+            <td class="col-after">Seconds</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote class="client-quote">
+      "Schema changes used to block us for a full day. Now it is a two-second ALTER TABLE and we move on." Engineering Lead (anonymized)
+    </blockquote>
+
+  </div>
+</div>
+
+</main>
+
+<div class="tech-stack">
+  <div class="tech-label">Tech Stack</div>
+  <div class="tech-pills">
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS CDK v2</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Glue 4.0</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Apache Iceberg</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Athena</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon S3</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">dbt</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Redshift Serverless</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Python 3.12</span></div>
+  </div>
+</div>
+
+<div class="cs-cta">
+  <p>Work with me on something like this.</p>
+  <div class="cta-btn-wrap">
+    <canvas class="cta-btn-canvas" id="cta-canvas"></canvas>
+    <a href="mailto:ramneek2307@gmail.com" class="cta-btn">Get in touch →</a>
+  </div>
+</div>
+
+<footer>
+  <span>Ramneek Singh / AWS Data Engineer</span>
+  <span>rksinghdeo.github.io</span>
+</footer>
+
+<script>
+
+// ── Floating buttons (home stickman + back to top) ──────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.rough) return;
+
+  var floatHome  = document.getElementById('float-home');
+  var floatBg    = document.getElementById('float-bg');
+  var floatStick = document.getElementById('float-stick');
+  var floatTop   = document.getElementById('float-top');
+  var floatTopBg = document.getElementById('float-top-bg');
+
+  if (floatBg) {
+    rough.canvas(floatBg).circle(34, 34, 62, {
+      stroke: colorMap.pencil, strokeWidth: 1.8, roughness: 2.0, bowing: 0.9,
+      fill: 'rgba(253,252,250,0.97)', fillStyle: 'solid', fillWeight: 0.4
+    });
+  }
+  if (floatTopBg) {
+    rough.canvas(floatTopBg).circle(27, 27, 50, {
+      stroke: colorMap.pencil, strokeWidth: 1.8, roughness: 2.0, bowing: 0.9,
+      fill: 'rgba(253,252,250,0.97)', fillStyle: 'solid', fillWeight: 0.4
+    });
+  }
+  if (floatStick) {
+    var rs = rough.canvas(floatStick);
+    var o  = { stroke: colorMap.pencil, strokeWidth: 1.7, roughness: 1.3 };
+    var cx = 23, hy = 9, r = 7;
+    rs.circle(cx, hy, r*2, o);
+    rs.line(cx, hy+r, cx+4, hy+r+21, o);
+    rs.line(cx+1, hy+r+7,  cx+17, hy+r+2,  o);
+    rs.line(cx+1, hy+r+7,  cx-12, hy+r+12, o);
+    rs.line(cx+4, hy+r+21, cx+16, hy+r+36, o);
+    rs.line(cx+16, hy+r+36, cx+11, hy+r+49, o);
+    rs.line(cx+4, hy+r+21, cx-5,  hy+r+39, o);
+  }
+
+  var scrollTimer;
+  window.addEventListener('scroll', function() {
+    if (floatHome) floatHome.classList.add('is-scrolling');
+    if (floatTop)  floatTop.classList.toggle('visible', window.scrollY > 250);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() {
+      if (floatHome) floatHome.classList.remove('is-scrolling');
+    }, 220);
+  }, { passive: true });
+
+  if (floatHome) floatHome.addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
+  if (floatTop) floatTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+</script>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#F5F3F0',
+    primaryTextColor: '#2A1F14',
+    primaryBorderColor: '#9BB9D7',
+    lineColor: '#6B5040',
+    secondaryColor: '#EAE7E2',
+    tertiaryColor: '#FDFCFA',
+    fontFamily: 'DM Mono, monospace',
+    fontSize: '12px',
+    edgeLabelBackground: '#FDFCFA'
+  }
+});
+
+const colorMap = {
+  rose: '#D29B8C', blue: '#9BB9D7', sage: '#91C3AA',
+  lav: '#AFA0D2', amber: '#C8A97A', pencil: '#6B5040'
+};
+const accent = colorMap.blue;
+
+window.addEventListener('load', () => {
+  const hrCanvas = document.getElementById('hero-hr-canvas');
+  if (hrCanvas && window.rough) {
+    hrCanvas.width = hrCanvas.parentElement.offsetWidth;
+    hrCanvas.height = 8;
+    rough.canvas(hrCanvas).line(0, 4, hrCanvas.width, 4, {
+      roughness: 2, strokeWidth: 2, stroke: accent
+    });
+  }
+
+  ['accent-1','accent-2','accent-3'].forEach(id => {
+    const c = document.getElementById(id);
+    if (!c || !window.rough) return;
+    const h = c.parentElement.offsetHeight || 200;
+    c.width = 6;
+    c.height = h;
+    rough.canvas(c).line(3, 0, 3, h, {
+      roughness: 1.8, strokeWidth: 3, stroke: accent
+    });
+  });
+
+  document.querySelectorAll('.tech-pill-wrap').forEach(wrap => {
+    const canvas = wrap.querySelector('.tech-pill-canvas');
+    if (!canvas || !window.rough) return;
+    setTimeout(() => {
+      const w = wrap.offsetWidth;
+      const h = wrap.offsetHeight;
+      canvas.width = w;
+      canvas.height = h;
+      rough.canvas(canvas).rectangle(2, 2, w - 4, h - 4, {
+        roughness: 1.4, bowing: 0.6, strokeWidth: 1.2, stroke: accent
+      });
+    }, 30);
+  });
+
+  const ctaCanvas = document.getElementById('cta-canvas');
+  if (ctaCanvas && window.rough) {
+    const btn = ctaCanvas.closest('.cta-btn-wrap').querySelector('.cta-btn');
+    const w = btn.offsetWidth || 180;
+    const h = btn.offsetHeight || 52;
+    ctaCanvas.width = w;
+    ctaCanvas.height = h;
+    rough.canvas(ctaCanvas).rectangle(3, 3, w - 6, h - 6, {
+      roughness: 1.6, bowing: 0.8, strokeWidth: 2, stroke: colorMap.pencil
+    });
+  }
+
+  // Hero pin
+  const pin = document.getElementById('hero-pin');
+  if (pin && window.rough) {
+    const rc = rough.canvas(pin);
+    const col = colorMap.blue;
+    const cx = 14, cy = 13, r = 9;
+    rc.circle(cx, cy, r*2, { stroke: col, strokeWidth: 1.5, roughness: 1.5, fill: col, fillStyle: 'solid', fillWeight: 0.6 });
+    rc.circle(cx-3, cy-3, 5, { stroke: 'rgba(255,255,255,0.45)', strokeWidth: 0.6, roughness: 1, fill: 'rgba(255,255,255,0.25)', fillStyle: 'solid', fillWeight: 0.3 });
+    rc.line(cx, cy+r, cx-1, cy+r+12, { stroke: col, strokeWidth: 2.4, roughness: 1 });
+    rc.line(cx-1, cy+r+12, cx, cy+r+18, { stroke: col, strokeWidth: 1.3, roughness: 1 });
+  }
+
+  // Hero stickman — running/leaning pose (speed, -60% query time)
+  const heroStick = document.getElementById('hero-stick');
+  if (heroStick && window.rough) {
+    const rc = rough.canvas(heroStick);
+    const cx = 32, sw = 1.6, r = 1.4, col = colorMap.blue;
+    rc.circle(cx+4, 13, 18, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+4, 22, cx+8, 58, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+6, 36, cx-18, 24, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+6, 36, cx+24, 28, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+8, 58, cx-12, 88, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+8, 58, cx+22, 82, { stroke: col, strokeWidth: sw, roughness: r });
+  }
+});
+
+</script>
+
+<!-- BACK TO TOP -->
+<div class="float-top" id="float-top">
+  <div class="float-top-inner">
+    <canvas class="float-top-bg-canvas" id="float-top-bg" width="54" height="54"></canvas>
+    <svg class="float-top-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"/></svg>
+  </div>
+  <span class="float-top-label">top</span>
+</div>
+<!-- FLOATING HOME STICKMAN -->
+<div class="float-home" id="float-home" role="link" aria-label="Back to home">
+  <div class="float-home-inner">
+    <canvas class="float-bg-canvas" id="float-bg" width="68" height="68"></canvas>
+    <canvas class="float-stick-canvas" id="float-stick" width="46" height="62"></canvas>
+  </div>
+  <span class="float-home-label">home</span>
+</div>
+
+</body>
+</html>

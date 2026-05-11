@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramneek Singh AWS Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<style>
+:root {
+  --bg:     #FDFCFA;
+  --ink:    #2A1F14;
+  --body:   #3D2B1F;
+  --pencil: #6B5040;
+  --rule:   #EAE7E2;
+  --rose:   #D29B8C;
+  --blue:   #9BB9D7;
+  --sage:   #91C3AA;
+  --lav:    #AFA0D2;
+  --amber:  #C8A97A;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 67px,
+    var(--rule) 67px,
+    var(--rule) 68px
+  );
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 88px;
+  width: 1px;
+  height: 100%;
+  background: #E8D5CC;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pencil);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+/* MAIN CONTENT */
+main { position: relative; z-index: 1; }
+
+/* HERO */
+.hero {
+  padding: 80px 48px 80px 120px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 60px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(72px, 10vw, 130px);
+  line-height: 0.95;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+
+.hero h1 .accent {
+  position: relative;
+  display: inline;
+}
+
+.hero h1 .accent::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: -4px;
+  right: -4px;
+  height: 18px;
+  background: var(--rose);
+  opacity: 0.28;
+  z-index: -1;
+  border-radius: 2px;
+}
+
+.hero-sub {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--body);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.hero-canvas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hero-canvas {
+  display: block;
+}
+
+/* METRICS */
+.metrics {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 56px 48px 56px 120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.metric-item {
+  padding: 0 40px 0 0;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.metric-item:last-child {
+  border-right: none;
+  padding-left: 40px;
+  padding-right: 0;
+}
+
+.metric-item:not(:first-child):not(:last-child) {
+  padding-left: 40px;
+}
+
+.metric-body { flex: 1; min-width: 0; }
+
+.metric-stick-wrap {
+  flex-shrink: 0;
+  margin-bottom: 4px;
+  transform-origin: bottom center;
+}
+
+/* Metric 1 victory bounce */
+.metric-item:nth-child(1) .metric-stick-wrap {
+  animation: stickbounce 1.8s cubic-bezier(0.36,0.07,0.19,0.97) infinite;
+}
+/* Metric 2 running stride */
+.metric-item:nth-child(2) .metric-stick-wrap {
+  animation: stickrun 0.7s ease-in-out infinite alternate;
+  animation-delay: 0.3s;
+}
+/* Metric 3 satisfied nod */
+.metric-item:nth-child(3) .metric-stick-wrap {
+  animation: sticknod 2.6s ease-in-out infinite;
+  animation-delay: 0.9s;
+}
+
+@keyframes stickbounce {
+  0%,100% { transform: translateY(0)   scaleY(1);   }
+  15%     { transform: translateY(-12px) scaleY(1.06); }
+  30%     { transform: translateY(0)   scaleY(0.94); }
+  45%     { transform: translateY(-6px)  scaleY(1.03); }
+  60%     { transform: translateY(0)   scaleY(1);   }
+}
+@keyframes stickrun {
+  0%   { transform: rotate(-5deg) translateX(-2px); }
+  100% { transform: rotate(5deg)  translateX(2px);  }
+}
+@keyframes sticknod {
+  0%,70%,100% { transform: rotate(0deg) translateY(0); }
+  35%         { transform: rotate(-7deg) translateY(-2px); }
+}
+
+/* PIN */
+.card-pin {
+  position: absolute;
+  top: -13px;
+  z-index: 5;
+  pointer-events: none;
+}
+.card-pin-canvas { display: block; }
+.pin-r1 { right: 28px; transform: rotate(9deg);  }
+.pin-r2 { right: 22px; transform: rotate(-6deg); }
+.pin-r3 { right: 32px; transform: rotate(14deg); }
+.pin-r4 { right: 18px; transform: rotate(-11deg);}
+.pin-r5 { right: 26px; transform: rotate(5deg);  }
+
+.metric-val-wrap { display: block; }
+
+.metric-val {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(60px, 7vw, 90px);
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.metric-ul {
+  display: block;
+  width: 100%;
+  height: 8px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.metric-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  color: var(--body);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.metric-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  font-weight: 500;
+}
+
+/* STATS STRIP */
+.stats-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 10px;
+  padding: 20px 48px;
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pencil);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.stats-strip .dot { color: var(--rose); opacity: 0.6; }
+.strip-stickman {
+  flex-shrink: 0;
+  transform-origin: bottom center;
+  animation: stickwave 1.1s ease-in-out infinite alternate;
+  margin-left: 8px;
+}
+@keyframes stickwave {
+  0%   { transform: rotate(-14deg); }
+  100% { transform: rotate(14deg);  }
+}
+
+/* SECTIONS */
+.section {
+  padding: 80px 48px 80px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--pencil);
+  margin-bottom: 40px;
+}
+
+.section-content p, .section-content li { font-weight: 500; }
+
+/* CASE STUDY CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.12);
+}
+
+.card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 5px 7px 0 rgba(139,100,60,0.20);
+}
+
+.card {
+  padding: 32px;
+  position: relative;
+  background: var(--bg);
+  border-radius: 2px;
+}
+
+.card-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.card-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin-bottom: 16px;
+}
+
+.card-val {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 60px);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.card-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+.card-bullets {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.card-bullets li {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--body);
+  padding: 4px 0;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.card-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  color: var(--pencil);
+  font-size: 12px;
+}
+
+.card-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 12px;
+}
+
+/* AI CARDS */
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.badge-pill {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  background: var(--rule);
+  color: var(--pencil);
+}
+
+/* SERVICES */
+.services-list { list-style: none; }
+
+.service-row {
+  display: grid;
+  grid-template-columns: 4px 1fr auto auto;
+  gap: 24px;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+  padding: 28px 0;
+  transition: box-shadow 0.2s;
+}
+
+.service-row:hover {
+  box-shadow: 2px 3px 0 rgba(139,100,60,0.15);
+}
+
+.service-accent {
+  width: 4px;
+  height: 48px;
+  border-radius: 2px;
+}
+
+.service-name {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 23px;
+  color: var(--body);
+}
+
+.service-price {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.service-timeline {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+/* WHY ME */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.why-statement {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.why-points {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.why-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.why-card-canvas-wrap {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  position: relative;
+}
+
+.why-card-content {}
+
+.why-card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  margin-bottom: 4px;
+}
+
+.why-card-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  color: var(--body);
+  line-height: 1.5;
+}
+
+/* CTA */
+.cta-section {
+  padding: 100px 48px 100px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(60px, 7vw, 90px);
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.cta-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--pencil);
+  margin-bottom: 40px;
+}
+
+.cta-btn-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.cta-btn-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 16px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 48px 24px 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+footer span {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+/* STICKMAN SVG */
+.stickman {
+  stroke: var(--pencil);
+  fill: none;
+  opacity: 0.5;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body::before { display: none; }
+
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+
+  .hero {
+    padding: 48px 20px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero h1 { font-size: 64px; }
+
+  .hero-canvas-wrap { display: none; }
+
+  .metrics {
+    padding: 40px 20px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .metric-item {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 0 0 24px 0 !important;
+    align-items: flex-end;
+  }
+
+  .metric-item:last-child { border-bottom: none; padding-bottom: 0 !important; }
+
+  .metric-val { font-size: 52px; }
+  .metric-stick-wrap canvas { width: 36px !important; height: 60px !important; }
+
+  .section { padding: 48px 20px; }
+
+  .cards-grid { grid-template-columns: 1fr; }
+  .ai-grid { grid-template-columns: 1fr; }
+
+  .service-row {
+    grid-template-columns: 4px 1fr;
+    gap: 12px;
+  }
+  .service-price { display: none; }
+
+  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  .cta-section { padding: 60px 20px; }
+
+  footer {
+    padding: 24px 20px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .card { padding: 20px; }
+
+  .stats-strip { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9,22 9,12 15,12 15,22"/>
+    </svg>
+    Ramneek Singh
+  </a>
+  <ul class="nav-links">
+    <li><a href="#results">Results</a></li>
+    <li><a href="#ai">AI</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Me</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="results">
+  <div class="hero-left">
+    <p class="hero-kicker">AWS Data Engineer / Serverless Infrastructure</p>
+    <h1>Your data should <span class="accent">cost less.</span></h1>
+    <p class="hero-sub">I build the AWS data infrastructure your team depends on. Serverless by default, delivered in CDK, handed off clean. You get lower bills, faster pipelines, and data that actually shows up.</p>
+  </div>
+  <div class="hero-canvas-wrap">
+    <canvas id="hero-canvas" width="320" height="360"></canvas>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metric-item">
+    <div class="metric-stick-wrap">
+      <canvas class="metric-stickman" width="50" height="82" data-stick-color="rose" data-stick-pose="victory"></canvas>
+    </div>
+    <div class="metric-body">
+      <div class="metric-val-wrap">
+        <div class="metric-val" style="color:var(--rose)" data-target="33" data-prefix="$" data-suffix="K">$0K</div>
+        <canvas class="metric-ul" data-color="rose"></canvas>
+      </div>
+      <div class="metric-unit">per year saved</div>
+      <div class="metric-desc">Lambda + Glue right-sizing</div>
+    </div>
+  </div>
+  <div class="metric-item">
+    <div class="metric-stick-wrap">
+      <canvas class="metric-stickman" width="50" height="82" data-stick-color="blue" data-stick-pose="run"></canvas>
+    </div>
+    <div class="metric-body">
+      <div class="metric-val-wrap">
+        <div class="metric-val" style="color:var(--blue)" data-target="60" data-prefix="-" data-suffix="%">-0%</div>
+        <canvas class="metric-ul" data-color="blue"></canvas>
+      </div>
+      <div class="metric-unit">query time</div>
+      <div class="metric-desc">Iceberg lakehouse migration</div>
+    </div>
+  </div>
+  <div class="metric-item">
+    <div class="metric-stick-wrap">
+      <canvas class="metric-stickman" width="50" height="82" data-stick-color="sage" data-stick-pose="done"></canvas>
+    </div>
+    <div class="metric-body">
+      <div class="metric-val-wrap">
+        <div class="metric-val" style="color:var(--sage)">&lt;0.1%</div>
+        <canvas class="metric-ul" data-color="sage"></canvas>
+      </div>
+      <div class="metric-unit">failure rate</div>
+      <div class="metric-desc">600K records per week</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <span>5+ years production AWS</span>
+  <span class="dot">·</span>
+  <span>8 open-source repos</span>
+  <span class="dot">·</span>
+  <span>$0 idle cost</span>
+  <span class="dot">·</span>
+  <span>sub-15 min CDK deploys</span>
+  <span class="dot">·</span>
+  <span>Fortune 500 to early-stage startups</span>
+  <canvas class="strip-stickman" width="28" height="50"></canvas>
+</div>
+
+<!-- CASE STUDIES -->
+<section class="section" id="case-studies">
+  <div class="section-label">Case Studies</div>
+  <div class="cards-grid">
+
+    <!-- Card 1: FinOps -->
+    <a href="finops.html" class="card-link">
+      <div class="card" data-rough-color="rose">
+        <canvas class="card-canvas" data-card></canvas>
+        <div class="card-pin pin-r1"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="rose"></canvas></div>
+        <div class="card-tag">FinOps Audit</div>
+        <div class="card-val" style="color:var(--rose)">$33,200</div>
+        <div class="card-unit">annual savings</div>
+        <ul class="card-bullets">
+          <li>Fortune 500 wealth-mgmt</li>
+          <li>Lambda costs down 30%</li>
+          <li>Glue costs down 22%</li>
+          <li>Nightly automated audit</li>
+        </ul>
+        <div class="card-cta" style="color:var(--rose)">View case study →</div>
+      </div>
+    </a>
+
+    <!-- Card 2: Lakehouse -->
+    <a href="lakehouse.html" class="card-link">
+      <div class="card" data-rough-color="blue">
+        <canvas class="card-canvas" data-card></canvas>
+        <div class="card-pin pin-r2"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="blue"></canvas></div>
+        <div class="card-tag">Iceberg Lakehouse</div>
+        <div class="card-val" style="color:var(--blue)">-60%</div>
+        <div class="card-unit">Athena query time</div>
+        <ul class="card-bullets">
+          <li>SaaS analytics platform</li>
+          <li>Hive to Iceberg migration</li>
+          <li>S3 API costs down 90%</li>
+          <li>Zero-downtime cutover</li>
+        </ul>
+        <div class="card-cta" style="color:var(--blue)">View case study →</div>
+      </div>
+    </a>
+
+    <!-- Card 3: Airflow -->
+    <a href="airflow.html" class="card-link">
+      <div class="card" data-rough-color="amber">
+        <canvas class="card-canvas" data-card></canvas>
+        <div class="card-pin pin-r3"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="amber"></canvas></div>
+        <div class="card-tag">Airflow ETL</div>
+        <div class="card-val" style="color:var(--amber)">600K</div>
+        <div class="card-unit">records per week</div>
+        <ul class="card-bullets">
+          <li>E-commerce data team</li>
+          <li>Less than 0.1% failure</li>
+          <li>SLA misses gone</li>
+          <li>One-click replay</li>
+        </ul>
+        <div class="card-cta" style="color:var(--amber)">View case study →</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- AI PROJECTS -->
+<section class="section" id="ai" style="padding-top:0">
+  <div class="section-label">AI Projects</div>
+  <div class="ai-grid">
+
+    <!-- AI Card 1 -->
+    <a href="bedrock-finops.html" class="card-link">
+      <div class="card" style="position:relative">
+        <canvas class="card-canvas" data-card data-rough-color="lav"></canvas>
+        <div class="card-pin pin-r4"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="lav"></canvas></div>
+        <div class="badge-pill">Claude 3.5 Sonnet</div>
+        <div class="card-tag">Bedrock FinOps Analyst</div>
+        <div class="card-val" style="color:var(--lav)">Nightly</div>
+        <div class="card-unit">AI cost report</div>
+        <ul class="card-bullets">
+          <li>Reads Cost Explorer + right-sizing from S3</li>
+          <li>Calls Claude 3.5 Sonnet via Bedrock</li>
+          <li>Plain-English exec summary</li>
+          <li>Runs at 03:00 UTC after data collection</li>
+        </ul>
+        <div class="card-cta" style="color:var(--lav);font-family:'DM Mono',monospace;font-size:12px;margin-top:12px;">View project →</div>
+      </div>
+    </a>
+
+    <!-- AI Card 2 -->
+    <a href="bedrock-agent.html" class="card-link">
+      <div class="card" style="position:relative">
+        <canvas class="card-canvas" data-card data-rough-color="sage"></canvas>
+        <div class="card-pin pin-r5"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="sage"></canvas></div>
+        <div class="badge-pill">NL2SQL + Athena</div>
+        <div class="card-tag">Bedrock Data Agent</div>
+        <div class="card-val" style="color:var(--sage)">Ask it</div>
+        <div class="card-unit">anything in plain English</div>
+        <ul class="card-bullets">
+          <li>Bedrock Agent over Iceberg Gold layer</li>
+          <li>Athena: run / list / describe</li>
+          <li>Blocks PII and all write ops</li>
+          <li>No BI tool needed</li>
+        </ul>
+        <div class="card-cta" style="color:var(--sage);font-family:'DM Mono',monospace;font-size:12px;margin-top:12px;">View project →</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" style="padding-top:0">
+  <div class="section-label">Services</div>
+  <ul class="services-list">
+    <li class="service-row">
+      <div class="service-accent" style="background:var(--rose)"></div>
+      <div class="service-name">FinOps Audit</div>
+      <div class="service-price" style="color:var(--rose)">from $1,500</div>
+      <div class="service-timeline">1 week</div>
+    </li>
+    <li class="service-row">
+      <div class="service-accent" style="background:var(--blue)"></div>
+      <div class="service-name">Serverless ETL Pipeline</div>
+      <div class="service-price" style="color:var(--blue)">from $3,500</div>
+      <div class="service-timeline">2–3 weeks</div>
+    </li>
+    <li class="service-row">
+      <div class="service-accent" style="background:var(--amber)"></div>
+      <div class="service-name">Lakehouse Build</div>
+      <div class="service-price" style="color:var(--amber)">from $5,000</div>
+      <div class="service-timeline">3–4 weeks</div>
+    </li>
+    <li class="service-row" style="border-bottom:none">
+      <div class="service-accent" style="background:var(--lav)"></div>
+      <div class="service-name">AI Data Agent</div>
+      <div class="service-price" style="color:var(--lav)">from $2,500</div>
+      <div class="service-timeline">1–2 weeks</div>
+    </li>
+  </ul>
+</section>
+
+<!-- WHY ME -->
+<section class="section" id="why" style="padding-top:0">
+  <div class="section-label">Why Me</div>
+  <div class="why-grid">
+    <div class="why-statement">5+ years.<br>Production scale.<br>Zero BS.</div>
+    <div class="why-points">
+
+      <div class="why-card">
+        <div class="why-card-canvas-wrap">
+          <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
+        </div>
+        <div class="why-card-content">
+          <div class="why-card-num">01</div>
+          <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff, no dependency on me.</div>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-canvas-wrap">
+          <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
+        </div>
+        <div class="why-card-content">
+          <div class="why-card-num">02</div>
+          <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-canvas-wrap">
+          <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
+        </div>
+        <div class="why-card-content">
+          <div class="why-card-num">03</div>
+          <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-canvas-wrap">
+          <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
+        </div>
+        <div class="why-card-content">
+          <div class="why-card-num">04</div>
+          <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-canvas-wrap">
+          <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
+        </div>
+        <div class="why-card-content">
+          <div class="why-card-num">05</div>
+          <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Ready to ship?</h2>
+  <p class="cta-sub">ramneek2307@gmail.com · github.com/RkSinghDeo</p>
+  <div class="cta-btn-wrap">
+    <canvas class="cta-btn-canvas" id="cta-canvas"></canvas>
+    <a href="mailto:ramneek2307@gmail.com" class="cta-btn">Get in touch</a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>Ramneek Singh / AWS Data Engineer</span>
+  <span>rksinghdeo.github.io</span>
+</footer>
+
+<script>
+// ─── Color Map ───────────────────────────────────────────────────────────────
+const colorMap = {
+  rose:  '#D29B8C',
+  blue:  '#9BB9D7',
+  sage:  '#91C3AA',
+  lav:   '#AFA0D2',
+  amber: '#C8A97A',
+  pencil:'#6B5040'
+};
+
+// ─── Rough.js card borders ────────────────────────────────────────────────────
+function drawCardBorder(canvas, colorKey) {
+  if (!canvas || !window.rough) return;
+  const rc = rough.canvas(canvas);
+  const w = canvas.offsetWidth || canvas.width;
+  const h = canvas.offsetHeight || canvas.height;
+  canvas.width = w;
+  canvas.height = h;
+  const color = colorMap[colorKey] || colorMap.pencil;
+  rc.rectangle(4, 4, w - 8, h - 8, {
+    roughness: 1.6,
+    bowing: 0.8,
+    strokeWidth: 1.8,
+    stroke: color
+  });
+}
+
+// ─── Hero Canvas ─────────────────────────────────────────────────────────────
+function drawHero() {
+  const c = document.getElementById('hero-canvas');
+  if (!c) return;
+  const rc = rough.canvas(c);
+  const ctx = c.getContext('2d');
+
+  // Server box top right
+  rc.rectangle(140, 20, 150, 80, { stroke:'#B9B4AA', strokeWidth:1.8, roughness:2, bowing:1 });
+  ctx.font = '400 13px DM Mono, monospace';
+  ctx.fillStyle = '#9BB9D7';
+  ctx.fillText('AWS', 188, 58);
+  ctx.fillText('CLOUD', 179, 76);
+
+  // Pipeline dots from server downward
+  for(let i=0;i<4;i++){
+    rc.circle(215, 115+i*22, 5, { stroke:'#B9B4AA', strokeWidth:1, roughness:1, fill:'#B9B4AA', fillStyle:'solid' });
+  }
+
+  // Stickman bottom left
+  const sx=80, sy=220;
+  rc.circle(sx, sy-52, 24, { stroke:'#2A1F14', strokeWidth:2, roughness:1.2 });
+  rc.line(sx, sy-40, sx, sy+8, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+  // arm pointing up-right toward server
+  rc.line(sx, sy-20, sx+50, sy-60, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+  // other arm down
+  rc.line(sx, sy-20, sx-30, sy+10, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+  rc.line(sx, sy+8, sx-22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+  rc.line(sx, sy+8, sx+22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+
+  // Dashed arrow from stickman hand toward server
+  rc.line(sx+50, sy-60, 155, 60, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1.5, strokeLineDash:[6,4] });
+  // arrowhead
+  rc.line(155, 60, 148, 48, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
+  rc.line(155, 60, 164, 52, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
+
+  // "$33K saved" label
+  ctx.font = '700 15px DM Mono, monospace';
+  ctx.fillStyle = '#D29B8C';
+  ctx.fillText('$33K saved', 148, 32);
+
+  // Checkmark circle bottom
+  rc.circle(215, 310, 40, { stroke:'#91C3AA', strokeWidth:2, roughness:1.5 });
+  rc.line(200, 310, 210, 322, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
+  rc.line(210, 322, 232, 296, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
+
+  // Faint pipeline connector horizontal
+  rc.line(215, 100, 215, 270, { stroke:'#EAE7E2', strokeWidth:1, roughness:1 });
+}
+
+// ─── Why Me circles ──────────────────────────────────────────────────────────
+function drawWhyCircles() {
+  document.querySelectorAll('.why-circle-canvas').forEach(canvas => {
+    if (!window.rough) return;
+    const rc = rough.canvas(canvas);
+    const colorKey = canvas.dataset.color || 'pencil';
+    const color = colorMap[colorKey];
+    rc.circle(18, 18, 28, {
+      roughness: 1.6, bowing: 0.8, strokeWidth: 1.8,
+      stroke: color,
+      fill: color,
+      fillStyle: 'solid',
+      fillWeight: 0.5
+    });
+  });
+}
+
+// ─── CTA button border ────────────────────────────────────────────────────────
+function drawCtaBtn() {
+  const canvas = document.getElementById('cta-canvas');
+  if (!canvas || !window.rough) return;
+  const btn = canvas.closest('.cta-btn-wrap').querySelector('.cta-btn');
+  const w = btn.offsetWidth || 200;
+  const h = btn.offsetHeight || 58;
+  canvas.width = w;
+  canvas.height = h;
+  const rc = rough.canvas(canvas);
+  rc.rectangle(3, 3, w - 6, h - 6, {
+    roughness: 1.6, bowing: 0.8, strokeWidth: 2,
+    stroke: colorMap.pencil
+  });
+}
+
+// ─── Counter animation ────────────────────────────────────────────────────────
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    // Trigger on intersection
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        requestAnimationFrame(step);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+  });
+}
+
+// ─── Init all card borders ────────────────────────────────────────────────────
+function initCardBorders() {
+  document.querySelectorAll('[data-card]').forEach(canvas => {
+    const card = canvas.closest('.card');
+    const colorKey = canvas.dataset.roughColor || card?.dataset.roughColor || 'pencil';
+
+    const updateSize = () => {
+      const w = canvas.parentElement.offsetWidth;
+      const h = canvas.parentElement.offsetHeight;
+      if (w > 0 && h > 0) {
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, w, h);
+        const rc = rough.canvas(canvas);
+        const color = colorMap[colorKey] || colorMap.pencil;
+        rc.rectangle(4, 4, w - 8, h - 8, {
+          roughness: 1.6, bowing: 0.8, strokeWidth: 1.8,
+          stroke: color
+        });
+      }
+    };
+
+    // Initial draw after layout
+    setTimeout(updateSize, 50);
+    window.addEventListener('resize', updateSize);
+  });
+}
+
+// ─── Metric stickmen 3 distinct poses ──────────────────────────────────────
+function drawMetricStickman(canvas, colorKey, pose) {
+  if (!canvas || !window.rough) return;
+  const rc = rough.canvas(canvas);
+  const ctx = canvas.getContext('2d');
+  const color = colorMap[colorKey] || colorMap.pencil;
+  const o = { stroke: color, strokeWidth: 1.7, roughness: 1.3 };
+  const oThin = { stroke: color, strokeWidth: 0.9, roughness: 2 };
+
+  if (pose === 'victory') {
+    // Arms raised in V, small stars scattered around
+    const cx = 25, hy = 12, r = 8;
+    rc.circle(cx, hy, r*2, o);
+    rc.line(cx, hy+r, cx, hy+r+22, o);                         // body
+    rc.line(cx, hy+r+7, cx-17, hy+r-9, o);                     // left arm up-left
+    rc.line(cx, hy+r+7, cx+17, hy+r-9, o);                     // right arm up-right
+    rc.line(cx, hy+r+22, cx-11, hy+r+42, o);                   // left leg
+    rc.line(cx, hy+r+22, cx+11, hy+r+42, o);                   // right leg
+    // tiny star sparkles
+    ctx.fillStyle = color; ctx.globalAlpha = 0.7; ctx.font = '9px serif';
+    ctx.fillText('★', cx+14, hy-2);
+    ctx.fillText('★', cx-20, hy+4);
+    ctx.globalAlpha = 1;
+
+  } else if (pose === 'run') {
+    // Leaning forward, mid-stride, motion lines behind
+    const cx = 24, hy = 10, r = 8;
+    rc.circle(cx, hy, r*2, o);
+    // body tilted forward
+    rc.line(cx, hy+r, cx+5, hy+r+22, o);
+    // arms swinging
+    rc.line(cx+1, hy+r+6, cx+17, hy+r+1, o);                   // arm fwd
+    rc.line(cx+1, hy+r+6, cx-12, hy+r+13, o);                  // arm back
+    // legs mid-stride
+    rc.line(cx+5, hy+r+22, cx+16, hy+r+36, o);                 // front leg
+    rc.line(cx+16, hy+r+36, cx+11, hy+r+48, o);                // front shin
+    rc.line(cx+5, hy+r+22, cx-5, hy+r+40, o);                  // back leg
+    // motion lines
+    rc.line(cx-16, hy+r+10, cx-24, hy+r+8, oThin);
+    rc.line(cx-16, hy+r+16, cx-26, hy+r+15, oThin);
+    rc.line(cx-16, hy+r+22, cx-23, hy+r+21, oThin);
+
+  } else { // done / clipboard
+    const cx = 22, hy = 11, r = 8;
+    rc.circle(cx, hy, r*2, o);
+    rc.line(cx, hy+r, cx, hy+r+22, o);                         // body
+    rc.line(cx, hy+r+7, cx-14, hy+r+18, o);                    // left arm relaxed
+    rc.line(cx, hy+r+7, cx+13, hy+r+1, o);                     // right arm up (holding)
+    rc.line(cx, hy+r+22, cx-11, hy+r+40, o);                   // left leg
+    rc.line(cx, hy+r+22, cx+11, hy+r+40, o);                   // right leg
+    // clipboard (small rough rectangle in hand)
+    rc.rectangle(cx+11, hy-3, 14, 18, { stroke: color, strokeWidth: 1.1, roughness: 1.8 });
+    // checkmark on clipboard
+    rc.line(cx+13, hy+8,  cx+16, hy+12, { stroke: color, strokeWidth: 1.5, roughness: 1 });
+    rc.line(cx+16, hy+12, cx+23, hy+3,  { stroke: color, strokeWidth: 1.5, roughness: 1 });
+  }
+}
+
+// ─── Strip stickman waving hello ───────────────────────────────────────────
+function drawStripStickman() {
+  const canvas = document.querySelector('.strip-stickman');
+  if (!canvas || !window.rough) return;
+  const rc = rough.canvas(canvas);
+  const color = colorMap.pencil;
+  const cx = 14, hy = 6, r = 5;
+  const o = { stroke: color, strokeWidth: 1.2, roughness: 1.3 };
+  rc.circle(cx, hy, r*2, o);
+  rc.line(cx, hy+r, cx, hy+r+15, o);                           // body
+  rc.line(cx, hy+r+5, cx+11, hy+r-5, o);                      // right arm waving UP
+  rc.line(cx, hy+r+5, cx-9, hy+r+10, o);                      // left arm out
+  rc.line(cx, hy+r+15, cx-7, hy+r+28, o);                     // left leg
+  rc.line(cx, hy+r+15, cx+7, hy+r+28, o);                     // right leg
+  // tiny wave lines near raised hand
+  const rc2 = rough.canvas(canvas);
+  rc2.line(cx+12, hy+r-9, cx+15, hy+r-6, { stroke: color, strokeWidth: 0.7, roughness: 2 });
+  rc2.line(cx+13, hy+r-6, cx+17, hy+r-4, { stroke: color, strokeWidth: 0.7, roughness: 2 });
+}
+
+// ─── Paper pins ──────────────────────────────────────────────────────────────
+function drawPins() {
+  document.querySelectorAll('.card-pin-canvas').forEach(canvas => {
+    if (!window.rough) return;
+    const colorKey = canvas.dataset.pinColor || 'pencil';
+    const color = colorMap[colorKey];
+    const rc = rough.canvas(canvas);
+    const cx = 11, cy = 11, r = 8;
+    // Pin head filled soft circle
+    rc.circle(cx, cy, r*2, {
+      stroke: color, strokeWidth: 1.4, roughness: 1.5,
+      fill: color, fillStyle: 'solid', fillWeight: 0.6
+    });
+    // Highlight dot (hand-drawn feel)
+    rc.circle(cx-3, cy-3, 4, {
+      stroke: 'rgba(255,255,255,0.5)', strokeWidth: 0.6, roughness: 1,
+      fill: 'rgba(255,255,255,0.3)', fillStyle: 'solid', fillWeight: 0.3
+    });
+    // Pin shaft tapers to a point
+    rc.line(cx, cy+r, cx-1, cy+r+10, { stroke: color, strokeWidth: 2.2, roughness: 1 });
+    rc.line(cx-1, cy+r+10, cx, cy+r+15, { stroke: color, strokeWidth: 1.2, roughness: 1 });
+  });
+}
+
+// ─── Metric underlines ───────────────────────────────────────────────────────
+function drawMetricUnderlines() {
+  document.querySelectorAll('.metric-ul').forEach(canvas => {
+    if (!window.rough) return;
+    const colorKey = canvas.dataset.color || 'pencil';
+    const color = colorMap[colorKey];
+    setTimeout(() => {
+      const w = canvas.parentElement.offsetWidth || 120;
+      canvas.width = w;
+      canvas.height = 8;
+      rough.canvas(canvas).line(0, 4, w * 0.85, 4, {
+        roughness: 2.4, strokeWidth: 2.8, stroke: color
+      });
+    }, 80);
+  });
+}
+
+// ─── Run on load ─────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  initCardBorders();
+  drawHero();
+  drawWhyCircles();
+  drawCtaBtn();
+  animateCounters();
+  // metric stickmen (pose-aware)
+  document.querySelectorAll('.metric-stickman').forEach(c => {
+    drawMetricStickman(c, c.dataset.stickColor, c.dataset.stickPose);
+  });
+  drawStripStickman();
+  drawMetricUnderlines();
+  drawPins();
+});
+
+window.addEventListener('resize', () => {
+  drawCtaBtn();
+});
+</script>
+</body>
+</html>

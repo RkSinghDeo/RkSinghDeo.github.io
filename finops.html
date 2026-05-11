@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinOps Audit $33,200/yr Saved | Ramneek Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg:     #FDFCFA;
+  --ink:    #2A1F14;
+  --body:   #3D2B1F;
+  --pencil: #6B5040;
+  --rule:   #EAE7E2;
+  --rose:   #D29B8C;
+  --blue:   #9BB9D7;
+  --sage:   #91C3AA;
+  --lav:    #AFA0D2;
+  --amber:  #C8A97A;
+  --accent: var(--rose);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 67px,
+    var(--rule) 67px,
+    var(--rule) 68px
+  );
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 88px;
+  width: 1px;
+  height: 100%;
+  background: #E8D5CC;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+main { position: relative; z-index: 1; }
+
+/* HERO */
+.cs-hero {
+  padding: 80px 48px 60px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cs-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.cs-metric {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(64px, 10vw, 100px);
+  color: var(--ink);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.cs-sub {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  color: var(--body);
+  max-width: 680px;
+  line-height: 1.5;
+  margin-bottom: 48px;
+}
+
+.cs-hr-wrap {
+  position: relative;
+  height: 8px;
+  margin-bottom: 0;
+}
+
+.cs-hr-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+/* STAT STRIP */
+.cs-stat-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 16px 48px;
+  background: rgba(234,231,226,0.4);
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  font-weight: 600;
+}
+.cs-stat-strip .sep { color: var(--accent); opacity:0.5; }
+
+/* CONTENT SECTIONS */
+.cs-section {
+  padding: 64px 48px 64px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 6px 1fr;
+  gap: 0 40px;
+  position: relative;
+}
+
+.cs-accent-line-wrap {
+  position: relative;
+  width: 6px;
+}
+
+.cs-accent-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-content { padding-top: 4px; }
+
+.cs-section-label {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+  background: rgba(253,252,250,0.95);
+  backdrop-filter: blur(6px);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+
+.cs-section h2 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.cs-section p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.7;
+  max-width: 740px;
+  margin-bottom: 16px;
+}
+
+.cs-section ul {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.cs-section ul li {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.6;
+  padding: 6px 0 6px 20px;
+  position: relative;
+}
+
+.cs-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* IN-NUMBERS CALLOUT */
+.in-numbers {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  margin-bottom: 32px;
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.10);
+  max-width: 740px;
+}
+.in-num-item {
+  background: var(--bg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.in-num-val {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1;
+}
+.in-num-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pencil);
+}
+
+/* CLIENT QUOTE */
+.client-quote {
+  margin-top: 32px;
+  padding: 20px 28px;
+  border-left: 3px solid var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--pencil);
+  font-weight: 500;
+  background: rgba(234,231,226,0.3);
+  max-width: 740px;
+}
+
+/* HERO PIN */
+.hero-pin {
+  position: absolute;
+  top: 24px;
+  right: 60px;
+  z-index: 5;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.cs-hero { position: relative; }
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin: 28px 0 12px;
+}
+.mermaid {
+  max-width: 740px;
+  overflow-x: auto;
+}
+.mermaid svg {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 16px;
+  background: var(--bg);
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.08);
+  max-width: 100%;
+  height: auto;
+}
+
+/* PIPELINE DIAGRAM */
+.pipeline-pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.7;
+  background: rgba(210, 155, 140, 0.06);
+  border-left: 3px solid var(--rose);
+  padding: 24px 28px;
+  margin: 24px 0;
+  overflow-x: auto;
+  max-width: 740px;
+}
+
+/* RESULTS TABLE */
+.results-table-wrap {
+  margin: 24px 0;
+  max-width: 740px;
+  overflow-x: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+}
+
+.results-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pencil);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--rule);
+}
+
+.results-table td {
+  padding: 12px 16px;
+  color: var(--body);
+  border-bottom: 1px solid var(--rule);
+}
+
+.results-table tr:last-child td { border-bottom: none; }
+
+.results-table .col-after {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.results-table .col-metric {
+  color: var(--pencil);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+
+/* TECH STACK */
+.tech-stack {
+  padding: 48px 48px 48px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+}
+
+.tech-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin-bottom: 20px;
+}
+
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tech-pill-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.tech-pill-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.tech-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--body);
+  padding: 6px 14px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CTA STRIP */
+.cs-cta {
+  padding: 64px 48px 64px 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.cs-cta p {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cta-btn-wrap {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.cta-btn-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 14px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 48px 24px 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+footer span {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body::before { display: none; }
+  nav { padding: 0 20px; }
+  .cs-hero { padding: 48px 20px 40px; }
+  .cs-section { padding: 40px 20px; grid-template-columns: 4px 1fr; gap: 0 20px; }
+  .tech-stack { padding: 40px 20px; }
+  .cs-cta { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
+  footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+  .cs-metric { font-size: 56px; }
+  .cs-sub { font-size: 17px; }
+  .cs-stat-strip { padding: 12px 20px; }
+  .in-numbers { grid-template-columns: 1fr; }
+  .in-num-val { font-size: 40px; }
+}
+
+/* ── FLOATING HOME STICKMAN ─────────────────────────────────── */
+.float-home {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+.float-home:hover .float-home-inner { transform: scale(1.08); }
+.float-home-inner {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease;
+}
+.float-bg-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.float-stick-canvas {
+  position: relative;
+  z-index: 1;
+  transform-origin: bottom center;
+  animation: floatidle 2.4s ease-in-out infinite;
+}
+.float-home.is-scrolling .float-stick-canvas {
+  animation: floatwalk 0.36s ease-in-out infinite alternate;
+}
+.float-home-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pencil);
+  opacity: 0.6;
+}
+@keyframes floatidle {
+  0%,100% { transform: rotate(-2.5deg) translateY(0px); }
+  50%      { transform: rotate(2.5deg)  translateY(-5px); }
+}
+@keyframes floatwalk {
+  0%   { transform: rotate(-8deg) translateX(-3px) translateY(-1px); }
+  100% { transform: rotate(8deg)  translateX(3px)  translateY(2px);  }
+}
+
+/* BACK TO TOP */
+.float-top {
+  position: fixed;
+  bottom: 130px;
+  right: 36px;
+  z-index: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.float-top.visible { opacity: 1; pointer-events: auto; }
+.float-top-inner {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease;
+}
+.float-top:hover .float-top-inner { transform: scale(1.1) translateY(-2px); }
+.float-top-bg-canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.float-top-arrow { position: relative; z-index: 1; color: var(--pencil); transition: transform 0.2s; }
+.float-top-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pencil);
+  opacity: 0.6;
+}
+
+/* HERO STICKMAN */
+.hero-stick {
+  position: absolute;
+  right: 120px;
+  bottom: 40px;
+  pointer-events: none;
+  z-index: 4;
+  transform-origin: bottom center;
+  animation: herosway 4.2s ease-in-out infinite;
+}
+@keyframes herosway {
+  0%, 100% { transform: rotate(-2deg) translateY(0px); }
+  50%       { transform: rotate(2.5deg) translateY(-5px); }
+}
+@media (max-width: 680px) { .hero-stick { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9,22 9,12 15,12 15,22"/>
+    </svg>
+    Ramneek Singh
+  </a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<div class="cs-hero">
+  <canvas class="hero-pin" id="hero-pin" width="28" height="42"></canvas>
+  <canvas class="hero-stick" id="hero-stick" width="64" height="110"></canvas>
+  <div class="cs-tag">FinOps Audit</div>
+  <div class="cs-metric">$33,200/yr saved</div>
+  <p class="cs-sub">Lambda costs down 30%. Glue costs down 22%. Automated forever.</p>
+  <div class="cs-hr-wrap">
+    <canvas class="cs-hr-canvas" id="hero-hr-canvas" height="8"></canvas>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="cs-stat-strip">
+  <span>200+ Lambda functions audited</span>
+  <span class="sep">·</span>
+  <span>40 Glue jobs reviewed</span>
+  <span class="sep">·</span>
+  <span>14-day CloudWatch lookback</span>
+  <span class="sep">·</span>
+  <span>Nightly automated runs</span>
+</div>
+
+<!-- SITUATION -->
+<div class="cs-section">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-1"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">01 / The Situation</div>
+    <h2>The Situation</h2>
+    <p>A Fortune 500 wealth-management firm (one of several clients ranging from early-stage startups to enterprise) with 200+ Lambda functions all provisioned for peak load and never revisited. 40+ Glue jobs running on fixed DPU allocations that hadn't been tuned since launch. Monthly AWS bill hovering around <strong>$96,000</strong>.</p>
+    <p>Finance was asking hard questions. Engineering said "we don't know what's driving it." No one had a dashboard. No one had ever run a right-sizing analysis. Cost Explorer showed the categories but not where to cut.</p>
+    <p>They needed someone to audit first, then build a system that would catch it automatically going forward.</p>
+  </div>
+</div>
+
+<!-- WHAT I BUILT -->
+<div class="cs-section" style="border-top:1px solid var(--rule)">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-2"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">02 / What I Built</div>
+    <h2>What I Built</h2>
+
+    <div class="arch-diagram-label">Architecture</div>
+    <div class="mermaid">
+graph LR
+    EB["EventBridge
+nightly 02:00 UTC"] --> CE["Cost Explorer
+Export Lambda"]
+    EB --> GA["Glue Audit
+Lambda"]
+    EB --> RS["Right-Sizing
+Lambda"]
+    CE -->|JSON Lines| S3[("S3
+Report Bucket")]
+    GA -->|Reports| S3
+    RS -->|Recommendations| S3
+    S3 --> ATH["Athena
+finops workgroup"]
+    ATH --> DASH["Streamlit
+Dashboard"]
+    RS --> SFN["Step Functions
+Lambda Power Tuner"]
+    SFN -->|"128→3008 MB"| TARGET["Target Lambda
+functions"]
+    SFN -->|cost+speed| RS
+    </div>
+
+
+    <ul>
+      <li><strong>Right-sizing audit Lambda:</strong> Pulls 14-day CloudWatch P99 memory metrics for every function. Flags anything using less than 40% of its provisioned memory. Estimates savings, writes nightly S3 report.</li>
+      <li><strong>Lambda Power Tuning via Step Functions:</strong> Runs 7 memory configs (128MB to 3008MB) against each flagged function. Finds the optimal cost-per-invocation point, not just the fastest.</li>
+      <li><strong>Glue DPU audit:</strong> Reads GetJobRuns history for 30 days. Flags jobs where auto-scaling would reduce DPU cost. Generates Glue config patches ready to apply.</li>
+      <li><strong>Athena + Streamlit dashboard:</strong> Self-service cost queries updated nightly. Engineers can explore by service, function name, or job tag without touching Cost Explorer.</li>
+      <li><strong>Bedrock FinOps Analyst:</strong> Claude 3.5 Sonnet reads nightly reports via Amazon Bedrock. Emails a plain-English exec summary with top 5 actions by savings potential. Runs at 03:00 UTC.</li>
+    </ul>
+
+    <pre class="pipeline-pre">EventBridge (nightly 02:00 UTC)
+  └─► Audit Lambda
+        ├─► CloudWatch Metrics API (14d P99 memory)
+        ├─► Glue GetJobRuns API (30d history)
+        └─► S3 report bucket
+
+EventBridge (03:00 UTC)
+  └─► Bedrock Analyst Lambda
+        ├─► S3 (reads nightly report)
+        ├─► Bedrock Claude 3.5 Sonnet
+        └─► SES (exec summary email)
+
+On-demand / weekly
+  └─► Step Functions: Lambda Power Tuner
+        ├─► 7 x memory configs
+        └─► S3 (optimal config JSON)</pre>  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="cs-section" style="border-top:1px solid var(--rule)">
+  <div class="cs-accent-line-wrap">
+    <canvas class="cs-accent-canvas" id="accent-3"></canvas>
+  </div>
+  <div class="cs-content">
+    <div class="cs-section-label">03 / Results</div>
+    <h2>Results</h2>
+
+    <div class="in-numbers">
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--rose)">$33K</span><span class="in-num-label">annual savings</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--rose)">30%</span><span class="in-num-label">Lambda cost reduction</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--rose)">22%</span><span class="in-num-label">Glue cost reduction</span></div>
+    </div>
+
+    <div class="results-table-wrap">
+      <table class="results-table" id="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Before</th>
+            <th>After</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-metric">Monthly Lambda</td>
+            <td>$41,000</td>
+            <td class="col-after">$28,700</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Monthly Glue</td>
+            <td>$38,000</td>
+            <td class="col-after">$29,640</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Monthly Total</td>
+            <td>$96,000</td>
+            <td class="col-after">$67,000</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Annual Savings</td>
+            <td></td>
+            <td class="col-after" style="font-weight:700;font-size:17px">$33,200</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Time to find waste</td>
+            <td>Manual quarterly</td>
+            <td class="col-after">Automated nightly</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote class="client-quote">
+      "The dashboard went live on Monday. By Wednesday I stopped getting Slack messages asking why the cost report was missing." Engineering Lead (anonymized)
+    </blockquote>
+
+  </div>
+</div>
+
+</main>
+
+<!-- TECH STACK -->
+<div class="tech-stack">
+  <div class="tech-label">Tech Stack</div>
+  <div class="tech-pills" id="tech-pills">
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS CDK v2</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Lambda</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Glue</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Athena</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Step Functions</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Bedrock</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon EventBridge</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Streamlit</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Python 3.12</span></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cs-cta">
+  <p>Work with me on something like this.</p>
+  <div class="cta-btn-wrap">
+    <canvas class="cta-btn-canvas" id="cta-canvas"></canvas>
+    <a href="mailto:ramneek2307@gmail.com" class="cta-btn">Get in touch →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Ramneek Singh / AWS Data Engineer</span>
+  <span>rksinghdeo.github.io</span>
+</footer>
+
+<script>
+
+// ── Floating buttons (home stickman + back to top) ──────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.rough) return;
+
+  var floatHome  = document.getElementById('float-home');
+  var floatBg    = document.getElementById('float-bg');
+  var floatStick = document.getElementById('float-stick');
+  var floatTop   = document.getElementById('float-top');
+  var floatTopBg = document.getElementById('float-top-bg');
+
+  if (floatBg) {
+    rough.canvas(floatBg).circle(34, 34, 62, {
+      stroke: colorMap.pencil, strokeWidth: 1.8, roughness: 2.0, bowing: 0.9,
+      fill: 'rgba(253,252,250,0.97)', fillStyle: 'solid', fillWeight: 0.4
+    });
+  }
+  if (floatTopBg) {
+    rough.canvas(floatTopBg).circle(27, 27, 50, {
+      stroke: colorMap.pencil, strokeWidth: 1.8, roughness: 2.0, bowing: 0.9,
+      fill: 'rgba(253,252,250,0.97)', fillStyle: 'solid', fillWeight: 0.4
+    });
+  }
+  if (floatStick) {
+    var rs = rough.canvas(floatStick);
+    var o  = { stroke: colorMap.pencil, strokeWidth: 1.7, roughness: 1.3 };
+    var cx = 23, hy = 9, r = 7;
+    rs.circle(cx, hy, r*2, o);
+    rs.line(cx, hy+r, cx+4, hy+r+21, o);
+    rs.line(cx+1, hy+r+7,  cx+17, hy+r+2,  o);
+    rs.line(cx+1, hy+r+7,  cx-12, hy+r+12, o);
+    rs.line(cx+4, hy+r+21, cx+16, hy+r+36, o);
+    rs.line(cx+16, hy+r+36, cx+11, hy+r+49, o);
+    rs.line(cx+4, hy+r+21, cx-5,  hy+r+39, o);
+  }
+
+  var scrollTimer;
+  window.addEventListener('scroll', function() {
+    if (floatHome) floatHome.classList.add('is-scrolling');
+    if (floatTop)  floatTop.classList.toggle('visible', window.scrollY > 250);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() {
+      if (floatHome) floatHome.classList.remove('is-scrolling');
+    }, 220);
+  }, { passive: true });
+
+  if (floatHome) floatHome.addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
+  if (floatTop) floatTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+</script>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#F5F3F0',
+    primaryTextColor: '#2A1F14',
+    primaryBorderColor: '#D29B8C',
+    lineColor: '#6B5040',
+    secondaryColor: '#EAE7E2',
+    tertiaryColor: '#FDFCFA',
+    fontFamily: 'DM Mono, monospace',
+    fontSize: '12px',
+    edgeLabelBackground: '#FDFCFA'
+  }
+});
+
+const colorMap = {
+  rose: '#D29B8C', blue: '#9BB9D7', sage: '#91C3AA',
+  lav: '#AFA0D2', amber: '#C8A97A', pencil: '#6B5040'
+};
+const accent = colorMap.rose;
+
+window.addEventListener('load', () => {
+  // Hero HR
+  const hrCanvas = document.getElementById('hero-hr-canvas');
+  if (hrCanvas && window.rough) {
+    hrCanvas.width = hrCanvas.parentElement.offsetWidth;
+    hrCanvas.height = 8;
+    rough.canvas(hrCanvas).line(0, 4, hrCanvas.width, 4, {
+      roughness: 2, strokeWidth: 2, stroke: accent
+    });
+  }
+
+  // Accent lines
+  ['accent-1','accent-2','accent-3'].forEach(id => {
+    const c = document.getElementById(id);
+    if (!c || !window.rough) return;
+    const h = c.parentElement.offsetHeight || 200;
+    c.width = 6;
+    c.height = h;
+    rough.canvas(c).line(3, 0, 3, h, {
+      roughness: 1.8, strokeWidth: 3, stroke: accent
+    });
+  });
+
+  // Tech pills
+  document.querySelectorAll('.tech-pill-wrap').forEach(wrap => {
+    const canvas = wrap.querySelector('.tech-pill-canvas');
+    const pill = wrap.querySelector('.tech-pill');
+    if (!canvas || !window.rough) return;
+    setTimeout(() => {
+      const w = wrap.offsetWidth;
+      const h = wrap.offsetHeight;
+      canvas.width = w;
+      canvas.height = h;
+      rough.canvas(canvas).rectangle(2, 2, w - 4, h - 4, {
+        roughness: 1.4, bowing: 0.6, strokeWidth: 1.2, stroke: accent
+      });
+    }, 30);
+  });
+
+  // CTA button
+  const ctaCanvas = document.getElementById('cta-canvas');
+  if (ctaCanvas && window.rough) {
+    const btn = ctaCanvas.closest('.cta-btn-wrap').querySelector('.cta-btn');
+    const w = btn.offsetWidth || 180;
+    const h = btn.offsetHeight || 52;
+    ctaCanvas.width = w;
+    ctaCanvas.height = h;
+    rough.canvas(ctaCanvas).rectangle(3, 3, w - 6, h - 6, {
+      roughness: 1.6, bowing: 0.8, strokeWidth: 2, stroke: colorMap.pencil
+    });
+  }
+
+  // Hero pin
+  const pin = document.getElementById('hero-pin');
+  if (pin && window.rough) {
+    const rc = rough.canvas(pin);
+    const cx = 14, cy = 13, r = 9;
+    rc.circle(cx, cy, r*2, { stroke: accent, strokeWidth: 1.5, roughness: 1.5, fill: accent, fillStyle: 'solid', fillWeight: 0.6 });
+    rc.circle(cx-3, cy-3, 5, { stroke: 'rgba(255,255,255,0.45)', strokeWidth: 0.6, roughness: 1, fill: 'rgba(255,255,255,0.25)', fillStyle: 'solid', fillWeight: 0.3 });
+    rc.line(cx, cy+r, cx-1, cy+r+12, { stroke: accent, strokeWidth: 2.4, roughness: 1 });
+    rc.line(cx-1, cy+r+12, cx, cy+r+18, { stroke: accent, strokeWidth: 1.3, roughness: 1 });
+  }
+
+  // Hero stickman — victory pose (arms raised, celebrating $33K saved)
+  const heroStick = document.getElementById('hero-stick');
+  if (heroStick && window.rough) {
+    const rc = rough.canvas(heroStick);
+    const cx = 32, sw = 1.6, r = 1.4;
+    rc.circle(cx, 14, 18, { stroke: accent, strokeWidth: sw, roughness: r });
+    rc.line(cx, 23, cx, 60, { stroke: accent, strokeWidth: sw, roughness: r });
+    rc.line(cx, 36, cx-22, 16, { stroke: accent, strokeWidth: sw, roughness: r });
+    rc.line(cx, 36, cx+22, 16, { stroke: accent, strokeWidth: sw, roughness: r });
+    rc.line(cx, 60, cx-15, 92, { stroke: accent, strokeWidth: sw, roughness: r });
+    rc.line(cx, 60, cx+15, 92, { stroke: accent, strokeWidth: sw, roughness: r });
+  }
+});
+
+</script>
+
+<!-- BACK TO TOP -->
+<div class="float-top" id="float-top">
+  <div class="float-top-inner">
+    <canvas class="float-top-bg-canvas" id="float-top-bg" width="54" height="54"></canvas>
+    <svg class="float-top-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"/></svg>
+  </div>
+  <span class="float-top-label">top</span>
+</div>
+<!-- FLOATING HOME STICKMAN -->
+<div class="float-home" id="float-home" role="link" aria-label="Back to home">
+  <div class="float-home-inner">
+    <canvas class="float-bg-canvas" id="float-bg" width="68" height="68"></canvas>
+    <canvas class="float-stick-canvas" id="float-stick" width="46" height="62"></canvas>
+  </div>
+  <span class="float-home-label">home</span>
+</div>
+
+</body>
+</html>
