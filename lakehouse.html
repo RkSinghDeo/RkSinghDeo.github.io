@@ -565,31 +565,40 @@ footer span {
 /* SECTION STICKMEN */
 .section-stick {
   position: absolute;
-  right: 14px;
-  top: 72px;
+  right: 8px;
+  top: 50%;
+  margin-top: -80px;        /* vertically centred — adjustments per pose below */
   pointer-events: none;
   z-index: 4;
-  opacity: 0.82;
+  opacity: 0.84;
   transform-origin: bottom center;
 }
-.section-stick.think { animation: sthink 5s ease-in-out infinite; }
-.section-stick.create { animation: screate 3.8s ease-in-out infinite; }
-.section-stick.done  { animation: sdone 4.6s ease-in-out infinite; }
-@keyframes sthink {
-  0%,100% { transform: rotate(-3deg) translateY(0px); }
-  50%      { transform: rotate(1.5deg) translateY(-4px); }
+/* Situation: slow thoughtful sway */
+.section-stick.think  { animation: ss-think  5.6s ease-in-out infinite; }
+/* Build: active irregular movement */
+.section-stick.create { animation: ss-create 3.6s ease-in-out infinite; animation-delay: 0.5s; }
+/* Results: triumphant bounce */
+.section-stick.done   { animation: ss-done   4.2s ease-in-out infinite; animation-delay: 1s; }
+@keyframes ss-think {
+  0%,100% { transform: rotate(-2.5deg) translateY(0px); }
+  50%      { transform: rotate(1.5deg) translateY(-6px); }
 }
-@keyframes screate {
-  0%,100% { transform: rotate(-1.5deg) translateY(0px) scaleX(1); }
-  40%      { transform: rotate(2deg) translateY(-3px) scaleX(1); }
-  70%      { transform: rotate(-1deg) translateY(-6px) scaleX(1); }
+@keyframes ss-create {
+  0%,100% { transform: rotate(-1.5deg) translateY(0px); }
+  35%      { transform: rotate(2.5deg) translateY(-8px); }
+  70%      { transform: rotate(-0.5deg) translateY(-3px); }
 }
-@keyframes sdone {
+@keyframes ss-done {
   0%,100% { transform: rotate(-2deg) translateY(0px); }
-  30%      { transform: rotate(3deg) translateY(-8px); }
-  60%      { transform: rotate(-1deg) translateY(-4px); }
+  25%      { transform: rotate(3.5deg) translateY(-11px); }
+  60%      { transform: rotate(-1deg) translateY(-5px); }
 }
-@media (max-width: 960px) { .section-stick { display: none; } }
+/* Give every section that holds a stickman 130px right breathing room */
+.cs-section:has(.section-stick) { padding-right: 130px; }
+@media (max-width: 1100px) {
+  .section-stick { display: none; }
+  .cs-section:has(.section-stick) { padding-right: 48px; }
+}
 
 </style>
 </head>
@@ -635,7 +644,7 @@ footer span {
     <canvas class="cs-accent-canvas" id="accent-1"></canvas>
   </div>
   <div class="cs-content">
-    <canvas class="section-stick think" id="stick-s1" width="44" height="88"></canvas>
+    <canvas class="section-stick think" id="stick-s1" width="82" height="160"></canvas>
   <div class="cs-section-label">01 / The Situation</div>
     <h2>The Situation</h2>
     <p>A B2B SaaS company with 10TB+ of Hive-partitioned data in S3. Athena queries timing out. Schema changes required full partition rewrites and 4–6 hours of engineering time. Analysts waiting 10+ minutes for dashboards. Nightly refresh failing 15% of the time.</p>
@@ -650,7 +659,7 @@ footer span {
     <canvas class="cs-accent-canvas" id="accent-2"></canvas>
   </div>
   <div class="cs-content">
-    <canvas class="section-stick create" id="stick-s2" width="44" height="88"></canvas>
+    <canvas class="section-stick create" id="stick-s2" width="82" height="160"></canvas>
   <div class="cs-section-label">02 / What I Built</div>
     <h2>What I Built</h2>
 
@@ -714,7 +723,7 @@ Migration (parallel, 2 weeks)
     <canvas class="cs-accent-canvas" id="accent-3"></canvas>
   </div>
   <div class="cs-content">
-    <canvas class="section-stick done" id="stick-s3" width="44" height="88"></canvas>
+    <canvas class="section-stick done" id="stick-s3" width="82" height="160"></canvas>
   <div class="cs-section-label">03 / Results</div>
     <h2>Results</h2>
 
@@ -894,49 +903,88 @@ window.addEventListener('load', () => {
   function drawSectionStick(id, color, pose) {
     const canvas = document.getElementById(id);
     if (!canvas || !window.rough) return;
-    const rc = rough.canvas(canvas);
+    const rc  = rough.canvas(canvas);
     const ctx = canvas.getContext('2d');
-    const cx = 22, sw = 1.5, rough1 = 1.4;
-    const o = { stroke: color, strokeWidth: sw, roughness: rough1 };
+    const cx  = 41;
+    const o   = { stroke: color, strokeWidth: 2,   roughness: 1.4 };
+    const oT  = { stroke: color, strokeWidth: 1.1,  roughness: 2.2 };
 
     if (pose === 'think') {
-      // Thinking: body upright, left arm bent — fist near chin, right arm folded down
-      rc.circle(cx, 12, 16, o);                              // head
-      rc.line(cx, 20, cx, 54, o);                            // body
-      rc.line(cx, 32, cx-14, 20, o);                         // left arm up to chin
-      rc.line(cx-14, 20, cx-10, 24, o);                      // forearm horizontal (chin rest)
-      rc.line(cx, 32, cx+15, 44, o);                         // right arm down
-      rc.line(cx, 54, cx-12, 80, o);                         // left leg
-      rc.line(cx, 54, cx+12, 80, o);                         // right leg
-      // tiny thought dots
-      ctx.fillStyle = color; ctx.globalAlpha = 0.5; ctx.font = '7px serif';
-      ctx.fillText('...', cx-8, 7);
+      // ── Situation: Analyst reading the brief, finger to temple ───────────
+      // Head tilted, left index finger at temple, right arm holds a report
+      rc.circle(cx, 22, 24, o);                           // head
+      rc.line(cx, 34, cx, 90, o);                         // body
+      // left arm — upper arm out-left, forearm bends back to temple
+      rc.line(cx, 52, cx-24, 38, o);                      // upper L arm
+      rc.line(cx-24, 38, cx-18, 32, o);                   // forearm to temple
+      rc.circle(cx-18, 30, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.3 }); // fingertip dot
+      // right arm — down and slightly out, holding a report (small rect)
+      rc.line(cx, 52, cx+26, 68, o);                      // R arm down-right
+      rc.rectangle(cx+24, 66, 18, 24, { stroke: color, strokeWidth: 1.2, roughness: 2 }); // report/clipboard
+      // tiny lines on the report (text lines)
+      rc.line(cx+26, 72, cx+40, 72, oT);
+      rc.line(cx+26, 77, cx+40, 77, oT);
+      rc.line(cx+26, 82, cx+36, 82, oT);
+      // legs — weight on right (slightly planted)
+      rc.line(cx, 90, cx-16, 140, o);                     // L leg
+      rc.line(cx, 90, cx+14, 140, o);                     // R leg
+      // thought bubble
+      ctx.fillStyle = color; ctx.globalAlpha = 0.45;
+      ctx.font = '9px serif';
+      ctx.fillText('...', cx-10, 9);
       ctx.globalAlpha = 1;
 
     } else if (pose === 'create') {
-      // Creating: hunched forward, arms reaching out like typing/building
-      rc.circle(cx+3, 10, 16, o);                            // head leaning fwd
-      rc.line(cx+3, 18, cx-2, 52, o);                        // body angled fwd
-      rc.line(cx+1, 28, cx-18, 36, o);                       // left arm reaching fwd
-      rc.line(cx+1, 28, cx+18, 22, o);                       // right arm reaching up-fwd
-      rc.line(cx-2, 52, cx-16, 76, o);                       // left leg
-      rc.line(cx-2, 52, cx+12, 74, o);                       // right leg
-      // tiny spark at fingertip
-      ctx.fillStyle = color; ctx.globalAlpha = 0.55; ctx.font = '8px serif';
-      ctx.fillText('✦', cx+18, 19);
+      // ── Build: Leaning into work, hands on the workbench ────────────────
+      // Body angled forward, both arms driving forward, workbench surface
+      rc.circle(cx+4, 20, 22, o);                         // head (leaning fwd)
+      rc.line(cx+4, 31, cx-2, 86, o);                     // body angled forward
+      // left arm — reaching left-forward to workbench
+      rc.line(cx+2, 52, cx-28, 66, o);                    // upper L arm
+      rc.line(cx-28, 66, cx-32, 78, o);                   // forearm down to surface
+      // right arm — reaching right-forward, slight upward energy
+      rc.line(cx+2, 52, cx+32, 44, o);                    // upper R arm out-fwd
+      rc.line(cx+32, 44, cx+36, 56, o);                   // forearm down to surface
+      // workbench/surface line
+      rc.line(cx-36, 80, cx+40, 80, oT);                  // bench top
+      rc.line(cx-36, 83, cx+40, 83, oT);                  // bench depth
+      // small tool/wrench shape on bench
+      rc.rectangle(cx+6, 74, 10, 6, { stroke: color, strokeWidth: 1, roughness: 2.5 });
+      // sparks at tool tip
+      ctx.fillStyle = color; ctx.globalAlpha = 0.6;
+      ctx.font = '9px serif';
+      ctx.fillText('✦', cx+34, 40);
+      ctx.font = '7px serif';
+      ctx.fillText('✦', cx-30, 62);
       ctx.globalAlpha = 1;
+      // legs — wide stance, grounded
+      rc.line(cx-2, 86, cx-18, 136, o);
+      rc.line(cx-2, 86, cx+16, 134, o);
 
     } else if (pose === 'done') {
-      // Accomplished: one arm raised straight up, star sparkle
-      rc.circle(cx, 12, 16, o);                              // head
-      rc.line(cx, 20, cx, 54, o);                            // body
-      rc.line(cx, 32, cx-15, 44, o);                         // left arm relaxed down
-      rc.line(cx, 32, cx+14, 12, o);                         // right arm raised HIGH
-      rc.line(cx, 54, cx-12, 80, o);                         // left leg
-      rc.line(cx, 54, cx+12, 80, o);                         // right leg
-      // star at raised hand
-      ctx.fillStyle = color; ctx.globalAlpha = 0.8; ctx.font = '10px serif';
-      ctx.fillText('★', cx+14, 9);
+      // ── Results: Full V-for-victory, both arms skyward ───────────────────
+      // Body upright, slight backward-lean (triumph), wide leg stance
+      rc.circle(cx, 22, 24, o);                           // head
+      rc.line(cx, 34, cx, 90, o);                         // body
+      // both arms form a V — raised high and wide
+      rc.line(cx, 52, cx-30, 22, o);                      // L arm up-left
+      rc.line(cx, 52, cx+30, 22, o);                      // R arm up-right
+      // legs spread — landing/jumping energy
+      rc.line(cx, 90, cx-20, 142, o);                     // L leg wide
+      rc.line(cx, 90, cx+20, 142, o);                     // R leg wide
+      // stars at hand tips
+      ctx.fillStyle = color; ctx.globalAlpha = 0.85;
+      ctx.font = '13px serif';
+      ctx.fillText('★', cx-38, 20);
+      ctx.fillText('★', cx+26, 20);
+      // smaller star above head
+      ctx.font = '9px serif';
+      ctx.fillText('★', cx-4, 6);
+      // confetti dots
+      ctx.globalAlpha = 0.4;
+      [[cx-44, 38],[cx+40, 44],[cx-36, 64],[cx+38, 66],[cx-26, 12],[cx+28, 10]].forEach(([x,y]) => {
+        ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2); ctx.fill();
+      });
       ctx.globalAlpha = 1;
     }
   }
