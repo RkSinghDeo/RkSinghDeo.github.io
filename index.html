@@ -803,13 +803,6 @@ main { position: relative; z-index: 1; }
   margin-top: -80px;
   animation: fsway-slow 5.8s ease-in-out infinite;
 }
-#float-stick-why {
-  right: 8px;
-  top: 50%;
-  margin-top: -80px;
-  animation: fsway-med 4.4s ease-in-out infinite;
-  animation-delay: 0.6s;
-}
 #float-stick-cta {
   right: 48px;
   bottom: 80px;
@@ -831,13 +824,69 @@ main { position: relative; z-index: 1; }
   60%      { transform: rotate(-1deg) translateY(-5px); }
 }
 #services { position: relative; padding-right: 110px !important; }
-#me       { position: relative; padding-right: 110px !important; }
 .cta-section { position: relative; }
 @media (max-width: 1100px) {
   .float-section-stick { display: none; }
   #services { padding-right: 48px !important; }
-  #me       { padding-right: 48px !important; }
 }
+
+/* ── TESTIMONIALS ─────────────────────────────────────────────────────────── */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.testimonial-card {
+  padding: 28px 28px 24px;
+  position: relative;
+  background: var(--bg);
+  border-radius: 2px;
+}
+
+.testimonial-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.testimonial-quote {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--body);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.testimonial-quote::before { content: '\201C'; }
+.testimonial-quote::after  { content: '\201D'; }
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+}
+
+.testimonial-name {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.testimonial-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+@media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
 /* ── FOOTER ───────────────────────────────────────────────────────────────── */
 footer {
@@ -959,9 +1008,9 @@ footer {
     <span class="nav-full-name">Ramneek Singh</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#me">Me</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#me">Me</a></li>
     <li><a href="#contact" class="nav-cta-link">Say Hi</a></li>
   </ul>
 </nav>
@@ -982,6 +1031,84 @@ footer {
   </div>
   <div class="hero-canvas-wrap">
     <canvas id="hero-canvas" width="320" height="360"></canvas>
+  </div>
+</section>
+
+<!-- ME -->
+<section class="section" id="me">
+  <div class="section-label">Me</div>
+  <div class="me-grid">
+
+    <div class="me-photo-col">
+      <div class="me-photo-wrap">
+        <img src="assets/ramneek.jpg" alt="Ramneek Singh" class="me-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="me-photo-placeholder" style="display:none">📸<br>Drop assets/ramneek.jpg<br>here</div>
+        <canvas class="me-photo-rough" id="me-photo-canvas"></canvas>
+      </div>
+      <div class="me-tagline">AWS Data Engineer<br>Based in Canada</div>
+    </div>
+
+    <div class="me-content-col">
+      <div class="me-headline">5+ years.<br>Production scale.<br>Zero BS.</div>
+
+      <p class="me-bio">I'm a data engineer who got tired of watching teams waste money on infrastructure nobody revisited after launch. Over-provisioned Lambda, fixed-DPU Glue jobs, Hive tables nobody wanted to touch. Now I fix it.</p>
+
+      <p class="me-bio">Before freelancing I worked embedded in a SaaS platform team — production Glue, CDK v2, multi-account AWS. I write open-source code, ship IaC-first, and hand off infrastructure your team can actually own on day one.</p>
+
+      <div class="why-points">
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">01</div>
+            <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff — no dependency on me.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">02</div>
+            <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">03</div>
+            <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">04</div>
+            <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">05</div>
+            <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1210,82 +1337,38 @@ footer {
   </ul>
 </section>
 
-<!-- ME (formerly Why Me) -->
-<section class="section" id="me" style="padding-top:0">
-  <canvas class="float-section-stick" id="float-stick-why" width="82" height="160"></canvas>
-  <div class="section-label">Me</div>
-  <div class="me-grid">
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials" style="padding-top:0">
+  <div class="section-label">What clients say</div>
+  <div class="testimonials-grid">
 
-    <div class="me-photo-col">
-      <div class="me-photo-wrap">
-        <img src="assets/ramneek.jpg" alt="Ramneek Singh" class="me-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="me-photo-placeholder" style="display:none">📸<br>Drop assets/ramneek.jpg<br>here</div>
-        <canvas class="me-photo-rough" id="me-photo-canvas"></canvas>
-      </div>
-      <div class="me-tagline">AWS Data Engineer<br>Based in Canada</div>
-    </div>
-
-    <div class="me-content-col">
-      <div class="me-headline">5+ years.<br>Production scale.<br>Zero BS.</div>
-
-      <p class="me-bio">I'm a data engineer who got tired of watching teams waste money on infrastructure nobody revisited after launch. Over-provisioned Lambda, fixed-DPU Glue jobs, Hive tables nobody wanted to touch. Now I fix it.</p>
-
-      <p class="me-bio">Before freelancing I worked embedded in a SaaS platform team — production Glue, CDK v2, multi-account AWS. I write open-source code, ship IaC-first, and hand off infrastructure your team can actually own on day one.</p>
-
-      <div class="why-points">
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">01</div>
-            <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff — no dependency on me.</div>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">02</div>
-            <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">03</div>
-            <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">04</div>
-            <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">05</div>
-            <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
-          </div>
-        </div>
-
+    <div class="testimonial-card">
+      <canvas class="testimonial-canvas" data-card data-rough-color="rose"></canvas>
+      <p class="testimonial-quote">The dashboard went live and I stopped getting Tuesday morning Slack messages asking why the report was missing. That alone was worth it.</p>
+      <div class="testimonial-author">
+        <span class="testimonial-name">Engineering Lead</span>
+        <span class="testimonial-role">Fortune 500 · Financial Services</span>
       </div>
     </div>
+
+    <div class="testimonial-card">
+      <canvas class="testimonial-canvas" data-card data-rough-color="blue"></canvas>
+      <p class="testimonial-quote">Ramneek handed off CDK stacks that our junior engineers could actually understand and extend. That's rare — most contractors leave a black box.</p>
+      <div class="testimonial-author">
+        <span class="testimonial-name">VP of Data</span>
+        <span class="testimonial-role">SaaS · Series B</span>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <canvas class="testimonial-canvas" data-card data-rough-color="sage"></canvas>
+      <p class="testimonial-quote">Six months in, zero SLA misses. The pipeline just runs. We haven't touched it — which is exactly what we wanted.</p>
+      <div class="testimonial-author">
+        <span class="testimonial-name">Head of Platform Engineering</span>
+        <span class="testimonial-role">E-commerce · Growth Stage</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1672,9 +1755,8 @@ window.addEventListener('load', () => {
   drawStripStickman();
   drawMetricUnderlines();
   drawPins();
-  drawFloatSectionStick('float-stick-services', 'amber',  'presenter');
-  drawFloatSectionStick('float-stick-why',      'blue',   'expert');
-  drawFloatSectionStick('float-stick-cta',      'sage',   'handshake');
+  drawFloatSectionStick('float-stick-services', 'amber', 'presenter');
+  drawFloatSectionStick('float-stick-cta',      'sage',  'handshake');
 });
 
 window.addEventListener('resize', () => {
