@@ -3,12 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramneek Singh AWS Data Engineer</title>
+<title>Ramneek Singh — AWS Data Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.min.js"></script>
 <style>
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 68px;
+}
+
 :root {
   --bg:     #FDFCFA;
   --ink:    #2A1F14;
@@ -52,16 +57,16 @@ body::before {
   pointer-events: none;
 }
 
-/* NAV */
+/* ── NAV ──────────────────────────────────────────────────────────────────── */
 nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(253,252,250,0.95);
-  backdrop-filter: blur(8px);
+  background: rgba(253,252,250,0.96);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
-  padding: 0 48px;
-  height: 60px;
+  padding: 0 52px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,36 +75,63 @@ nav {
 .nav-name {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
+}
+
+.nav-wordmark {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 900;
   color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.nav-wordmark-dot { color: var(--rose); }
+
+.nav-full-name {
   font-family: 'Instrument Sans', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pencil);
+  letter-spacing: 0.01em;
 }
 
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 28px;
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--pencil);
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--ink); }
+.nav-links a:not(.nav-cta-link):hover { color: var(--ink); }
 
-/* MAIN CONTENT */
+.nav-cta-link {
+  background: var(--ink) !important;
+  color: var(--bg) !important;
+  padding: 7px 18px !important;
+  border-radius: 2px;
+  font-weight: 600;
+  transition: background 0.2s !important;
+  letter-spacing: 0.05em !important;
+}
+.nav-cta-link:hover { background: var(--rose) !important; }
+
+/* ── MAIN ─────────────────────────────────────────────────────────────────── */
 main { position: relative; z-index: 1; }
 
-/* HERO */
+/* ── HERO ─────────────────────────────────────────────────────────────────── */
 .hero {
   padding: 80px 48px 80px 120px;
   display: grid;
@@ -120,10 +152,10 @@ main { position: relative; z-index: 1; }
 }
 
 .hero h1 {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: clamp(72px, 10vw, 130px);
-  line-height: 0.95;
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(64px, 9vw, 116px);
+  line-height: 0.97;
   color: var(--ink);
   margin-bottom: 28px;
 }
@@ -148,12 +180,51 @@ main { position: relative; z-index: 1; }
 
 .hero-sub {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 500;
   color: var(--body);
-  line-height: 1.6;
+  line-height: 1.65;
   max-width: 520px;
 }
+
+/* Hero CTA actions */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.hero-cta-btn {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 13px 30px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.hero-cta-btn:hover { background: var(--rose); transform: translateY(-1px); }
+
+.hero-cta-sep {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--pencil);
+}
+
+.hero-cta-email {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  color: var(--pencil);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.hero-cta-email:hover { color: var(--ink); }
 
 .hero-canvas-wrap {
   display: flex;
@@ -161,11 +232,9 @@ main { position: relative; z-index: 1; }
   justify-content: center;
 }
 
-#hero-canvas {
-  display: block;
-}
+#hero-canvas { display: block; }
 
-/* METRICS */
+/* ── METRICS ──────────────────────────────────────────────────────────────── */
 .metrics {
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -191,9 +260,7 @@ main { position: relative; z-index: 1; }
   padding-right: 0;
 }
 
-.metric-item:not(:first-child):not(:last-child) {
-  padding-left: 40px;
-}
+.metric-item:not(:first-child):not(:last-child) { padding-left: 40px; }
 
 .metric-body { flex: 1; min-width: 0; }
 
@@ -203,38 +270,27 @@ main { position: relative; z-index: 1; }
   transform-origin: bottom center;
 }
 
-/* Metric 1 victory bounce */
-.metric-item:nth-child(1) .metric-stick-wrap {
-  animation: stickbounce 1.8s cubic-bezier(0.36,0.07,0.19,0.97) infinite;
-}
-/* Metric 2 running stride */
-.metric-item:nth-child(2) .metric-stick-wrap {
-  animation: stickrun 0.7s ease-in-out infinite alternate;
-  animation-delay: 0.3s;
-}
-/* Metric 3 satisfied nod */
-.metric-item:nth-child(3) .metric-stick-wrap {
-  animation: sticknod 2.6s ease-in-out infinite;
-  animation-delay: 0.9s;
-}
+.metric-item:nth-child(1) .metric-stick-wrap { animation: stickbounce 1.8s cubic-bezier(0.36,0.07,0.19,0.97) infinite; }
+.metric-item:nth-child(2) .metric-stick-wrap { animation: stickrun 0.7s ease-in-out infinite alternate; animation-delay: 0.3s; }
+.metric-item:nth-child(3) .metric-stick-wrap { animation: sticknod 2.6s ease-in-out infinite; animation-delay: 0.9s; }
 
 @keyframes stickbounce {
-  0%,100% { transform: translateY(0)   scaleY(1);   }
+  0%,100% { transform: translateY(0) scaleY(1); }
   15%     { transform: translateY(-12px) scaleY(1.06); }
-  30%     { transform: translateY(0)   scaleY(0.94); }
-  45%     { transform: translateY(-6px)  scaleY(1.03); }
-  60%     { transform: translateY(0)   scaleY(1);   }
+  30%     { transform: translateY(0) scaleY(0.94); }
+  45%     { transform: translateY(-6px) scaleY(1.03); }
+  60%     { transform: translateY(0) scaleY(1); }
 }
 @keyframes stickrun {
   0%   { transform: rotate(-5deg) translateX(-2px); }
-  100% { transform: rotate(5deg)  translateX(2px);  }
+  100% { transform: rotate(5deg)  translateX(2px); }
 }
 @keyframes sticknod {
   0%,70%,100% { transform: rotate(0deg) translateY(0); }
   35%         { transform: rotate(-7deg) translateY(-2px); }
 }
 
-/* PIN */
+/* ── PIN ──────────────────────────────────────────────────────────────────── */
 .card-pin {
   position: absolute;
   top: -13px;
@@ -245,15 +301,15 @@ main { position: relative; z-index: 1; }
 .pin-r1 { right: 28px; transform: rotate(9deg);  }
 .pin-r2 { right: 22px; transform: rotate(-6deg); }
 .pin-r3 { right: 32px; transform: rotate(14deg); }
-.pin-r4 { right: 18px; transform: rotate(-11deg);}
+.pin-r4 { right: 18px; transform: rotate(-11deg); }
 .pin-r5 { right: 26px; transform: rotate(5deg);  }
 
 .metric-val-wrap { display: block; }
 
 .metric-val {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: clamp(60px, 7vw, 90px);
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(52px, 6vw, 80px);
   line-height: 1;
   margin-bottom: 0;
 }
@@ -268,7 +324,7 @@ main { position: relative; z-index: 1; }
 
 .metric-unit {
   font-family: 'DM Mono', monospace;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--body);
   font-weight: 600;
   margin-bottom: 4px;
@@ -283,7 +339,7 @@ main { position: relative; z-index: 1; }
   font-weight: 500;
 }
 
-/* STATS STRIP */
+/* ── STATS STRIP ──────────────────────────────────────────────────────────── */
 .stats-strip {
   display: flex;
   align-items: center;
@@ -308,10 +364,10 @@ main { position: relative; z-index: 1; }
 }
 @keyframes stickwave {
   0%   { transform: rotate(-14deg); }
-  100% { transform: rotate(14deg);  }
+  100% { transform: rotate(14deg); }
 }
 
-/* SECTIONS */
+/* ── SECTIONS ─────────────────────────────────────────────────────────────── */
 .section {
   padding: 80px 48px 80px 120px;
   max-width: 1280px;
@@ -326,9 +382,7 @@ main { position: relative; z-index: 1; }
   margin-bottom: 40px;
 }
 
-.section-content p, .section-content li { font-weight: 500; }
-
-/* CASE STUDY CARDS */
+/* ── CASE STUDY CARDS ─────────────────────────────────────────────────────── */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -342,6 +396,8 @@ main { position: relative; z-index: 1; }
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 3px 4px 0 rgba(139,100,60,0.12);
+  cursor: pointer;
+  border-radius: 2px;
 }
 
 .card-link:hover {
@@ -373,9 +429,9 @@ main { position: relative; z-index: 1; }
 }
 
 .card-val {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: clamp(40px, 5vw, 60px);
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(36px, 4.5vw, 54px);
   line-height: 1;
   margin-bottom: 4px;
 }
@@ -405,14 +461,6 @@ main { position: relative; z-index: 1; }
   line-height: 1.4;
 }
 
-.card-bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  color: var(--pencil);
-  font-size: 12px;
-}
-
 .card-cta {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
@@ -421,7 +469,20 @@ main { position: relative; z-index: 1; }
   margin-top: 12px;
 }
 
-/* AI CARDS */
+/* Repo link on each card */
+.card-repo-link { margin-top: 10px; }
+.repo-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s, color 0.2s;
+  display: inline-block;
+}
+.repo-link:hover { opacity: 1; color: var(--ink); }
+
+/* ── AI CARDS ─────────────────────────────────────────────────────────────── */
 .ai-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -441,41 +502,41 @@ main { position: relative; z-index: 1; }
   color: var(--pencil);
 }
 
-/* SERVICES */
+/* ── SERVICES ─────────────────────────────────────────────────────────────── */
 .services-list { list-style: none; }
 
 .service-row {
   display: grid;
-  grid-template-columns: 4px 1fr auto auto;
-  gap: 24px;
-  align-items: center;
+  grid-template-columns: 4px 1fr auto;
+  gap: 28px;
+  align-items: start;
   border-bottom: 1px solid var(--rule);
   padding: 28px 0;
-  transition: box-shadow 0.2s;
-}
-
-.service-row:hover {
-  box-shadow: 2px 3px 0 rgba(139,100,60,0.15);
 }
 
 .service-accent {
   width: 4px;
-  height: 48px;
+  height: 52px;
   border-radius: 2px;
+  margin-top: 4px;
 }
+
+.service-info { flex: 1; }
 
 .service-name {
   font-family: 'Instrument Sans', sans-serif;
   font-weight: 700;
-  font-size: 23px;
+  font-size: 21px;
   color: var(--body);
+  margin-bottom: 6px;
 }
 
-.service-price {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: 38px;
-  line-height: 1;
+.service-desc {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: var(--pencil);
+  line-height: 1.65;
+  max-width: 560px;
 }
 
 .service-timeline {
@@ -484,29 +545,95 @@ main { position: relative; z-index: 1; }
   color: var(--pencil);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  text-align: right;
+  white-space: nowrap;
+  padding-top: 6px;
 }
 
-/* WHY ME */
-.why-grid {
+/* ── ME SECTION (formerly Why Me) ─────────────────────────────────────────── */
+.me-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 260px 1fr;
+  gap: 72px;
   align-items: start;
 }
 
-.why-statement {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: 1.05;
-  color: var(--ink);
+.me-photo-col { display: flex; flex-direction: column; gap: 0; }
+
+.me-photo-wrap {
+  position: relative;
+  border-radius: 2px;
+  overflow: visible;
 }
 
+.me-photo {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+  object-fit: cover;
+  aspect-ratio: 4/5;
+  background: var(--rule); /* placeholder bg while image loads */
+}
+
+/* Placeholder when photo hasn't been added yet */
+.me-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--rule);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.me-photo-rough {
+  position: absolute;
+  inset: -7px;
+  width: calc(100% + 14px);
+  height: calc(100% + 14px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.me-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  margin-top: 14px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.me-content-col { min-width: 0; }
+
+.me-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.me-bio {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  color: var(--body);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  max-width: 560px;
+}
+
+/* Why/Me cards (reused from original why-points) */
 .why-points {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 32px;
 }
 
 .why-card {
@@ -522,8 +649,6 @@ main { position: relative; z-index: 1; }
   position: relative;
 }
 
-.why-card-content {}
-
 .why-card-num {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
@@ -538,79 +663,133 @@ main { position: relative; z-index: 1; }
   line-height: 1.5;
 }
 
-/* CTA */
+/* ── CONTACT SECTION ──────────────────────────────────────────────────────── */
 .cta-section {
-  padding: 100px 48px 100px 120px;
+  padding: 96px 48px 96px 120px;
   max-width: 1280px;
   margin: 0 auto;
-  text-align: center;
-}
-
-.cta-section h2 {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 800;
-  font-size: clamp(60px, 7vw, 90px);
-  color: var(--ink);
-  line-height: 1;
-  margin-bottom: 16px;
-}
-
-.cta-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  color: var(--pencil);
-  margin-bottom: 40px;
-}
-
-.cta-btn-wrap {
   position: relative;
-  display: inline-block;
 }
 
-.cta-btn-canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
 }
 
-.cta-btn {
-  display: inline-block;
+.contact-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(64px, 8vw, 104px);
+  line-height: 0.92;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.contact-sub {
   font-family: 'Instrument Sans', sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--ink);
-  text-decoration: none;
-  padding: 16px 40px;
-  position: relative;
-  z-index: 1;
+  font-size: 16px;
+  color: var(--pencil);
+  line-height: 1.65;
+  max-width: 380px;
+  margin-bottom: 36px;
 }
 
-/* FOOTER */
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 24px 48px 24px 120px;
+.contact-channels {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
+  flex-direction: column;
+  gap: 0;
 }
 
-footer span {
+.contact-channel {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: padding-left 0.2s;
+}
+.contact-channel:first-child { border-top: 1px solid var(--rule); }
+.contact-channel:hover { padding-left: 6px; }
+
+.channel-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.channel-val {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Contact form */
+.contact-right { padding-top: 8px; }
+
+.contact-form-label-top {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.form-field { margin-bottom: 20px; }
+
+.form-label {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   color: var(--pencil);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 8px;
 }
 
-/* STICKMAN SVG */
-.stickman {
-  stroke: var(--pencil);
-  fill: none;
-  opacity: 0.5;
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  border-radius: 2px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus { border-color: var(--pencil); }
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
 }
 
-/* FLOATING SECTION STICKMEN */
+.form-submit {
+  background: var(--ink);
+  color: var(--bg);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 30px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+}
+.form-submit:hover { background: var(--rose); transform: translateY(-1px); }
+
+/* ── FLOATING SECTION STICKMEN ────────────────────────────────────────────── */
 .float-section-stick {
   position: absolute;
   pointer-events: none;
@@ -618,14 +797,12 @@ footer span {
   opacity: 0.85;
   transform-origin: bottom center;
 }
-/* Services: presenter — center-right of section, away from the list rows */
 #float-stick-services {
   right: 8px;
   top: 50%;
-  margin-top: -80px;         /* half canvas height — vertically centred */
+  margin-top: -80px;
   animation: fsway-slow 5.8s ease-in-out infinite;
 }
-/* Why Me: arms-crossed expert — lower right, below the why-statement */
 #float-stick-why {
   right: 8px;
   top: 50%;
@@ -633,10 +810,9 @@ footer span {
   animation: fsway-med 4.4s ease-in-out infinite;
   animation-delay: 0.6s;
 }
-/* CTA: handshake ready — bottom right, centred text doesn't go there */
 #float-stick-cta {
   right: 48px;
-  bottom: 72px;
+  bottom: 80px;
   animation: fsway-bounce 3.8s ease-in-out infinite;
   animation-delay: 1.1s;
 }
@@ -654,30 +830,84 @@ footer span {
   30%      { transform: rotate(3deg) translateY(-10px); }
   60%      { transform: rotate(-1deg) translateY(-5px); }
 }
-/* Give services and why sections right breathing room so stickman never overlaps */
 #services { position: relative; padding-right: 110px !important; }
-#why      { position: relative; padding-right: 110px !important; }
+#me       { position: relative; padding-right: 110px !important; }
 .cta-section { position: relative; }
-@media (max-width: 1100px) { .float-section-stick { display: none; }
+@media (max-width: 1100px) {
+  .float-section-stick { display: none; }
   #services { padding-right: 48px !important; }
-  #why      { padding-right: 48px !important; }
+  #me       { padding-right: 48px !important; }
 }
 
-/* MOBILE */
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 28px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.footer-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--pencil);
+}
+
+.footer-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  opacity: 0.6;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+.footer-link {
+  color: var(--pencil);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-link:hover { color: var(--ink); }
+
+.footer-sep { opacity: 0.35; }
+.footer-copy { opacity: 0.55; }
+
+/* ── MOBILE ───────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .me-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
 @media (max-width: 768px) {
   body::before { display: none; }
 
-  nav { padding: 0 20px; }
+  nav { padding: 0 20px; height: 60px; }
   .nav-links { display: none; }
+  .nav-full-name { display: none; }
 
   .hero {
     padding: 48px 20px;
     grid-template-columns: 1fr;
     gap: 40px;
   }
-
-  .hero h1 { font-size: 64px; }
-
+  .hero h1 { font-size: 58px; }
   .hero-canvas-wrap { display: none; }
 
   .metrics {
@@ -685,17 +915,14 @@ footer span {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-
   .metric-item {
     border-right: none;
     border-bottom: 1px solid var(--rule);
     padding: 0 0 24px 0 !important;
     align-items: flex-end;
   }
-
   .metric-item:last-child { border-bottom: none; padding-bottom: 0 !important; }
-
-  .metric-val { font-size: 52px; }
+  .metric-val { font-size: 48px; }
   .metric-stick-wrap canvas { width: 36px !important; height: 60px !important; }
 
   .section { padding: 48px 20px; }
@@ -707,21 +934,18 @@ footer span {
     grid-template-columns: 4px 1fr;
     gap: 12px;
   }
-  .service-price { display: none; }
-
-  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .service-timeline { display: none; }
 
   .cta-section { padding: 60px 20px; }
 
   footer {
     padding: 24px 20px;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     text-align: center;
   }
 
   .card { padding: 20px; }
-
   .stats-strip { padding: 16px 20px; }
 }
 </style>
@@ -731,29 +955,30 @@ footer span {
 <!-- NAV -->
 <nav>
   <a class="nav-name" href="index.html">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-      <polyline points="9,22 9,12 15,12 15,22"/>
-    </svg>
-    Ramneek Singh
+    <span class="nav-wordmark">RS<span class="nav-wordmark-dot">·</span></span>
+    <span class="nav-full-name">Ramneek Singh</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#results">Results</a></li>
-    <li><a href="#ai">AI</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#why">Why Me</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#me">Me</a></li>
+    <li><a href="#contact" class="nav-cta-link">Say Hi</a></li>
   </ul>
 </nav>
 
 <main>
 
 <!-- HERO -->
-<section class="hero" id="results">
+<section class="hero" id="hero">
   <div class="hero-left">
     <p class="hero-kicker">AWS Data Engineer / Serverless Infrastructure</p>
     <h1>Your data should <span class="accent">cost less.</span></h1>
-    <p class="hero-sub">I build the AWS data infrastructure your team depends on. Serverless by default, delivered in CDK, handed off clean. You get lower bills, faster pipelines, and data that actually shows up.</p>
+    <p class="hero-sub">I build the AWS data infrastructure your team depends on. Serverless by default, delivered in CDK, handed off clean. Lower bills, faster pipelines, data that actually shows up.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="hero-cta-btn">Say Hi →</a>
+      <span class="hero-cta-sep">or</span>
+      <a href="mailto:ramneek2307@gmail.com" class="hero-cta-email">email me directly</a>
+    </div>
   </div>
   <div class="hero-canvas-wrap">
     <canvas id="hero-canvas" width="320" height="360"></canvas>
@@ -817,13 +1042,13 @@ footer span {
   <canvas class="strip-stickman" width="28" height="50"></canvas>
 </div>
 
-<!-- CASE STUDIES -->
-<section class="section" id="case-studies">
-  <div class="section-label">Case Studies</div>
+<!-- PROJECTS (Case Studies + AI) -->
+<section class="section" id="projects">
+  <div class="section-label">Projects</div>
   <div class="cards-grid">
 
     <!-- Card 1: FinOps -->
-    <a href="finops.html" class="card-link">
+    <div class="card-link" onclick="location.href='finops.html'">
       <div class="card" data-rough-color="rose">
         <canvas class="card-canvas" data-card></canvas>
         <div class="card-pin pin-r1"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="rose"></canvas></div>
@@ -837,11 +1062,14 @@ footer span {
           <li>Nightly automated audit</li>
         </ul>
         <div class="card-cta" style="color:var(--rose)">View case study →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/aws-cost-optimizer" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / aws-cost-optimizer</a>
+        </div>
       </div>
-    </a>
+    </div>
 
     <!-- Card 2: Lakehouse -->
-    <a href="lakehouse.html" class="card-link">
+    <div class="card-link" onclick="location.href='lakehouse.html'">
       <div class="card" data-rough-color="blue">
         <canvas class="card-canvas" data-card></canvas>
         <div class="card-pin pin-r2"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="blue"></canvas></div>
@@ -855,11 +1083,14 @@ footer span {
           <li>Zero-downtime cutover</li>
         </ul>
         <div class="card-cta" style="color:var(--blue)">View case study →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/aws-data-lakehouse" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / aws-data-lakehouse</a>
+        </div>
       </div>
-    </a>
+    </div>
 
     <!-- Card 3: Airflow -->
-    <a href="airflow.html" class="card-link">
+    <div class="card-link" onclick="location.href='airflow.html'">
       <div class="card" data-rough-color="amber">
         <canvas class="card-canvas" data-card></canvas>
         <div class="card-pin pin-r3"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="amber"></canvas></div>
@@ -873,19 +1104,22 @@ footer span {
           <li>One-click replay</li>
         </ul>
         <div class="card-cta" style="color:var(--amber)">View case study →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/airflow-etl-orchestration" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / airflow-etl-orchestration</a>
+        </div>
       </div>
-    </a>
+    </div>
 
   </div>
 </section>
 
-<!-- AI PROJECTS -->
+<!-- AI PROJECTS (under the Projects umbrella) -->
 <section class="section" id="ai" style="padding-top:0">
-  <div class="section-label">AI Projects</div>
+  <div class="section-label" style="font-size:16px;opacity:0.7">AI Projects</div>
   <div class="ai-grid">
 
     <!-- AI Card 1 -->
-    <a href="bedrock-finops.html" class="card-link">
+    <div class="card-link" onclick="location.href='bedrock-finops.html'">
       <div class="card" style="position:relative">
         <canvas class="card-canvas" data-card data-rough-color="lav"></canvas>
         <div class="card-pin pin-r4"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="lav"></canvas></div>
@@ -899,12 +1133,15 @@ footer span {
           <li>Plain-English exec summary</li>
           <li>Runs at 03:00 UTC after data collection</li>
         </ul>
-        <div class="card-cta" style="color:var(--lav);font-family:'DM Mono',monospace;font-size:12px;margin-top:12px;">View project →</div>
+        <div class="card-cta" style="color:var(--lav)">View project →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/aws-bedrock-data-agent" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / aws-bedrock-data-agent</a>
+        </div>
       </div>
-    </a>
+    </div>
 
     <!-- AI Card 2 -->
-    <a href="bedrock-agent.html" class="card-link">
+    <div class="card-link" onclick="location.href='bedrock-agent.html'">
       <div class="card" style="position:relative">
         <canvas class="card-canvas" data-card data-rough-color="sage"></canvas>
         <div class="card-pin pin-r5"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="sage"></canvas></div>
@@ -918,9 +1155,12 @@ footer span {
           <li>Blocks PII and all write ops</li>
           <li>No BI tool needed</li>
         </ul>
-        <div class="card-cta" style="color:var(--sage);font-family:'DM Mono',monospace;font-size:12px;margin-top:12px;">View project →</div>
+        <div class="card-cta" style="color:var(--sage)">View project →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/aws-bedrock-data-agent" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / aws-bedrock-data-agent</a>
+        </div>
       </div>
-    </a>
+    </div>
 
   </div>
 </section>
@@ -930,103 +1170,168 @@ footer span {
   <canvas class="float-section-stick" id="float-stick-services" width="82" height="160"></canvas>
   <div class="section-label">Services</div>
   <ul class="services-list">
+
     <li class="service-row">
       <div class="service-accent" style="background:var(--rose)"></div>
-      <div class="service-name">FinOps Audit</div>
-      <div class="service-price" style="color:var(--rose)">from $1,500</div>
+      <div class="service-info">
+        <div class="service-name">FinOps Audit</div>
+        <p class="service-desc">CloudWatch + Cost Explorer deep-dive on your Lambda and Glue spend. You get a prioritized action list with ready-to-apply config patches — and a CDK stack that keeps watching costs after I leave.</p>
+      </div>
       <div class="service-timeline">1 week</div>
     </li>
+
     <li class="service-row">
       <div class="service-accent" style="background:var(--blue)"></div>
-      <div class="service-name">Serverless ETL Pipeline</div>
-      <div class="service-price" style="color:var(--blue)">from $3,500</div>
+      <div class="service-info">
+        <div class="service-name">Serverless ETL Pipeline</div>
+        <p class="service-desc">S3 trigger → MWAA DAG → Glue PySpark → Lambda validator → Redshift COPY. Idempotent, observable from day one. CloudWatch dashboard and Slack alerting included as standard.</p>
+      </div>
       <div class="service-timeline">2–3 weeks</div>
     </li>
+
     <li class="service-row">
       <div class="service-accent" style="background:var(--amber)"></div>
-      <div class="service-name">Lakehouse Build</div>
-      <div class="service-price" style="color:var(--amber)">from $5,000</div>
+      <div class="service-info">
+        <div class="service-name">Lakehouse Build</div>
+        <p class="service-desc">Full medallion architecture on Apache Iceberg — Bronze ingest, Silver CDC, Gold aggregates. Parallel migration with automatic cutover, dbt on Redshift Serverless for your BI layer. Zero downtime.</p>
+      </div>
       <div class="service-timeline">3–4 weeks</div>
     </li>
+
     <li class="service-row" style="border-bottom:none">
       <div class="service-accent" style="background:var(--lav)"></div>
-      <div class="service-name">AI Data Agent</div>
-      <div class="service-price" style="color:var(--lav)">from $2,500</div>
+      <div class="service-info">
+        <div class="service-name">AI Data Agent</div>
+        <p class="service-desc">Business users query your Iceberg data in plain English — no SQL, no BI tool. Bedrock Agent with Athena action group, input validation, scoped IAM, CDK-deployed. Your analyst queue disappears.</p>
+      </div>
       <div class="service-timeline">1–2 weeks</div>
     </li>
+
   </ul>
 </section>
 
-<!-- WHY ME -->
-<section class="section" id="why" style="padding-top:0">
+<!-- ME (formerly Why Me) -->
+<section class="section" id="me" style="padding-top:0">
   <canvas class="float-section-stick" id="float-stick-why" width="82" height="160"></canvas>
-  <div class="section-label">Why Me</div>
-  <div class="why-grid">
-    <div class="why-statement">5+ years.<br>Production scale.<br>Zero BS.</div>
-    <div class="why-points">
+  <div class="section-label">Me</div>
+  <div class="me-grid">
 
-      <div class="why-card">
-        <div class="why-card-canvas-wrap">
-          <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
-        </div>
-        <div class="why-card-content">
-          <div class="why-card-num">01</div>
-          <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff, no dependency on me.</div>
-        </div>
+    <div class="me-photo-col">
+      <div class="me-photo-wrap">
+        <img src="assets/ramneek.jpg" alt="Ramneek Singh" class="me-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="me-photo-placeholder" style="display:none">📸<br>Drop assets/ramneek.jpg<br>here</div>
+        <canvas class="me-photo-rough" id="me-photo-canvas"></canvas>
       </div>
+      <div class="me-tagline">AWS Data Engineer<br>Based in Canada</div>
+    </div>
 
-      <div class="why-card">
-        <div class="why-card-canvas-wrap">
-          <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
+    <div class="me-content-col">
+      <div class="me-headline">5+ years.<br>Production scale.<br>Zero BS.</div>
+
+      <p class="me-bio">I'm a data engineer who got tired of watching teams waste money on infrastructure nobody revisited after launch. Over-provisioned Lambda, fixed-DPU Glue jobs, Hive tables nobody wanted to touch. Now I fix it.</p>
+
+      <p class="me-bio">Before freelancing I worked embedded in a SaaS platform team — production Glue, CDK v2, multi-account AWS. I write open-source code, ship IaC-first, and hand off infrastructure your team can actually own on day one.</p>
+
+      <div class="why-points">
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">01</div>
+            <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff — no dependency on me.</div>
+          </div>
         </div>
-        <div class="why-card-content">
-          <div class="why-card-num">02</div>
-          <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">02</div>
+            <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
+          </div>
         </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">03</div>
+            <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">04</div>
+            <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
+          </div>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-canvas-wrap">
+            <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
+          </div>
+          <div class="why-card-content">
+            <div class="why-card-num">05</div>
+            <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
+          </div>
+        </div>
+
       </div>
-
-      <div class="why-card">
-        <div class="why-card-canvas-wrap">
-          <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
-        </div>
-        <div class="why-card-content">
-          <div class="why-card-num">03</div>
-          <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
-        </div>
-      </div>
-
-      <div class="why-card">
-        <div class="why-card-canvas-wrap">
-          <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
-        </div>
-        <div class="why-card-content">
-          <div class="why-card-num">04</div>
-          <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
-        </div>
-      </div>
-
-      <div class="why-card">
-        <div class="why-card-canvas-wrap">
-          <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
-        </div>
-        <div class="why-card-content">
-          <div class="why-card-num">05</div>
-          <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CONTACT / SAY HI -->
 <section class="cta-section" id="contact">
   <canvas class="float-section-stick" id="float-stick-cta" width="82" height="160"></canvas>
-  <h2>Ready to ship?</h2>
-  <p class="cta-sub">ramneek2307@gmail.com · github.com/RkSinghDeo</p>
-  <div class="cta-btn-wrap">
-    <canvas class="cta-btn-canvas" id="cta-canvas"></canvas>
-    <a href="mailto:ramneek2307@gmail.com" class="cta-btn">Get in touch</a>
+  <div class="contact-grid">
+
+    <div class="contact-left">
+      <h2 class="contact-headline">Say<br>Hi.</h2>
+      <p class="contact-sub">Whether you have a project brief, a vague idea, or just want to know if your Glue setup is totally insane — I'm happy to hear from you.</p>
+      <div class="contact-channels">
+        <a href="mailto:ramneek2307@gmail.com" class="contact-channel">
+          <span class="channel-label">email</span>
+          <span class="channel-val">ramneek2307@gmail.com</span>
+        </a>
+        <a href="https://linkedin.com/in/ramneeksingh" target="_blank" rel="noopener" class="contact-channel">
+          <span class="channel-label">linkedin</span>
+          <span class="channel-val">Connect with me →</span>
+        </a>
+        <a href="https://github.com/RkSinghDeo" target="_blank" rel="noopener" class="contact-channel">
+          <span class="channel-label">github</span>
+          <span class="channel-val">Read the code first →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <span class="contact-form-label-top">Drop me a line</span>
+      <form class="contact-form" onsubmit="handleContactForm(event)">
+        <div class="form-field">
+          <label class="form-label" for="contact-name">What's your name?</label>
+          <input type="text" class="form-input" id="contact-name" name="name" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-email">Your email</label>
+          <input type="email" class="form-input" id="contact-email" name="email" placeholder="you@company.com" autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="contact-msg">What's on your mind?</label>
+          <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question — anything works."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send it →</button>
+      </form>
+    </div>
+
   </div>
 </section>
 
@@ -1034,8 +1339,17 @@ footer span {
 
 <!-- FOOTER -->
 <footer>
-  <span>Ramneek Singh / AWS Data Engineer</span>
-  <span>rksinghdeo.github.io</span>
+  <div class="footer-left">
+    <span class="footer-name">Ramneek Singh</span>
+    <span class="footer-role">AWS Data Engineer</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/ramneeksingh" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    <span class="footer-sep">·</span>
+    <a href="https://github.com/RkSinghDeo" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+    <span class="footer-sep">·</span>
+    <span class="footer-copy">© 2025 Ramneek Singh</span>
+  </div>
 </footer>
 
 <script>
@@ -1049,20 +1363,39 @@ const colorMap = {
   pencil:'#6B5040'
 };
 
-// ─── Rough.js card borders ────────────────────────────────────────────────────
-function drawCardBorder(canvas, colorKey) {
-  if (!canvas || !window.rough) return;
-  const rc = rough.canvas(canvas);
-  const w = canvas.offsetWidth || canvas.width;
-  const h = canvas.offsetHeight || canvas.height;
-  canvas.width = w;
-  canvas.height = h;
-  const color = colorMap[colorKey] || colorMap.pencil;
-  rc.rectangle(4, 4, w - 8, h - 8, {
-    roughness: 1.6,
-    bowing: 0.8,
-    strokeWidth: 1.8,
-    stroke: color
+// ─── Contact form (mailto fallback) ─────────────────────────────────────────
+function handleContactForm(e) {
+  e.preventDefault();
+  const name    = document.getElementById('contact-name').value.trim();
+  const email   = document.getElementById('contact-email').value.trim();
+  const message = document.getElementById('contact-msg').value.trim();
+  const subject = name ? `Hey from ${name}` : 'Hey from your portfolio';
+  const body    = `${message}${email ? '\n\nReply to: ' + email : ''}`;
+  window.location.href = `mailto:ramneek2307@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// ─── Rough.js card borders ───────────────────────────────────────────────────
+function initCardBorders() {
+  document.querySelectorAll('[data-card]').forEach(canvas => {
+    const card = canvas.closest('.card');
+    const colorKey = canvas.dataset.roughColor || card?.dataset.roughColor || 'pencil';
+    const updateSize = () => {
+      const w = canvas.parentElement.offsetWidth;
+      const h = canvas.parentElement.offsetHeight;
+      if (w > 0 && h > 0) {
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, w, h);
+        const rc = rough.canvas(canvas);
+        const color = colorMap[colorKey] || colorMap.pencil;
+        rc.rectangle(4, 4, w - 8, h - 8, {
+          roughness: 1.6, bowing: 0.8, strokeWidth: 1.8, stroke: color
+        });
+      }
+    };
+    setTimeout(updateSize, 50);
+    window.addEventListener('resize', updateSize);
   });
 }
 
@@ -1073,50 +1406,40 @@ function drawHero() {
   const rc = rough.canvas(c);
   const ctx = c.getContext('2d');
 
-  // Server box top right
   rc.rectangle(140, 20, 150, 80, { stroke:'#B9B4AA', strokeWidth:1.8, roughness:2, bowing:1 });
   ctx.font = '400 13px DM Mono, monospace';
   ctx.fillStyle = '#9BB9D7';
   ctx.fillText('AWS', 188, 58);
   ctx.fillText('CLOUD', 179, 76);
 
-  // Pipeline dots from server downward
   for(let i=0;i<4;i++){
     rc.circle(215, 115+i*22, 5, { stroke:'#B9B4AA', strokeWidth:1, roughness:1, fill:'#B9B4AA', fillStyle:'solid' });
   }
 
-  // Stickman bottom left
   const sx=80, sy=220;
   rc.circle(sx, sy-52, 24, { stroke:'#2A1F14', strokeWidth:2, roughness:1.2 });
   rc.line(sx, sy-40, sx, sy+8, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  // arm pointing up-right toward server
   rc.line(sx, sy-20, sx+50, sy-60, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  // other arm down
   rc.line(sx, sy-20, sx-30, sy+10, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
   rc.line(sx, sy+8, sx-22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
   rc.line(sx, sy+8, sx+22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
 
-  // Dashed arrow from stickman hand toward server
   rc.line(sx+50, sy-60, 155, 60, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1.5, strokeLineDash:[6,4] });
-  // arrowhead
   rc.line(155, 60, 148, 48, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
   rc.line(155, 60, 164, 52, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
 
-  // "$33K saved" label
   ctx.font = '700 15px DM Mono, monospace';
   ctx.fillStyle = '#D29B8C';
   ctx.fillText('$33K saved', 148, 32);
 
-  // Checkmark circle bottom
   rc.circle(215, 310, 40, { stroke:'#91C3AA', strokeWidth:2, roughness:1.5 });
   rc.line(200, 310, 210, 322, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
   rc.line(210, 322, 232, 296, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
 
-  // Faint pipeline connector horizontal
   rc.line(215, 100, 215, 270, { stroke:'#EAE7E2', strokeWidth:1, roughness:1 });
 }
 
-// ─── Why Me circles ──────────────────────────────────────────────────────────
+// ─── Why Me / Me circles ─────────────────────────────────────────────────────
 function drawWhyCircles() {
   document.querySelectorAll('.why-circle-canvas').forEach(canvas => {
     if (!window.rough) return;
@@ -1125,27 +1448,22 @@ function drawWhyCircles() {
     const color = colorMap[colorKey];
     rc.circle(18, 18, 28, {
       roughness: 1.6, bowing: 0.8, strokeWidth: 1.8,
-      stroke: color,
-      fill: color,
-      fillStyle: 'solid',
-      fillWeight: 0.5
+      stroke: color, fill: color, fillStyle: 'solid', fillWeight: 0.5
     });
   });
 }
 
-// ─── CTA button border ────────────────────────────────────────────────────────
-function drawCtaBtn() {
-  const canvas = document.getElementById('cta-canvas');
+// ─── Me photo rough border ───────────────────────────────────────────────────
+function drawMePhotoRough() {
+  const canvas = document.getElementById('me-photo-canvas');
   if (!canvas || !window.rough) return;
-  const btn = canvas.closest('.cta-btn-wrap').querySelector('.cta-btn');
-  const w = btn.offsetWidth || 200;
-  const h = btn.offsetHeight || 58;
+  const w = canvas.offsetWidth || 274;
+  const h = canvas.offsetHeight || 342;
   canvas.width = w;
   canvas.height = h;
-  const rc = rough.canvas(canvas);
-  rc.rectangle(3, 3, w - 6, h - 6, {
-    roughness: 1.6, bowing: 0.8, strokeWidth: 2,
-    stroke: colorMap.pencil
+  rough.canvas(canvas).rectangle(4, 4, w - 8, h - 8, {
+    roughness: 2.2, bowing: 1, strokeWidth: 2,
+    stroke: colorMap.sage
   });
 }
 
@@ -1164,47 +1482,14 @@ function animateCounters() {
       el.textContent = prefix + Math.round(eased * target) + suffix;
       if (progress < 1) requestAnimationFrame(step);
     };
-    // Trigger on intersection
     const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        requestAnimationFrame(step);
-        observer.disconnect();
-      }
+      if (entries[0].isIntersecting) { requestAnimationFrame(step); observer.disconnect(); }
     }, { threshold: 0.3 });
     observer.observe(el);
   });
 }
 
-// ─── Init all card borders ────────────────────────────────────────────────────
-function initCardBorders() {
-  document.querySelectorAll('[data-card]').forEach(canvas => {
-    const card = canvas.closest('.card');
-    const colorKey = canvas.dataset.roughColor || card?.dataset.roughColor || 'pencil';
-
-    const updateSize = () => {
-      const w = canvas.parentElement.offsetWidth;
-      const h = canvas.parentElement.offsetHeight;
-      if (w > 0 && h > 0) {
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, w, h);
-        const rc = rough.canvas(canvas);
-        const color = colorMap[colorKey] || colorMap.pencil;
-        rc.rectangle(4, 4, w - 8, h - 8, {
-          roughness: 1.6, bowing: 0.8, strokeWidth: 1.8,
-          stroke: color
-        });
-      }
-    };
-
-    // Initial draw after layout
-    setTimeout(updateSize, 50);
-    window.addEventListener('resize', updateSize);
-  });
-}
-
-// ─── Metric stickmen 3 distinct poses ──────────────────────────────────────
+// ─── Metric stickmen ─────────────────────────────────────────────────────────
 function drawMetricStickman(canvas, colorKey, pose) {
   if (!canvas || !window.rough) return;
   const rc = rough.canvas(canvas);
@@ -1214,55 +1499,46 @@ function drawMetricStickman(canvas, colorKey, pose) {
   const oThin = { stroke: color, strokeWidth: 0.9, roughness: 2 };
 
   if (pose === 'victory') {
-    // Arms raised in V, small stars scattered around
     const cx = 25, hy = 12, r = 8;
     rc.circle(cx, hy, r*2, o);
-    rc.line(cx, hy+r, cx, hy+r+22, o);                         // body
-    rc.line(cx, hy+r+7, cx-17, hy+r-9, o);                     // left arm up-left
-    rc.line(cx, hy+r+7, cx+17, hy+r-9, o);                     // right arm up-right
-    rc.line(cx, hy+r+22, cx-11, hy+r+42, o);                   // left leg
-    rc.line(cx, hy+r+22, cx+11, hy+r+42, o);                   // right leg
-    // tiny star sparkles
+    rc.line(cx, hy+r, cx, hy+r+22, o);
+    rc.line(cx, hy+r+7, cx-17, hy+r-9, o);
+    rc.line(cx, hy+r+7, cx+17, hy+r-9, o);
+    rc.line(cx, hy+r+22, cx-11, hy+r+42, o);
+    rc.line(cx, hy+r+22, cx+11, hy+r+42, o);
     ctx.fillStyle = color; ctx.globalAlpha = 0.7; ctx.font = '9px serif';
     ctx.fillText('★', cx+14, hy-2);
     ctx.fillText('★', cx-20, hy+4);
     ctx.globalAlpha = 1;
 
   } else if (pose === 'run') {
-    // Leaning forward, mid-stride, motion lines behind
     const cx = 24, hy = 10, r = 8;
     rc.circle(cx, hy, r*2, o);
-    // body tilted forward
     rc.line(cx, hy+r, cx+5, hy+r+22, o);
-    // arms swinging
-    rc.line(cx+1, hy+r+6, cx+17, hy+r+1, o);                   // arm fwd
-    rc.line(cx+1, hy+r+6, cx-12, hy+r+13, o);                  // arm back
-    // legs mid-stride
-    rc.line(cx+5, hy+r+22, cx+16, hy+r+36, o);                 // front leg
-    rc.line(cx+16, hy+r+36, cx+11, hy+r+48, o);                // front shin
-    rc.line(cx+5, hy+r+22, cx-5, hy+r+40, o);                  // back leg
-    // motion lines
+    rc.line(cx+1, hy+r+6, cx+17, hy+r+1, o);
+    rc.line(cx+1, hy+r+6, cx-12, hy+r+13, o);
+    rc.line(cx+5, hy+r+22, cx+16, hy+r+36, o);
+    rc.line(cx+16, hy+r+36, cx+11, hy+r+48, o);
+    rc.line(cx+5, hy+r+22, cx-5, hy+r+40, o);
     rc.line(cx-16, hy+r+10, cx-24, hy+r+8, oThin);
     rc.line(cx-16, hy+r+16, cx-26, hy+r+15, oThin);
     rc.line(cx-16, hy+r+22, cx-23, hy+r+21, oThin);
 
-  } else { // done / clipboard
+  } else {
     const cx = 22, hy = 11, r = 8;
     rc.circle(cx, hy, r*2, o);
-    rc.line(cx, hy+r, cx, hy+r+22, o);                         // body
-    rc.line(cx, hy+r+7, cx-14, hy+r+18, o);                    // left arm relaxed
-    rc.line(cx, hy+r+7, cx+13, hy+r+1, o);                     // right arm up (holding)
-    rc.line(cx, hy+r+22, cx-11, hy+r+40, o);                   // left leg
-    rc.line(cx, hy+r+22, cx+11, hy+r+40, o);                   // right leg
-    // clipboard (small rough rectangle in hand)
+    rc.line(cx, hy+r, cx, hy+r+22, o);
+    rc.line(cx, hy+r+7, cx-14, hy+r+18, o);
+    rc.line(cx, hy+r+7, cx+13, hy+r+1, o);
+    rc.line(cx, hy+r+22, cx-11, hy+r+40, o);
+    rc.line(cx, hy+r+22, cx+11, hy+r+40, o);
     rc.rectangle(cx+11, hy-3, 14, 18, { stroke: color, strokeWidth: 1.1, roughness: 1.8 });
-    // checkmark on clipboard
-    rc.line(cx+13, hy+8,  cx+16, hy+12, { stroke: color, strokeWidth: 1.5, roughness: 1 });
-    rc.line(cx+16, hy+12, cx+23, hy+3,  { stroke: color, strokeWidth: 1.5, roughness: 1 });
+    rc.line(cx+13, hy+8, cx+16, hy+12, { stroke: color, strokeWidth: 1.5, roughness: 1 });
+    rc.line(cx+16, hy+12, cx+23, hy+3, { stroke: color, strokeWidth: 1.5, roughness: 1 });
   }
 }
 
-// ─── Strip stickman waving hello ───────────────────────────────────────────
+// ─── Strip stickman ──────────────────────────────────────────────────────────
 function drawStripStickman() {
   const canvas = document.querySelector('.strip-stickman');
   if (!canvas || !window.rough) return;
@@ -1271,18 +1547,16 @@ function drawStripStickman() {
   const cx = 14, hy = 6, r = 5;
   const o = { stroke: color, strokeWidth: 1.2, roughness: 1.3 };
   rc.circle(cx, hy, r*2, o);
-  rc.line(cx, hy+r, cx, hy+r+15, o);                           // body
-  rc.line(cx, hy+r+5, cx+11, hy+r-5, o);                      // right arm waving UP
-  rc.line(cx, hy+r+5, cx-9, hy+r+10, o);                      // left arm out
-  rc.line(cx, hy+r+15, cx-7, hy+r+28, o);                     // left leg
-  rc.line(cx, hy+r+15, cx+7, hy+r+28, o);                     // right leg
-  // tiny wave lines near raised hand
-  const rc2 = rough.canvas(canvas);
-  rc2.line(cx+12, hy+r-9, cx+15, hy+r-6, { stroke: color, strokeWidth: 0.7, roughness: 2 });
-  rc2.line(cx+13, hy+r-6, cx+17, hy+r-4, { stroke: color, strokeWidth: 0.7, roughness: 2 });
+  rc.line(cx, hy+r, cx, hy+r+15, o);
+  rc.line(cx, hy+r+5, cx+11, hy+r-5, o);
+  rc.line(cx, hy+r+5, cx-9, hy+r+10, o);
+  rc.line(cx, hy+r+15, cx-7, hy+r+28, o);
+  rc.line(cx, hy+r+15, cx+7, hy+r+28, o);
+  rc.line(cx+12, hy+r-9, cx+15, hy+r-6, { stroke: color, strokeWidth: 0.7, roughness: 2 });
+  rc.line(cx+13, hy+r-6, cx+17, hy+r-4, { stroke: color, strokeWidth: 0.7, roughness: 2 });
 }
 
-// ─── Paper pins ──────────────────────────────────────────────────────────────
+// ─── Paper pins ───────────────────────────────────────────────────────────────
 function drawPins() {
   document.querySelectorAll('.card-pin-canvas').forEach(canvas => {
     if (!window.rough) return;
@@ -1290,23 +1564,20 @@ function drawPins() {
     const color = colorMap[colorKey];
     const rc = rough.canvas(canvas);
     const cx = 11, cy = 11, r = 8;
-    // Pin head filled soft circle
     rc.circle(cx, cy, r*2, {
       stroke: color, strokeWidth: 1.4, roughness: 1.5,
       fill: color, fillStyle: 'solid', fillWeight: 0.6
     });
-    // Highlight dot (hand-drawn feel)
     rc.circle(cx-3, cy-3, 4, {
       stroke: 'rgba(255,255,255,0.5)', strokeWidth: 0.6, roughness: 1,
       fill: 'rgba(255,255,255,0.3)', fillStyle: 'solid', fillWeight: 0.3
     });
-    // Pin shaft tapers to a point
     rc.line(cx, cy+r, cx-1, cy+r+10, { stroke: color, strokeWidth: 2.2, roughness: 1 });
     rc.line(cx-1, cy+r+10, cx, cy+r+15, { stroke: color, strokeWidth: 1.2, roughness: 1 });
   });
 }
 
-// ─── Metric underlines ───────────────────────────────────────────────────────
+// ─── Metric underlines ────────────────────────────────────────────────────────
 function drawMetricUnderlines() {
   document.querySelectorAll('.metric-ul').forEach(canvas => {
     if (!window.rough) return;
@@ -1323,7 +1594,7 @@ function drawMetricUnderlines() {
   });
 }
 
-// ─── Section floating stickmen (thinking / creating / accomplished) ──────────
+// ─── Section floating stickmen ────────────────────────────────────────────────
 function drawFloatSectionStick(id, colorKey, pose) {
   const canvas = document.getElementById(id);
   if (!canvas || !window.rough) return;
@@ -1335,74 +1606,50 @@ function drawFloatSectionStick(id, colorKey, pose) {
   const oT = { stroke: color, strokeWidth: 1.2,  roughness: 2   };
 
   if (pose === 'presenter') {
-    // ── Services: Consultant presenting the menu ──────────────────────────
-    // Standing upright, left hand on hip (elbow out), right arm extended
-    // forward-up with a pointing finger — "here are your options"
     const hy = 18, r = 12;
-    rc.circle(cx, hy, r*2, o);                         // head
-    rc.line(cx, hy+r, cx, hy+r+38, o);                 // body
-    // left arm: upper arm down-out, forearm back to hip (elbow out pose)
-    rc.line(cx, hy+r+10, cx-22, hy+r+20, o);           // upper L arm out
-    rc.line(cx-22, hy+r+20, cx-16, hy+r+10, o);        // forearm back (hip)
-    // right arm: extended forward-up, pointing
-    rc.line(cx, hy+r+10, cx+32, hy+r-4, o);            // upper R arm out-up
-    rc.line(cx+32, hy+r-4, cx+36, hy+r-12, o);         // forearm extends to finger
-    // legs: weight on right foot, confident stance
-    rc.line(cx, hy+r+38, cx-14, hy+r+68, o);           // L leg
-    rc.line(cx, hy+r+38, cx+10, hy+r+68, o);           // R leg (slightly inward)
-    // tiny price tag near pointing finger
+    rc.circle(cx, hy, r*2, o);
+    rc.line(cx, hy+r, cx, hy+r+38, o);
+    rc.line(cx, hy+r+10, cx-22, hy+r+20, o);
+    rc.line(cx-22, hy+r+20, cx-16, hy+r+10, o);
+    rc.line(cx, hy+r+10, cx+32, hy+r-4, o);
+    rc.line(cx+32, hy+r-4, cx+36, hy+r-12, o);
+    rc.line(cx, hy+r+38, cx-14, hy+r+68, o);
+    rc.line(cx, hy+r+38, cx+10, hy+r+68, o);
     rc.rectangle(cx+37, hy+r-24, 20, 14, { stroke: color, strokeWidth: 1, roughness: 2 });
     ctx.fillStyle = color; ctx.globalAlpha = 0.55;
     ctx.font = 'bold 7px DM Mono, monospace';
     ctx.fillText('$$$', cx+38, hy+r-14);
     ctx.globalAlpha = 1;
-    // small dot for fingertip
     rc.circle(cx+36, hy+r-12, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.5 });
 
   } else if (pose === 'expert') {
-    // ── Why Me: Arms-crossed confident expert ────────────────────────────
-    // Head tilted very slightly, body straight, both arms folded across chest
     const hy = 18, r = 12;
-    rc.circle(cx+2, hy, r*2, o);                       // head (tiny tilt offset)
-    rc.line(cx+2, hy+r, cx+2, hy+r+38, o);             // body
-    // Arms crossed: each arm comes from shoulder, crosses over the body
-    // Right arm: upper arm comes right then sweeps left across body
-    rc.line(cx+2, hy+r+10, cx+24, hy+r+16, o);         // right shoulder out
-    rc.line(cx+24, hy+r+16, cx-14, hy+r+28, o);        // forearm sweeping left across
-    // Left arm: upper arm goes left then sweeps right across
-    rc.line(cx+2, hy+r+10, cx-20, hy+r+16, o);         // left shoulder out
-    rc.line(cx-20, hy+r+16, cx+18, hy+r+28, o);        // forearm sweeping right across
-    // Legs: planted, slightly apart — solid, grounded
-    rc.line(cx+2, hy+r+38, cx-12, hy+r+68, o);         // L leg
-    rc.line(cx+2, hy+r+38, cx+16, hy+r+68, o);         // R leg
-    // Small medal / badge near chest
+    rc.circle(cx+2, hy, r*2, o);
+    rc.line(cx+2, hy+r, cx+2, hy+r+38, o);
+    rc.line(cx+2, hy+r+10, cx+24, hy+r+16, o);
+    rc.line(cx+24, hy+r+16, cx-14, hy+r+28, o);
+    rc.line(cx+2, hy+r+10, cx-20, hy+r+16, o);
+    rc.line(cx-20, hy+r+16, cx+18, hy+r+28, o);
+    rc.line(cx+2, hy+r+38, cx-12, hy+r+68, o);
+    rc.line(cx+2, hy+r+38, cx+16, hy+r+68, o);
     rc.circle(cx+2, hy+r+22, 7, { stroke: color, strokeWidth: 1.2, roughness: 1.8, fill: color, fillStyle: 'solid', fillWeight: 0.15 });
     ctx.fillStyle = color; ctx.globalAlpha = 0.75;
     ctx.font = '8px serif';
     ctx.fillText('✓', cx-1, hy+r+26);
     ctx.globalAlpha = 1;
-    // subtle "aura" lines — authority
     rc.line(cx+2-28, hy-4, cx+2-22, hy-8, oT);
     rc.line(cx+2+22, hy-4, cx+2+28, hy-8, oT);
 
   } else if (pose === 'handshake') {
-    // ── CTA: Arm extended, ready to shake — "let's do this" ─────────────
-    // Body leaning slightly forward, right arm thrust out horizontally
-    // toward the viewer, left arm slightly raised for balance/excitement
     const hy = 18, r = 12;
-    rc.circle(cx+3, hy, r*2, o);                       // head (leaning fwd)
-    rc.line(cx+3, hy+r, cx+6, hy+r+40, o);             // body angled fwd
-    // Right arm: extended fully to the right / toward viewer
-    rc.line(cx+3, hy+r+10, cx+38, hy+r+14, o);         // upper R arm out far
-    rc.line(cx+38, hy+r+14, cx+44, hy+r+14, o);        // forearm straight (handshake)
-    // hand: small rough box suggesting an open palm
+    rc.circle(cx+3, hy, r*2, o);
+    rc.line(cx+3, hy+r, cx+6, hy+r+40, o);
+    rc.line(cx+3, hy+r+10, cx+38, hy+r+14, o);
+    rc.line(cx+38, hy+r+14, cx+44, hy+r+14, o);
     rc.rectangle(cx+44, hy+r+10, 8, 9, { stroke: color, strokeWidth: 1.3, roughness: 2 });
-    // Left arm raised — balance / excitement
-    rc.line(cx+3, hy+r+10, cx-22, hy+r-2, o);          // L arm up-left
-    // Legs stepping forward (right leg forward)
-    rc.line(cx+6, hy+r+40, cx-8, hy+r+70, o);          // L leg back
-    rc.line(cx+6, hy+r+40, cx+20, hy+r+66, o);         // R leg stepping fwd
-    // excitement sparks around
+    rc.line(cx+3, hy+r+10, cx-22, hy+r-2, o);
+    rc.line(cx+6, hy+r+40, cx-8, hy+r+70, o);
+    rc.line(cx+6, hy+r+40, cx+20, hy+r+66, o);
     ctx.fillStyle = color; ctx.globalAlpha = 0.65;
     ctx.font = '11px serif';
     ctx.fillText('!', cx-26, hy+r+2);
@@ -1412,28 +1659,26 @@ function drawFloatSectionStick(id, colorKey, pose) {
   }
 }
 
-// ─── Run on load ─────────────────────────────────────────────────────────────
+// ─── Run on load ──────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   initCardBorders();
   drawHero();
   drawWhyCircles();
-  drawCtaBtn();
+  drawMePhotoRough();
   animateCounters();
-  // metric stickmen (pose-aware)
   document.querySelectorAll('.metric-stickman').forEach(c => {
     drawMetricStickman(c, c.dataset.stickColor, c.dataset.stickPose);
   });
   drawStripStickman();
   drawMetricUnderlines();
   drawPins();
-  // Section floating stickmen
   drawFloatSectionStick('float-stick-services', 'amber',  'presenter');
   drawFloatSectionStick('float-stick-why',      'blue',   'expert');
   drawFloatSectionStick('float-stick-cta',      'sage',   'handshake');
 });
 
 window.addEventListener('resize', () => {
-  drawCtaBtn();
+  drawMePhotoRough();
 });
 </script>
 </body>
