@@ -668,9 +668,8 @@ main { counter-reset: site-section; }
 
 /* ── INLINE PROOF (replaces standalone metrics section) ───────────────────── */
 .me-proof {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  display: flex;
+  align-items: flex-start;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   padding: 24px 0;
@@ -678,16 +677,18 @@ main { counter-reset: site-section; }
 }
 
 .me-proof-item {
-  padding-right: 28px;
-  border-right: 1px solid var(--rule);
+  flex: 1;
+  padding: 0 28px;
 }
-.me-proof-item:last-child {
-  border-right: none;
-  padding-right: 0;
-  padding-left: 28px;
-}
-.me-proof-item:not(:first-child):not(:last-child) {
-  padding-left: 28px;
+.me-proof-item:first-child { padding-left: 0; }
+.me-proof-item:last-child  { padding-right: 0; }
+
+/* Canvas placeholder for rough.js wavy separators — drawn in JS */
+.me-proof-sep {
+  flex-shrink: 0;
+  width: 20px;
+  align-self: stretch;
+  min-height: 80px;
 }
 
 .me-proof-val {
@@ -988,8 +989,10 @@ footer {
 /* ── MOBILE ───────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .me-grid { grid-template-columns: 1fr; gap: 48px; }
-  .me-proof { grid-template-columns: 1fr 1fr; }
-  .me-proof-item:last-child { padding-left: 0; border-left: none; }
+  .me-proof { flex-direction: column; gap: 20px; }
+  .me-proof-sep { display: none; }
+  .me-proof-item { padding: 0 !important; border-bottom: 1px solid var(--rule); padding-bottom: 20px !important; }
+  .me-proof-item:last-child { border-bottom: none; padding-bottom: 0 !important; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 
@@ -1109,19 +1112,21 @@ footer {
       <!-- Inline proof numbers — no separate section needed -->
       <div class="me-proof">
         <div class="me-proof-item">
-          <div class="me-proof-val" style="color:var(--rose)" data-target="33" data-prefix="$" data-suffix="K">$33K</div>
+          <div class="me-proof-val" style="color:var(--rose)" data-target="33" data-prefix="$" data-suffix="K">$0K</div>
           <div class="me-proof-unit">per year saved</div>
-          <div class="me-proof-desc">Lambda + Glue right-sizing</div>
+          <div class="me-proof-desc">AWS cost savings</div>
         </div>
+        <canvas class="me-proof-sep" width="20"></canvas>
         <div class="me-proof-item">
           <div class="me-proof-val" style="color:var(--blue)">-60%</div>
           <div class="me-proof-unit">query time</div>
-          <div class="me-proof-desc">Iceberg lakehouse migration</div>
+          <div class="me-proof-desc">Query performance</div>
         </div>
+        <canvas class="me-proof-sep" width="20"></canvas>
         <div class="me-proof-item">
           <div class="me-proof-val" style="color:var(--sage)">&lt;0.1%</div>
           <div class="me-proof-unit">failure rate</div>
-          <div class="me-proof-desc">600K records per week</div>
+          <div class="me-proof-desc">ETL pipeline uptime</div>
         </div>
       </div>
 
@@ -1484,6 +1489,22 @@ function drawMePhotoRough() {
 }
 
 // ─── Counter animation ────────────────────────────────────────────────────────
+function drawProofSeparators() {
+  if (!window.rough) return;
+  document.querySelectorAll('.me-proof-sep').forEach((canvas, i) => {
+    const proof = canvas.closest('.me-proof');
+    const h = proof ? proof.offsetHeight : 90;
+    canvas.height = h;
+    const rc = rough.canvas(canvas);
+    rc.line(10, 4, 10, h - 4, {
+      roughness: 2.4,
+      strokeWidth: 1.1,
+      stroke: '#D6D1C9',
+      seed: i * 11 + 3
+    });
+  });
+}
+
 function animateCounters() {
   document.querySelectorAll('[data-target]').forEach(el => {
     const target = parseInt(el.dataset.target);
@@ -1681,6 +1702,7 @@ window.addEventListener('load', () => {
   drawHero();
   drawWhyCircles();
   drawMePhotoRough();
+  drawProofSeparators();
   animateCounters();
   document.querySelectorAll('.metric-stickman').forEach(c => {
     drawMetricStickman(c, c.dataset.stickColor, c.dataset.stickPose);
