@@ -1411,8 +1411,9 @@ footer {
 </footer>
 
 <script>
-// Always start at top on refresh — disable browser scroll restoration
+// Always start at top on refresh — clear hash and disable scroll restoration
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (window.location.hash) history.replaceState(null, '', window.location.pathname);
 window.scrollTo(0, 0);
 // ─── Color Map ───────────────────────────────────────────────────────────────
 const colorMap = {
