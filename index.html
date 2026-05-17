@@ -1411,6 +1411,9 @@ footer {
 </footer>
 
 <script>
+// Always start at top on refresh — disable browser scroll restoration
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
 // ─── Color Map ───────────────────────────────────────────────────────────────
 const colorMap = {
   rose:  '#D29B8C',
