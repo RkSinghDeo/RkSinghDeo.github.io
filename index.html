@@ -15,16 +15,41 @@ html {
 }
 
 :root {
-  --bg:     #FDFCFA;
-  --ink:    #2A1F14;
-  --body:   #3D2B1F;
-  --pencil: #6B5040;
-  --rule:   #EAE7E2;
-  --rose:   #D29B8C;
-  --blue:   #9BB9D7;
-  --sage:   #91C3AA;
-  --lav:    #AFA0D2;
-  --amber:  #C8A97A;
+  /* ── Surface ── */
+  --bg:        #FDFCFA;   /* primary surface — bright warm cream  */
+  --bg-alt:    #F2EFE9;   /* alternate surface — deeper warm tone */
+  --rule:      #E4E0D9;   /* dividers, borders                    */
+
+  /* ── Typography ── */
+  --ink:       #2A1F14;   /* headings, labels, high-emphasis      */
+  --body:      #3D2B1F;   /* body copy                            */
+  --pencil:    #6B5040;   /* captions, meta, low-emphasis         */
+
+  /* ── Accent palette ── */
+  --rose:      #D29B8C;
+  --blue:      #9BB9D7;
+  --sage:      #91C3AA;
+  --lav:       #AFA0D2;
+  --amber:     #C8A97A;
+
+  /* ── Spacing scale ── */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  32px;
+  --space-lg:  52px;
+  --space-xl:  96px;
+
+  /* ── Type scale ── */
+  --text-label: 11px;     /* DM Mono caps — tags, categories      */
+  --text-meta:  13px;     /* DM Mono — dates, timelines, mono UI  */
+  --text-body:  16px;     /* Instrument Sans — paragraphs         */
+  --text-lead:  19px;     /* Instrument Sans — hero sub, leads    */
+  --text-sub:   22px;     /* Service names, card headings         */
+  --text-h3:    26px;     /* Section labels                       */
+
+  /* ── Border ── */
+  --radius:    2px;
+  --border:    1px solid var(--rule);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -348,32 +373,62 @@ main { position: relative; z-index: 1; }
 }
 
 /* ── SECTIONS ─────────────────────────────────────────────────────────────── */
+
+/* Counter resets on main, increments on each inner .section container */
+main { counter-reset: site-section; }
+
+/* Full-bleed wrapper — carries background and top border edge-to-edge */
+.section-wrap {
+  border-top: var(--border);
+  background: var(--bg);
+}
+/* Alternate every even section wrapper (hero is 1st, me=2nd, projects=3rd, services=4th) */
+.section-wrap:nth-of-type(even) {
+  background: var(--bg-alt);
+}
+
+/* Inner content container — max-width, padding, counter */
 .section {
-  padding: 96px 48px 96px 120px;
+  padding: var(--space-xl) 48px var(--space-xl) 120px;
   max-width: 1280px;
   margin: 0 auto;
-  border-top: 1px solid var(--rule);
+  counter-increment: site-section;
 }
 
 .section-label {
   font-family: 'Fraunces', serif;
   font-weight: 700;
   font-style: italic;
-  font-size: 26px;
+  font-size: var(--text-h3);
   color: var(--ink);
   letter-spacing: 0.01em;
-  margin-bottom: 52px;
+  margin-bottom: var(--space-lg);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
+
+/* Section index — "01", "02", "03" auto-generated from CSS counter */
+.section-label::before {
+  content: counter(site-section, decimal-leading-zero);
+  font-family: 'DM Mono', monospace;
+  font-size: var(--text-meta);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--pencil);
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* Short trailing rule */
 .section-label::after {
   content: '';
-  flex: 1;
-  max-width: 120px;
+  display: block;
+  width: 40px;
   height: 1px;
   background: var(--rule);
-  display: block;
+  flex-shrink: 0;
 }
 
 /* ── PROJECTS GRID ────────────────────────────────────────────────────────── */
@@ -916,7 +971,7 @@ footer {
   .metric-val { font-size: 48px; }
   .metric-stick-wrap canvas { width: 36px !important; height: 60px !important; }
 
-  .section { padding: 56px 20px; border-top: 1px solid var(--rule); }
+  .section { padding: 56px 20px; }
 
   .projects-grid { grid-template-columns: 1fr; }
   .projects-grid .card-link:not(.card-ai),
@@ -978,7 +1033,8 @@ footer {
 </section>
 
 <!-- ME -->
-<section class="section" id="me">
+<section class="section-wrap" id="me">
+<div class="section">
   <div class="section-label">Me</div>
   <div class="me-grid">
 
@@ -1053,6 +1109,7 @@ footer {
       </div>
     </div>
   </div>
+</div>
 </section>
 
 <!-- METRICS -->
@@ -1113,7 +1170,8 @@ footer {
 </div>
 
 <!-- PROJECTS -->
-<section class="section" id="projects">
+<section class="section-wrap" id="projects">
+<div class="section">
   <div class="section-label">Projects</div>
   <div class="projects-grid">
 
@@ -1222,10 +1280,12 @@ footer {
     </div>
 
   </div>
+</div>
 </section>
 
 <!-- SERVICES -->
-<section class="section" id="services">
+<section class="section-wrap" id="services">
+<div class="section">
   <canvas class="float-section-stick" id="float-stick-services" width="82" height="160"></canvas>
   <div class="section-label">Services</div>
   <ul class="services-list">
@@ -1267,6 +1327,7 @@ footer {
     </li>
 
   </ul>
+</div>
 </section>
 
 
