@@ -358,8 +358,7 @@ main { position: relative; z-index: 1; }
 
 /* ── SECTIONS ─────────────────────────────────────────────────────────────── */
 
-/* Counter resets on main, increments on each inner .section container */
-main { counter-reset: site-section; }
+/* Counter reset removed — numbering not used */
 
 /* Full-bleed wrapper — accent ribbon replaces flat border */
 .section-wrap {
@@ -382,15 +381,14 @@ main { counter-reset: site-section; }
 #projects { --section-accent: var(--rose);  }
 #services { --section-accent: var(--sage);  }
 
-/* Inner content container — max-width, padding, counter */
+/* Inner content container — max-width, padding */
 .section {
   padding: var(--space-xl) 48px var(--space-xl) 120px;
   max-width: 1280px;
   margin: 0 auto;
-  counter-increment: site-section;
 }
 
-/* Section label — ghost number behind, small counter after */
+/* Section label */
 .section-label {
   font-family: 'Fraunces', serif;
   font-weight: 700;
@@ -398,49 +396,12 @@ main { counter-reset: site-section; }
   font-size: clamp(42px, 5vw, 62px);
   color: var(--ink);
   letter-spacing: -0.01em;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
   /* Bleed rule to container edges */
   margin-left: -120px;
   margin-right: -48px;
   padding: 28px 120px 20px;
   margin-bottom: var(--space-lg);
   border-bottom: 1px solid var(--rule);
-}
-
-/* Ghost numeral — huge, faint, right side, behind label text */
-.section-label::before {
-  content: counter(site-section, decimal-leading-zero);
-  position: absolute;
-  right: 60px;
-  top: -28px;
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: clamp(130px, 13vw, 160px);
-  line-height: 1;
-  color: rgba(42, 31, 20, 0.055);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-/* Small mono counter — right-aligned, beside label */
-.section-label::after {
-  content: counter(site-section, decimal-leading-zero);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 400;
-  font-style: normal;
-  color: var(--pencil);
-  opacity: 0.5;
-  letter-spacing: 0.1em;
-  z-index: 1;
-  flex-shrink: 0;
-  padding-bottom: 10px;
 }
 
 /* ── PROJECTS GRID ────────────────────────────────────────────────────────── */
