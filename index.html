@@ -683,6 +683,12 @@ main { counter-reset: site-section; }
 }
 .me-proof-item:first-child { padding-left: 0; }
 .me-proof-item:last-child  { padding-right: 0; }
+.me-proof-item--center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /* Canvas placeholder for rough.js wavy separators — drawn in JS */
 .me-proof-sep {
@@ -713,10 +719,9 @@ main { counter-reset: site-section; }
   margin-bottom: 6px;
 }
 .me-proof-val--inf {
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(32px, 3.4vw, 46px);
   line-height: 1;
-  letter-spacing: 0.08em;
-  display: block;
+  letter-spacing: 0.1em;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -1159,13 +1164,13 @@ footer {
 
       <!-- Secondary stats row — business oriented -->
       <div class="me-proof me-proof--secondary">
-        <div class="me-proof-item">
+        <div class="me-proof-item me-proof-item--center">
           <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-prefix="$" data-from="100" data-target="0">$100</div>
           <div class="me-proof-unit">to scope your project</div>
           <div class="me-proof-desc">understand the problem before any money moves</div>
         </div>
         <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
-        <div class="me-proof-item">
+        <div class="me-proof-item me-proof-item--center">
           <div class="me-proof-val me-proof-val--sm me-proof-val--inf" style="color:var(--lav)" data-infinite="true">0</div>
           <div class="me-proof-unit">days after handover support</div>
           <div class="me-proof-desc">questions, tweaks, whatever comes up — anytime</div>
