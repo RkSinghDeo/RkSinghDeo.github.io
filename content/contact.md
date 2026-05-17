@@ -5,7 +5,7 @@ description: "Get in touch to discuss your AWS data engineering project."
 
 ## Let's talk about your project
 
-The fastest way to get started is through **[Upwork](https://www.upwork.com/freelancers/ramneeksingh)** — that's where I handle contracts and payments.
+The best starting point is **[GitHub](https://github.com/RkSinghDeo)** — browse the code, see how I work, then reach out via email at **ramneek2307@gmail.com**.
 
 Before reaching out, it helps to have a rough sense of:
 - What the current situation is (what's broken, slow, or expensive)

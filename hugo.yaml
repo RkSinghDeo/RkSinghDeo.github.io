@@ -20,20 +20,17 @@ params:
     - Data Lakehouse
     - Apache Iceberg
     - AWS CDK
-    - Upwork
 
   homeInfoParams:
     Title: "Your data infrastructure should work for you — not the other way around."
     Content: >
       I build serverless AWS data pipelines that cut costs, reduce operational
       toil, and get reliable data into the hands of your business faster.
-      5+ years shipping production ETL on AWS. Available on Upwork.
+      5+ years shipping production ETL on AWS.
 
   socialIcons:
     - name: github
       url: https://github.com/RkSinghDeo
-    - name: upwork
-      url: https://www.upwork.com/freelancers/ramneeksingh
 
   cover:
     hiddenInList: true

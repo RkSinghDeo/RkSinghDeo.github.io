@@ -568,7 +568,7 @@ footer span {
   position: absolute;
   right: 110px;
   top: 50%;
-  margin-top: -80px;        /* vertically centred — adjustments per pose below */
+  margin-top: -80px;        /* vertically centred, adjustments per pose below */
   pointer-events: none;
   z-index: 4;
   opacity: 0.84;
@@ -913,18 +913,18 @@ window.addEventListener('load', () => {
       // Head tilted, left index finger at temple, right arm holds a report
       rc.circle(cx, 22, 24, o);                           // head
       rc.line(cx, 34, cx, 90, o);                         // body
-      // left arm — upper arm out-left, forearm bends back to temple
+      // left arm, upper arm out-left, forearm bends back to temple
       rc.line(cx, 52, cx-24, 38, o);                      // upper L arm
       rc.line(cx-24, 38, cx-18, 32, o);                   // forearm to temple
       rc.circle(cx-18, 30, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.3 }); // fingertip dot
-      // right arm — down and slightly out, holding a report (small rect)
+      // right arm, down and slightly out, holding a report (small rect)
       rc.line(cx, 52, cx+26, 68, o);                      // R arm down-right
       rc.rectangle(cx+24, 66, 18, 24, { stroke: color, strokeWidth: 1.2, roughness: 2 }); // report/clipboard
       // tiny lines on the report (text lines)
       rc.line(cx+26, 72, cx+40, 72, oT);
       rc.line(cx+26, 77, cx+40, 77, oT);
       rc.line(cx+26, 82, cx+36, 82, oT);
-      // legs — weight on right (slightly planted)
+      // legs, weight on right (slightly planted)
       rc.line(cx, 90, cx-16, 140, o);                     // L leg
       rc.line(cx, 90, cx+14, 140, o);                     // R leg
       // thought bubble
@@ -938,10 +938,10 @@ window.addEventListener('load', () => {
       // Body angled forward, both arms driving forward, workbench surface
       rc.circle(cx+4, 20, 22, o);                         // head (leaning fwd)
       rc.line(cx+4, 31, cx-2, 86, o);                     // body angled forward
-      // left arm — reaching left-forward to workbench
+      // left arm, reaching left-forward to workbench
       rc.line(cx+2, 52, cx-28, 66, o);                    // upper L arm
       rc.line(cx-28, 66, cx-32, 78, o);                   // forearm down to surface
-      // right arm — reaching right-forward, slight upward energy
+      // right arm, reaching right-forward, slight upward energy
       rc.line(cx+2, 52, cx+32, 44, o);                    // upper R arm out-fwd
       rc.line(cx+32, 44, cx+36, 56, o);                   // forearm down to surface
       // workbench/surface line
@@ -956,7 +956,7 @@ window.addEventListener('load', () => {
       ctx.font = '7px serif';
       ctx.fillText('✦', cx-30, 62);
       ctx.globalAlpha = 1;
-      // legs — wide stance, grounded
+      // legs, wide stance, grounded
       rc.line(cx-2, 86, cx-18, 136, o);
       rc.line(cx-2, 86, cx+16, 134, o);
 
@@ -965,10 +965,10 @@ window.addEventListener('load', () => {
       // Body upright, slight backward-lean (triumph), wide leg stance
       rc.circle(cx, 22, 24, o);                           // head
       rc.line(cx, 34, cx, 90, o);                         // body
-      // both arms form a V — raised high and wide
+      // both arms form a V, raised high and wide
       rc.line(cx, 52, cx-30, 22, o);                      // L arm up-left
       rc.line(cx, 52, cx+30, 22, o);                      // R arm up-right
-      // legs spread — landing/jumping energy
+      // legs spread, landing/jumping energy
       rc.line(cx, 90, cx-20, 142, o);                     // L leg wide
       rc.line(cx, 90, cx+20, 142, o);                     // R leg wide
       // stars at hand tips
@@ -1041,7 +1041,7 @@ window.addEventListener('load', () => {
     rc.line(cx-1, cy+r+12, cx, cy+r+18, { stroke: col, strokeWidth: 1.3, roughness: 1 });
   }
 
-  // Hero stickman — relaxed/calm pose (0 SLA misses, standing confident)
+  // Hero stickman, relaxed/calm pose (0 SLA misses, standing confident)
   const heroStick = document.getElementById('hero-stick');
   if (heroStick && window.rough) {
     const rc = rough.canvas(heroStick);
