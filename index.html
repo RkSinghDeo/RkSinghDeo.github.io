@@ -376,11 +376,21 @@ main { position: relative; z-index: 1; }
   display: block;
 }
 
-/* ── CASE STUDY CARDS ─────────────────────────────────────────────────────── */
-.cards-grid {
+/* ── PROJECTS GRID ────────────────────────────────────────────────────────── */
+.projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 32px;
+}
+
+/* First 3 cards: span 2 cols each → fills row 1 */
+.projects-grid .card-link:not(.card-ai) {
+  grid-column: span 2;
+}
+
+/* AI cards: span 3 cols each → fills row 2, each wider */
+.projects-grid .card-ai {
+  grid-column: span 3;
 }
 
 .card-link {
@@ -476,12 +486,6 @@ main { position: relative; z-index: 1; }
 }
 .repo-link:hover { opacity: 1; color: var(--ink); }
 
-/* ── AI CARDS ─────────────────────────────────────────────────────────────── */
-.ai-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-}
 
 .badge-pill {
   display: inline-block;
@@ -914,8 +918,9 @@ footer {
 
   .section { padding: 56px 20px; border-top: 1px solid var(--rule); }
 
-  .cards-grid { grid-template-columns: 1fr; }
-  .ai-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid .card-link:not(.card-ai),
+  .projects-grid .card-ai { grid-column: span 1; }
 
   .service-row {
     grid-template-columns: 4px 1fr;
@@ -1107,10 +1112,10 @@ footer {
   <canvas class="strip-stickman" width="28" height="50"></canvas>
 </div>
 
-<!-- PROJECTS (Case Studies + AI) -->
+<!-- PROJECTS -->
 <section class="section" id="projects">
   <div class="section-label">Projects</div>
-  <div class="cards-grid">
+  <div class="projects-grid">
 
     <!-- Card 1: FinOps -->
     <div class="card-link" onclick="location.href='finops.html'">
@@ -1175,16 +1180,8 @@ footer {
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- AI PROJECTS (under the Projects umbrella) -->
-<section class="section" id="ai" style="padding-top:0">
-  <div class="section-label" style="font-size:16px;opacity:0.7">AI Projects</div>
-  <div class="ai-grid">
-
-    <!-- AI Card 1 -->
-    <div class="card-link" onclick="location.href='bedrock-finops.html'">
+    <!-- Card 4: Bedrock FinOps Analyst (AI) -->
+    <div class="card-link card-ai" onclick="location.href='bedrock-finops.html'">
       <div class="card" style="position:relative">
         <canvas class="card-canvas" data-card data-rough-color="lav"></canvas>
         <div class="card-pin pin-r4"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="lav"></canvas></div>
@@ -1195,8 +1192,8 @@ footer {
         <ul class="card-bullets">
           <li>Reads Cost Explorer + right-sizing from S3</li>
           <li>Calls Claude 3.5 Sonnet via Bedrock</li>
-          <li>Plain-English exec summary</li>
-          <li>Runs at 03:00 UTC after data collection</li>
+          <li>Plain-English exec summary at 8am</li>
+          <li>3–4 analyst hrs/week → zero</li>
         </ul>
         <div class="card-cta" style="color:var(--lav)">View project →</div>
         <div class="card-repo-link">
@@ -1205,8 +1202,8 @@ footer {
       </div>
     </div>
 
-    <!-- AI Card 2 -->
-    <div class="card-link" onclick="location.href='bedrock-agent.html'">
+    <!-- Card 5: Bedrock Data Agent (AI) -->
+    <div class="card-link card-ai" onclick="location.href='bedrock-agent.html'">
       <div class="card" style="position:relative">
         <canvas class="card-canvas" data-card data-rough-color="sage"></canvas>
         <div class="card-pin pin-r5"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="sage"></canvas></div>
@@ -1231,7 +1228,7 @@ footer {
 </section>
 
 <!-- SERVICES -->
-<section class="section" id="services" style="padding-top:0">
+<section class="section" id="services">
   <canvas class="float-section-stick" id="float-stick-services" width="82" height="160"></canvas>
   <div class="section-label">Services</div>
   <ul class="services-list">
