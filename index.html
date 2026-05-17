@@ -678,6 +678,7 @@ main { counter-reset: site-section; }
 
 .me-proof-item {
   flex: 1;
+  min-width: 0;
   padding: 0 28px;
 }
 .me-proof-item:first-child { padding-left: 0; }
@@ -688,6 +689,8 @@ main { counter-reset: site-section; }
   flex-shrink: 0;
   width: 20px;
   height: 68px;
+  min-height: 68px;
+  max-height: 68px;
   align-self: center;
 }
 
@@ -710,13 +713,18 @@ main { counter-reset: site-section; }
   margin-bottom: 6px;
 }
 .me-proof-val--inf {
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.1;
-  letter-spacing: 0.05em;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .me-proof-sep--sm {
   height: 52px;
+  min-height: 52px;
+  max-height: 52px;
 }
 
 .me-proof-unit {
