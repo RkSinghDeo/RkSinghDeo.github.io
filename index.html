@@ -699,6 +699,21 @@ main { counter-reset: site-section; }
   margin-bottom: 8px;
 }
 
+.me-proof--secondary {
+  border-top: none;
+  padding-top: 16px;
+  margin-top: 0;
+}
+
+.me-proof-val--sm {
+  font-size: clamp(28px, 2.8vw, 36px);
+  margin-bottom: 6px;
+}
+
+.me-proof-sep--sm {
+  height: 52px;
+}
+
 .me-proof-unit {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
@@ -1129,6 +1144,27 @@ footer {
         </div>
       </div>
 
+      <!-- Secondary stats row -->
+      <div class="me-proof me-proof--secondary">
+        <div class="me-proof-item">
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-target="5" data-suffix="+">0+</div>
+          <div class="me-proof-unit">years in production AWS</div>
+          <div class="me-proof-desc">not side projects</div>
+        </div>
+        <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
+        <div class="me-proof-item">
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--lav)" data-target="8">0</div>
+          <div class="me-proof-unit">open-source repos</div>
+          <div class="me-proof-desc">read the code before you hire</div>
+        </div>
+        <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
+        <div class="me-proof-item">
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--sage)">100%</div>
+          <div class="me-proof-unit">IaC delivery</div>
+          <div class="me-proof-desc">every project ships in CDK</div>
+        </div>
+      </div>
+
 
     </div>
   </div>
@@ -1479,7 +1515,7 @@ function drawMePhotoRough() {
 function drawProofSeparators() {
   if (!window.rough) return;
   document.querySelectorAll('.me-proof-sep').forEach((canvas, i) => {
-    const h = 68;
+    const h = canvas.classList.contains('me-proof-sep--sm') ? 52 : 68;
     canvas.width  = 20;
     canvas.height = h;
     const rc = rough.canvas(canvas);
