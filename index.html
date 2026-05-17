@@ -710,8 +710,9 @@ main { counter-reset: site-section; }
   margin-bottom: 6px;
 }
 .me-proof-val--inf {
-  font-size: clamp(30px, 3.2vw, 42px);
+  font-size: clamp(32px, 3.6vw, 48px);
   line-height: 1.1;
+  letter-spacing: 0.05em;
 }
 
 .me-proof-sep--sm {
@@ -1136,7 +1137,7 @@ footer {
         </div>
         <canvas class="me-proof-sep" width="20"></canvas>
         <div class="me-proof-item">
-          <div class="me-proof-val" style="color:var(--blue)">-60%</div>
+          <div class="me-proof-val" style="color:var(--blue)" data-prefix="-" data-suffix="%" data-target="60">-0%</div>
           <div class="me-proof-unit">faster queries</div>
           <div class="me-proof-desc">Iceberg migration</div>
         </div>
@@ -1159,7 +1160,7 @@ footer {
         <div class="me-proof-item">
           <div class="me-proof-val me-proof-val--sm me-proof-val--inf" style="color:var(--lav)" data-infinite="true">0</div>
           <div class="me-proof-unit">days after handover support</div>
-          <div class="me-proof-desc">questions, tweaks, whatever comes up</div>
+          <div class="me-proof-desc">questions, tweaks, whatever comes up — anytime</div>
         </div>
         <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
         <div class="me-proof-item">
