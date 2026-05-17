@@ -369,17 +369,31 @@ main { position: relative; z-index: 1; }
 
 /* ── SECTIONS ─────────────────────────────────────────────────────────────── */
 .section {
-  padding: 80px 48px 80px 120px;
+  padding: 96px 48px 96px 120px;
   max-width: 1280px;
   margin: 0 auto;
+  border-top: 1px solid var(--rule);
 }
 
 .section-label {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
   font-style: italic;
-  font-size: 22px;
+  font-size: 18px;
   color: var(--pencil);
-  margin-bottom: 40px;
+  letter-spacing: 0.01em;
+  margin-bottom: 52px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: var(--rule);
+  display: block;
 }
 
 /* ── CASE STUDY CARDS ─────────────────────────────────────────────────────── */
@@ -452,13 +466,13 @@ main { position: relative; z-index: 1; }
 
 .card-bullets li {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--body);
-  padding: 4px 0;
+  padding: 5px 0;
   padding-left: 14px;
   position: relative;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .card-cta {
@@ -511,7 +525,7 @@ main { position: relative; z-index: 1; }
   gap: 28px;
   align-items: start;
   border-bottom: 1px solid var(--rule);
-  padding: 28px 0;
+  padding: 32px 0;
 }
 
 .service-accent {
@@ -526,17 +540,18 @@ main { position: relative; z-index: 1; }
 .service-name {
   font-family: 'Instrument Sans', sans-serif;
   font-weight: 700;
-  font-size: 21px;
-  color: var(--body);
-  margin-bottom: 6px;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 8px;
 }
 
 .service-desc {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14px;
-  color: var(--pencil);
-  line-height: 1.65;
+  font-size: 15px;
+  color: var(--body);
+  line-height: 1.7;
   max-width: 560px;
+  margin-top: 2px;
 }
 
 .service-timeline {
@@ -621,10 +636,10 @@ main { position: relative; z-index: 1; }
 
 .me-bio {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   color: var(--body);
-  line-height: 1.7;
-  margin-bottom: 18px;
+  line-height: 1.72;
+  margin-bottom: 20px;
   max-width: 560px;
 }
 
@@ -658,9 +673,9 @@ main { position: relative; z-index: 1; }
 
 .why-card-text {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--body);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ── CONTACT SECTION ──────────────────────────────────────────────────────── */
@@ -689,9 +704,9 @@ main { position: relative; z-index: 1; }
 
 .contact-sub {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 16px;
-  color: var(--pencil);
-  line-height: 1.65;
+  font-size: 17px;
+  color: var(--body);
+  line-height: 1.7;
   max-width: 380px;
   margin-bottom: 36px;
 }
@@ -853,10 +868,10 @@ main { position: relative; z-index: 1; }
 
 .testimonial-quote {
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-style: italic;
   color: var(--body);
-  line-height: 1.7;
+  line-height: 1.75;
   margin-bottom: 20px;
 }
 
@@ -974,7 +989,7 @@ footer {
   .metric-val { font-size: 48px; }
   .metric-stick-wrap canvas { width: 36px !important; height: 60px !important; }
 
-  .section { padding: 48px 20px; }
+  .section { padding: 56px 20px; border-top: 1px solid var(--rule); }
 
   .cards-grid { grid-template-columns: 1fr; }
   .ai-grid { grid-template-columns: 1fr; }
