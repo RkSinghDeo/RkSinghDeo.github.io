@@ -1237,7 +1237,7 @@ footer {
       <div class="service-accent" style="background:var(--rose)"></div>
       <div class="service-info">
         <div class="service-name">FinOps Audit</div>
-        <p class="service-desc">CloudWatch + Cost Explorer deep-dive on your Lambda and Glue spend. You get a prioritized action list with ready-to-apply config patches — and a CDK stack that keeps watching costs after I leave.</p>
+        <p class="service-desc">Most AWS teams overspend by 25–40% on compute they provisioned once and never revisited. I find exactly where your Lambda and Glue budget is leaking, hand you a prioritised list of fixes with ready-to-apply config patches, and leave a monitoring stack so the bill doesn't quietly drift back up after the engagement ends.</p>
       </div>
       <div class="service-timeline">1 week</div>
     </li>
@@ -1246,7 +1246,7 @@ footer {
       <div class="service-accent" style="background:var(--blue)"></div>
       <div class="service-info">
         <div class="service-name">Serverless ETL Pipeline</div>
-        <p class="service-desc">S3 trigger → MWAA DAG → Glue PySpark → Lambda validator → Redshift COPY. Idempotent, observable from day one. CloudWatch dashboard and Slack alerting included as standard.</p>
+        <p class="service-desc">If your team finds out a pipeline failed when an analyst complains the next morning, that's a fixable problem — not a fact of life. I build pipelines that validate data before it reaches your warehouse, surface failures within minutes, and replay cleanly without manual intervention. Observability and alerting ship as part of the build, not bolted on later.</p>
       </div>
       <div class="service-timeline">2–3 weeks</div>
     </li>
@@ -1254,8 +1254,8 @@ footer {
     <li class="service-row">
       <div class="service-accent" style="background:var(--amber)"></div>
       <div class="service-info">
-        <div class="service-name">Lakehouse Build</div>
-        <p class="service-desc">Full medallion architecture on Apache Iceberg — Bronze ingest, Silver CDC, Gold aggregates. Parallel migration with automatic cutover, dbt on Redshift Serverless for your BI layer. Zero downtime.</p>
+        <div class="service-name">Lakehouse Migration</div>
+        <p class="service-desc">Slow queries, schema changes that require a freeze window, and tables nobody dares touch are architecture problems — not Glue problems. I move your data to a modern lakehouse structure, run your old and new systems in parallel until everything reconciles, then cut over automatically with zero downtime. Your team inherits infrastructure they can actually evolve.</p>
       </div>
       <div class="service-timeline">3–4 weeks</div>
     </li>
@@ -1264,7 +1264,7 @@ footer {
       <div class="service-accent" style="background:var(--lav)"></div>
       <div class="service-info">
         <div class="service-name">AI Data Agent</div>
-        <p class="service-desc">Business users query your Iceberg data in plain English — no SQL, no BI tool. Bedrock Agent with Athena action group, input validation, scoped IAM, CDK-deployed. Your analyst queue disappears.</p>
+        <p class="service-desc">When business users can't query their own data without filing a ticket, the data team becomes a bottleneck. I build AI agents that let anyone ask questions in plain English and get answers directly from your warehouse — no SQL, no BI tool, no queue. Every agent is scoped to approved data only, blocks write operations at the architecture level, and is fully owned by your team from day one.</p>
       </div>
       <div class="service-timeline">1–2 weeks</div>
     </li>
