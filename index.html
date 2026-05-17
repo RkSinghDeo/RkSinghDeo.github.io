@@ -383,36 +383,34 @@ main { counter-reset: site-section; }
   font-family: 'Fraunces', serif;
   font-weight: 700;
   font-style: italic;
-  font-size: var(--text-h3);
+  font-size: clamp(38px, 4.5vw, 56px);
   color: var(--ink);
-  letter-spacing: 0.01em;
-  margin-bottom: var(--space-lg);
+  letter-spacing: -0.01em;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  /* Bleed background band to section container edges */
+  margin-left: -120px;
+  margin-right: -48px;
+  padding: 22px 120px;
+  margin-bottom: var(--space-lg);
+  background: rgba(42, 31, 20, 0.04);
+  border-bottom: 1px solid var(--rule);
 }
 
 /* Section index — "01", "02", "03" auto-generated from CSS counter */
 .section-label::before {
   content: counter(site-section, decimal-leading-zero);
   font-family: 'DM Mono', monospace;
-  font-size: var(--text-meta);
+  font-size: 14px;
   font-weight: 400;
   font-style: normal;
   color: var(--pencil);
-  opacity: 0.5;
-  letter-spacing: 0.04em;
+  opacity: 0.45;
+  letter-spacing: 0.06em;
   flex-shrink: 0;
-}
-
-/* Short trailing rule */
-.section-label::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--rule);
-  flex-shrink: 0;
+  align-self: flex-end;
+  padding-bottom: 6px;
 }
 
 /* ── PROJECTS GRID ────────────────────────────────────────────────────────── */
