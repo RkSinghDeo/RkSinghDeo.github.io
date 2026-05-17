@@ -370,10 +370,6 @@ main { counter-reset: site-section; }
 .section-wrap:nth-of-type(even) {
   background: var(--bg-alt);
 }
-/* Projects sits directly below stats-strip which already has border-bottom — suppress double line */
-#projects {
-  border-top: none;
-}
 
 /* Inner content container — max-width, padding, counter */
 .section {
@@ -670,6 +666,72 @@ main { counter-reset: site-section; }
   max-width: 560px;
 }
 
+/* ── INLINE PROOF (replaces standalone metrics section) ───────────────────── */
+.me-proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 24px 0;
+  margin: 28px 0 20px;
+}
+
+.me-proof-item {
+  padding-right: 28px;
+  border-right: 1px solid var(--rule);
+}
+.me-proof-item:last-child {
+  border-right: none;
+  padding-right: 0;
+  padding-left: 28px;
+}
+.me-proof-item:not(:first-child):not(:last-child) {
+  padding-left: 28px;
+}
+
+.me-proof-val {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(36px, 3.5vw, 48px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.me-proof-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--body);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.me-proof-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  opacity: 0.8;
+}
+
+/* ── FACTS ROW (replaces standalone stats strip) ──────────────────────────── */
+.me-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  line-height: 1.8;
+}
+
+.me-facts-dot {
+  color: var(--rose);
+  opacity: 0.55;
+}
+
 /* Why/Me cards (reused from original why-points) */
 .why-points {
   display: flex;
@@ -926,6 +988,8 @@ footer {
 /* ── MOBILE ───────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .me-grid { grid-template-columns: 1fr; gap: 48px; }
+  .me-proof { grid-template-columns: 1fr 1fr; }
+  .me-proof-item:last-child { padding-left: 0; border-left: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 
@@ -1042,120 +1106,42 @@ footer {
 
       <p class="me-bio">Before freelancing I worked embedded in a SaaS platform team, production Glue, CDK v2, multi-account AWS. I write open-source code, ship IaC-first, and hand off infrastructure your team can actually own on day one.</p>
 
-      <div class="why-points">
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="rose"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">01</div>
-            <div class="why-card-text"><strong>CDK-first delivery</strong> Every project ships with CDK v2 IaC. Your team owns the infrastructure after handoff, no dependency on me.</div>
-          </div>
+      <!-- Inline proof numbers — no separate section needed -->
+      <div class="me-proof">
+        <div class="me-proof-item">
+          <div class="me-proof-val" style="color:var(--rose)" data-target="33" data-prefix="$" data-suffix="K">$33K</div>
+          <div class="me-proof-unit">per year saved</div>
+          <div class="me-proof-desc">Lambda + Glue right-sizing</div>
         </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="blue"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">02</div>
-            <div class="why-card-text"><strong>Fixed scope, fixed price</strong> You know what you're getting before I write a line of code. No hourly ambiguity.</div>
-          </div>
+        <div class="me-proof-item">
+          <div class="me-proof-val" style="color:var(--blue)">-60%</div>
+          <div class="me-proof-unit">query time</div>
+          <div class="me-proof-desc">Iceberg lakehouse migration</div>
         </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="amber"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">03</div>
-            <div class="why-card-text"><strong>Fortune 500 to early-stage startups</strong> I've shipped at enterprise scale and moved fast for seed-stage teams. Real prod, real load, any size.</div>
-          </div>
+        <div class="me-proof-item">
+          <div class="me-proof-val" style="color:var(--sage)">&lt;0.1%</div>
+          <div class="me-proof-unit">failure rate</div>
+          <div class="me-proof-desc">600K records per week</div>
         </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="sage"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">04</div>
-            <div class="why-card-text"><strong>Open source before you hire</strong> My code is on GitHub. Read it. Judge it. Then decide.</div>
-          </div>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-canvas-wrap">
-            <canvas class="why-circle-canvas" width="36" height="36" data-color="lav"></canvas>
-          </div>
-          <div class="why-card-content">
-            <div class="why-card-num">05</div>
-            <div class="why-card-text"><strong>Audit first, build second</strong> I review your AWS spend and architecture before recommending anything. No upselling.</div>
-          </div>
-        </div>
-
       </div>
+
+      <!-- Facts row — absorbs the old stats strip -->
+      <div class="me-facts">
+        <span>5+ years production AWS</span>
+        <span class="me-facts-dot">·</span>
+        <span>8 open-source repos</span>
+        <span class="me-facts-dot">·</span>
+        <span>$0 idle cost</span>
+        <span class="me-facts-dot">·</span>
+        <span>sub-15 min CDK deploys</span>
+        <span class="me-facts-dot">·</span>
+        <span>Fortune 500 to early-stage startups</span>
+      </div>
+
     </div>
   </div>
 </div>
 </section>
-
-<!-- METRICS -->
-<div class="metrics">
-  <div class="metric-item">
-    <div class="metric-stick-wrap">
-      <canvas class="metric-stickman" width="50" height="82" data-stick-color="rose" data-stick-pose="victory"></canvas>
-    </div>
-    <div class="metric-body">
-      <div class="metric-val-wrap">
-        <div class="metric-val" style="color:var(--rose)" data-target="33" data-prefix="$" data-suffix="K">$0K</div>
-        <canvas class="metric-ul" data-color="rose"></canvas>
-      </div>
-      <div class="metric-unit">per year saved</div>
-      <div class="metric-desc">Lambda + Glue right-sizing</div>
-    </div>
-  </div>
-  <div class="metric-item">
-    <div class="metric-stick-wrap">
-      <canvas class="metric-stickman" width="50" height="82" data-stick-color="blue" data-stick-pose="run"></canvas>
-    </div>
-    <div class="metric-body">
-      <div class="metric-val-wrap">
-        <div class="metric-val" style="color:var(--blue)" data-target="60" data-prefix="-" data-suffix="%">-0%</div>
-        <canvas class="metric-ul" data-color="blue"></canvas>
-      </div>
-      <div class="metric-unit">query time</div>
-      <div class="metric-desc">Iceberg lakehouse migration</div>
-    </div>
-  </div>
-  <div class="metric-item">
-    <div class="metric-stick-wrap">
-      <canvas class="metric-stickman" width="50" height="82" data-stick-color="sage" data-stick-pose="done"></canvas>
-    </div>
-    <div class="metric-body">
-      <div class="metric-val-wrap">
-        <div class="metric-val" style="color:var(--sage)">&lt;0.1%</div>
-        <canvas class="metric-ul" data-color="sage"></canvas>
-      </div>
-      <div class="metric-unit">failure rate</div>
-      <div class="metric-desc">600K records per week</div>
-    </div>
-  </div>
-</div>
-
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <span>5+ years production AWS</span>
-  <span class="dot">·</span>
-  <span>8 open-source repos</span>
-  <span class="dot">·</span>
-  <span>$0 idle cost</span>
-  <span class="dot">·</span>
-  <span>sub-15 min CDK deploys</span>
-  <span class="dot">·</span>
-  <span>Fortune 500 to early-stage startups</span>
-  <canvas class="strip-stickman" width="28" height="50"></canvas>
-</div>
 
 <!-- PROJECTS -->
 <section class="section-wrap" id="projects">
