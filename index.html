@@ -360,16 +360,10 @@ main { position: relative; z-index: 1; }
 
 /* Counter reset removed — numbering not used */
 
-/* Full-bleed wrapper — accent ribbon replaces flat border */
+/* Full-bleed wrapper — accent ribbon via border-top */
 .section-wrap {
   background: var(--bg);
-  position: relative;
-}
-.section-wrap::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: var(--section-accent, var(--rule));
+  border-top: 3px solid var(--section-accent, var(--rule));
 }
 /* Alternate every even section wrapper */
 .section-wrap:nth-of-type(even) {
@@ -790,6 +784,12 @@ main { position: relative; z-index: 1; }
 }
 
 /* ── CONTACT SECTION ──────────────────────────────────────────────────────── */
+/* Full-bleed contact wrapper — carries the ribbon */
+.cta-wrap {
+  border-top: 3px solid var(--blue);
+  background: var(--bg);
+}
+
 .cta-section {
   padding: 96px 48px 96px 120px;
   max-width: 1280px;
@@ -1337,7 +1337,8 @@ footer {
 
 
 <!-- CONTACT / SAY HI -->
-<section class="cta-section" id="contact">
+<section class="cta-wrap" id="contact">
+<div class="cta-section">
   <canvas class="float-section-stick" id="float-stick-cta" width="82" height="160"></canvas>
   <div class="contact-grid">
 
@@ -1380,6 +1381,7 @@ footer {
     </div>
 
   </div>
+</div>
 </section>
 
 </main>
