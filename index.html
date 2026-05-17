@@ -710,8 +710,8 @@ main { counter-reset: site-section; }
   margin-bottom: 6px;
 }
 .me-proof-val--inf {
-  font-size: clamp(22px, 2.2vw, 28px);
-  line-height: 1.2;
+  font-size: clamp(30px, 3.2vw, 42px);
+  line-height: 1.1;
 }
 
 .me-proof-sep--sm {
@@ -1151,7 +1151,7 @@ footer {
       <!-- Secondary stats row — business oriented -->
       <div class="me-proof me-proof--secondary">
         <div class="me-proof-item">
-          <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-prefix="$" data-target="0">$0</div>
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-prefix="$" data-from="100" data-target="0">$100</div>
           <div class="me-proof-unit">to scope your project</div>
           <div class="me-proof-desc">understand the problem before any money moves</div>
         </div>
@@ -1535,6 +1535,7 @@ function drawProofSeparators() {
 function animateCounters() {
   document.querySelectorAll('[data-target]').forEach(el => {
     const target = parseInt(el.dataset.target);
+    const from   = el.dataset.from !== undefined ? parseInt(el.dataset.from) : null;
     const prefix = el.dataset.prefix || '';
     const suffix = el.dataset.suffix || '';
     let start = 0;
@@ -1543,7 +1544,10 @@ function animateCounters() {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = prefix + Math.round(eased * target) + suffix;
+      const value = from !== null
+        ? Math.round(from + eased * (target - from))   // counts from→target (down if target<from)
+        : Math.round(eased * target);
+      el.textContent = prefix + value + suffix;
       if (progress < 1) requestAnimationFrame(step);
     };
     const observer = new IntersectionObserver(entries => {
