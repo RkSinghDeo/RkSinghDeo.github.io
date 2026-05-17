@@ -709,6 +709,10 @@ main { counter-reset: site-section; }
   font-size: clamp(28px, 2.8vw, 36px);
   margin-bottom: 6px;
 }
+.me-proof-val--inf {
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
+}
 
 .me-proof-sep--sm {
   height: 52px;
@@ -1147,12 +1151,13 @@ footer {
       <!-- Secondary stats row — business oriented -->
       <div class="me-proof me-proof--secondary">
         <div class="me-proof-item">
-          <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-target="4">0</div>
-          <div class="me-proof-unit">fixed-price packages</div>
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-prefix="$" data-target="0">$0</div>
+          <div class="me-proof-unit">to scope your project</div>
+          <div class="me-proof-desc">understand the problem before any money moves</div>
         </div>
         <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
         <div class="me-proof-item">
-          <div class="me-proof-val me-proof-val--sm" style="color:var(--lav)" data-infinite="true">0</div>
+          <div class="me-proof-val me-proof-val--sm me-proof-val--inf" style="color:var(--lav)" data-infinite="true">0</div>
           <div class="me-proof-unit">days after handover support</div>
           <div class="me-proof-desc">questions, tweaks, whatever comes up</div>
         </div>
