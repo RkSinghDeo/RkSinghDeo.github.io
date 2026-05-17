@@ -1149,12 +1149,11 @@ footer {
         <div class="me-proof-item">
           <div class="me-proof-val me-proof-val--sm" style="color:var(--amber)" data-target="4">0</div>
           <div class="me-proof-unit">fixed-price packages</div>
-          <div class="me-proof-desc">know the cost before you commit</div>
         </div>
         <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
         <div class="me-proof-item">
-          <div class="me-proof-val me-proof-val--sm" style="color:var(--lav)" data-target="30" data-suffix=" days">0 days</div>
-          <div class="me-proof-unit">I stick around after deploy</div>
+          <div class="me-proof-val me-proof-val--sm" style="color:var(--lav)" data-infinite="true">0</div>
+          <div class="me-proof-unit">days after handover support</div>
           <div class="me-proof-desc">questions, tweaks, whatever comes up</div>
         </div>
         <canvas class="me-proof-sep me-proof-sep--sm" width="20"></canvas>
@@ -1541,6 +1540,26 @@ function animateCounters() {
       const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = prefix + Math.round(eased * target) + suffix;
       if (progress < 1) requestAnimationFrame(step);
+    };
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { requestAnimationFrame(step); observer.disconnect(); }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('[data-infinite]').forEach(el => {
+    let start = 0;
+    const duration = 2200;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      if (progress < 1) {
+        const eased = 1 - Math.pow(1 - progress, 2);
+        el.textContent = Math.round(eased * 180);
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = '∞';
+      }
     };
     const observer = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) { requestAnimationFrame(step); observer.disconnect(); }
