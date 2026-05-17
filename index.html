@@ -361,22 +361,10 @@ main { position: relative; z-index: 1; }
 /* Counter resets on main, increments on each inner .section container */
 main { counter-reset: site-section; }
 
-/* Full-bleed wrapper — carries background, wavy edge drawn by JS */
+/* Full-bleed wrapper — carries background and top border edge-to-edge */
 .section-wrap {
+  border-top: var(--border);
   background: var(--bg);
-  position: relative;
-}
-
-/* Wave canvas — absolutely at section bottom, drawn by drawSectionWaves() */
-.section-wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 36px;
-  z-index: 2;
-  pointer-events: none;
-  display: block;
 }
 /* Alternate every even section wrapper (hero is 1st, me=2nd, projects=3rd, services=4th) */
 .section-wrap:nth-of-type(even) {
@@ -1199,7 +1187,6 @@ footer {
     </div>
   </div>
 </div>
-<canvas class="section-wave" data-next="#F2EFE9"></canvas>
 </section>
 
 <!-- PROJECTS -->
@@ -1314,7 +1301,6 @@ footer {
 
   </div>
 </div>
-<canvas class="section-wave" data-next="#FDFCFA"></canvas>
 </section>
 
 <!-- SERVICES -->
@@ -1358,7 +1344,6 @@ footer {
 
   </ul>
 </div>
-<canvas class="section-wave" data-next="#F2EFE9"></canvas>
 </section>
 
 
@@ -1772,54 +1757,6 @@ function drawFloatSectionStick(id, colorKey, pose) {
   }
 }
 
-// ─── Wavy section separators ──────────────────────────────────────────────────
-function drawSectionWaves() {
-  document.querySelectorAll('.section-wave').forEach((canvas, i) => {
-    const nextColor = canvas.dataset.next;
-    if (!nextColor) return;
-    const w = window.innerWidth;
-    const h = 36;
-    canvas.width  = w;
-    canvas.height = h;
-    const ctx = canvas.getContext('2d');
-
-    // Seeded pseudo-random — stable shape on resize
-    const seed = i * 19 + 7;
-    const sr = (n) => Math.abs(Math.sin(n * 127.1 + seed * 311.7) * 43758.5) % 1;
-
-    // Wave points: y ranges 4–20px from canvas top
-    const numPts = 14;
-    const pts = [];
-    for (let j = 0; j <= numPts; j++) {
-      pts.push([ (j / numPts) * w, 4 + sr(j) * 16 ]);
-    }
-
-    // Fill wavy shape from wave line down to canvas bottom
-    ctx.beginPath();
-    ctx.moveTo(0, h);
-    ctx.lineTo(pts[0][0], pts[0][1]);
-    for (let j = 1; j < pts.length; j++) {
-      const cpx = (pts[j-1][0] + pts[j][0]) / 2;
-      const cpy = (pts[j-1][1] + pts[j][1]) / 2;
-      ctx.quadraticCurveTo(pts[j-1][0], pts[j-1][1], cpx, cpy);
-    }
-    ctx.lineTo(w, h);
-    ctx.closePath();
-    ctx.fillStyle = nextColor;
-    ctx.fill();
-
-    // rough.js hand-drawn stroke on the wave edge
-    if (window.rough) {
-      rough.canvas(canvas).linearPath(pts, {
-        stroke: nextColor === '#F2EFE9' ? '#D4CFC6' : '#DDD9D1',
-        strokeWidth: 1.1,
-        roughness: 2.8,
-        seed
-      });
-    }
-  });
-}
-
 // ─── Run on load ──────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   initCardBorders();
@@ -1827,7 +1764,6 @@ window.addEventListener('load', () => {
   drawWhyCircles();
   drawMePhotoRough();
   drawProofSeparators();
-  drawSectionWaves();
   animateCounters();
   document.querySelectorAll('.metric-stickman').forEach(c => {
     drawMetricStickman(c, c.dataset.stickColor, c.dataset.stickPose);
@@ -1841,7 +1777,6 @@ window.addEventListener('load', () => {
 
 window.addEventListener('resize', () => {
   drawMePhotoRough();
-  drawSectionWaves();
 });
 </script>
 </body>
