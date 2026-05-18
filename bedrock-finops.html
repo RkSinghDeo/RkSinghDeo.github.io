@@ -639,6 +639,34 @@ footer span {
   .cs-section:has(.section-stick) { padding-right: 48px; }
 }
 
+
+/* ── Next project strip ──────────────────────────────────────────────────── */
+.next-project-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px 22px 120px;
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  transition: background 0.18s;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.next-project-strip:hover { background: var(--bg-alt); }
+.next-project-strip .np-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--pencil);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.next-project-strip .np-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
 </style>
 </head>
 <body>

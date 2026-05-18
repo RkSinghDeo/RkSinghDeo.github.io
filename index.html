@@ -1108,7 +1108,7 @@ footer {
     </div>
   </div>
   <div class="hero-canvas-wrap">
-    <canvas id="hero-canvas" width="320" height="360"></canvas>
+    <canvas id="hero-canvas" width="400" height="420"></canvas>
   </div>
 </section>
 
@@ -1477,37 +1477,52 @@ function drawHero() {
   const rc = rough.canvas(c);
   const ctx = c.getContext('2d');
 
-  rc.rectangle(140, 20, 150, 80, { stroke:'#B9B4AA', strokeWidth:1.8, roughness:2, bowing:1 });
-  ctx.font = '400 13px DM Mono, monospace';
+  // Cloud / server box — bigger, bolder, more central
+  rc.rectangle(190, 28, 170, 96, { stroke:'#A8A09A', strokeWidth:2.2, roughness:1.8, bowing:0.8 });
+  ctx.font = '600 15px DM Mono, monospace';
   ctx.fillStyle = '#9BB9D7';
-  ctx.fillText('AWS', 188, 58);
-  ctx.fillText('CLOUD', 179, 76);
+  ctx.fillText('AWS', 252, 72);
+  ctx.fillText('CLOUD', 240, 92);
 
-  for(let i=0;i<4;i++){
-    rc.circle(215, 115+i*22, 5, { stroke:'#B9B4AA', strokeWidth:1, roughness:1, fill:'#B9B4AA', fillStyle:'solid' });
+  // Connector dots
+  for (let i = 0; i < 4; i++) {
+    rc.circle(275, 140 + i * 24, 6, { stroke:'#C8C2BC', strokeWidth:1.2, roughness:1, fill:'#C8C2BC', fillStyle:'solid' });
   }
 
-  const sx=80, sy=220;
-  rc.circle(sx, sy-52, 24, { stroke:'#2A1F14', strokeWidth:2, roughness:1.2 });
-  rc.line(sx, sy-40, sx, sy+8, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  rc.line(sx, sy-20, sx+50, sy-60, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  rc.line(sx, sy-20, sx-30, sy+10, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  rc.line(sx, sy+8, sx-22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
-  rc.line(sx, sy+8, sx+22, sy+52, { stroke:'#2A1F14', strokeWidth:2, roughness:1 });
+  // Stickman — larger, reaching up to the right
+  const sx = 90, sy = 270;
+  rc.circle(sx, sy - 62, 28, { stroke:'#2A1F14', strokeWidth:2.5, roughness:1.2 });
+  rc.line(sx, sy - 34, sx, sy + 14,   { stroke:'#2A1F14', strokeWidth:2.5, roughness:1 });
+  // Right arm raised toward cloud
+  rc.line(sx, sy - 12, sx + 68, sy - 80, { stroke:'#2A1F14', strokeWidth:2.5, roughness:1 });
+  // Left arm out
+  rc.line(sx, sy - 12, sx - 32, sy + 14, { stroke:'#2A1F14', strokeWidth:2.5, roughness:1 });
+  rc.line(sx, sy + 14, sx - 26, sy + 62, { stroke:'#2A1F14', strokeWidth:2.5, roughness:1 });
+  rc.line(sx, sy + 14, sx + 26, sy + 62, { stroke:'#2A1F14', strokeWidth:2.5, roughness:1 });
 
-  rc.line(sx+50, sy-60, 155, 60, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1.5, strokeLineDash:[6,4] });
-  rc.line(155, 60, 148, 48, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
-  rc.line(155, 60, 164, 52, { stroke:'#B9B4AA', strokeWidth:1.5, roughness:1 });
+  // Dashed arrow: hand → cloud box
+  rc.line(sx + 68, sy - 80, 198, 76, { stroke:'#C8A97A', strokeWidth:2, roughness:1.4, strokeLineDash:[7,5] });
+  // Arrowhead
+  rc.line(198, 76, 190, 62, { stroke:'#C8A97A', strokeWidth:2, roughness:1 });
+  rc.line(198, 76, 210, 66, { stroke:'#C8A97A', strokeWidth:2, roughness:1 });
 
-  ctx.font = '700 15px DM Mono, monospace';
+  // "$33K saved" label — bold, rose, larger
+  ctx.font = '700 22px DM Mono, monospace';
   ctx.fillStyle = '#D29B8C';
-  ctx.fillText('$33K saved', 148, 32);
+  ctx.fillText('$33K saved', 188, 22);
 
-  rc.circle(215, 310, 40, { stroke:'#91C3AA', strokeWidth:2, roughness:1.5 });
-  rc.line(200, 310, 210, 322, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
-  rc.line(210, 322, 232, 296, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1 });
+  // Divider line down center
+  rc.line(275, 130, 275, 350, { stroke:'#EAE7E2', strokeWidth:1, roughness:1 });
 
-  rc.line(215, 100, 215, 270, { stroke:'#EAE7E2', strokeWidth:1, roughness:1 });
+  // Checkmark circle — bigger, bottom right
+  rc.circle(275, 375, 52, { stroke:'#91C3AA', strokeWidth:2.5, roughness:1.4 });
+  rc.line(256, 375, 269, 390, { stroke:'#91C3AA', strokeWidth:3, roughness:1 });
+  rc.line(269, 390, 296, 358, { stroke:'#91C3AA', strokeWidth:3, roughness:1 });
+
+  // "done" label under checkmark
+  ctx.font = '400 11px DM Mono, monospace';
+  ctx.fillStyle = '#91C3AA';
+  ctx.fillText('deployed', 250, 410);
 }
 
 // ─── Why Me / Me circles ─────────────────────────────────────────────────────
