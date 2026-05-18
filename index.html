@@ -370,10 +370,14 @@ main { position: relative; z-index: 1; }
   background: var(--bg-alt);
 }
 
-/* Per-section accent ribbon colours */
+/* Per-section accent ribbon colours + label colours */
 #me       { --section-accent: var(--amber); }
 #projects { --section-accent: var(--rose);  }
 #services { --section-accent: var(--sage);  }
+
+#me       .section-label { color: var(--amber); }
+#projects .section-label { color: var(--rose);  }
+#services .section-label { color: var(--sage);  }
 
 /* Inner content container — max-width, padding */
 .section {
@@ -809,7 +813,7 @@ main { position: relative; z-index: 1; }
   font-weight: 900;
   font-size: clamp(64px, 8vw, 104px);
   line-height: 0.92;
-  color: var(--ink);
+  color: var(--blue);
   margin-bottom: 20px;
 }
 
@@ -1124,7 +1128,7 @@ footer {
     </div>
 
     <div class="me-content-col">
-      <div class="me-headline">Built to last.<br>Yours to own.<br>I'll be around.</div>
+      <div class="me-headline">Built to last.<br>Yours to own.<br><span style="color:var(--amber)">I'll be around.</span></div>
 
       <p class="me-bio">I spent years inside a product team watching good infrastructure slowly become everyone's problem: cloud bills nobody could explain, pipelines that worked until they didn't, and changes nobody wanted to make because the original engineer had moved on.</p>
 
