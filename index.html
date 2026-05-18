@@ -1405,8 +1405,11 @@ footer {
           <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works." required></textarea>
         </div>
         <button type="submit" class="form-submit" id="form-submit-btn">Send it →</button>
-        <div id="form-success" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:12px; color:var(--sage); letter-spacing:0.04em;">
-          ✓ Your email app should have opened. If not — <a href="mailto:ramneek2307@gmail.com" style="color:var(--sage)">email me directly</a>.
+        <div id="form-success" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--sage); letter-spacing:0.04em;">
+          ✓ Got it — I'll be in touch.
+        </div>
+        <div id="form-error" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--rose); letter-spacing:0.04em;">
+          Something went wrong. <a href="mailto:ramneek2307@gmail.com" style="color:var(--rose)">Email me directly →</a>
         </div>
       </form>
     </div>
@@ -1451,27 +1454,31 @@ const colorMap = {
 // ─── Contact form handler ─────────────────────────────────────────────────────
 function handleContactForm(e) {
   e.preventDefault();
-  var name    = (document.getElementById('contact-name').value  || '').trim();
-  var email   = (document.getElementById('contact-email').value || '').trim();
-  var msg     = (document.getElementById('contact-msg').value   || '').trim();
-  var subject = 'Hi from ' + name + ' (rksinghdeo.github.io)';
-  var body    = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + msg;
-  var href    = 'mailto:ramneek2307@gmail.com'
-              + '?subject=' + encodeURIComponent(subject)
-              + '&body='    + encodeURIComponent(body);
-  // Anchor-click is more reliable than window.location on mobile browsers
-  var a = document.createElement('a');
-  a.href = href;
-  a.target = '_blank';          // fallback tab if mail client is web-based
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  // Show inline confirmation
-  var success = document.getElementById('form-success');
   var btn     = document.getElementById('form-submit-btn');
-  if (success) success.style.display = 'block';
-  if (btn) { btn.textContent = 'Opening email app…'; btn.disabled = true; btn.style.opacity = '0.55'; }
+  var success = document.getElementById('form-success');
+  var error   = document.getElementById('form-error');
+  // Reset state
+  if (success) success.style.display = 'none';
+  if (error)   error.style.display   = 'none';
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '0.6'; }
+  // POST to Formspree
+  fetch('https://formspree.io/f/maqkyzne', {
+    method: 'POST',
+    body: new FormData(e.target),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(res) {
+    if (res.ok) {
+      if (success) success.style.display = 'block';
+      if (btn) { btn.textContent = 'Sent ✓'; btn.style.opacity = '0.45'; }
+      e.target.reset();
+    } else {
+      if (error) error.style.display = 'block';
+      if (btn) { btn.textContent = 'Send it →'; btn.disabled = false; btn.style.opacity = '1'; }
+    }
+  }).catch(function() {
+    if (error) error.style.display = 'block';
+    if (btn) { btn.textContent = 'Send it →'; btn.disabled = false; btn.style.opacity = '1'; }
+  });
 }
 
 // ─── Rough.js card borders ───────────────────────────────────────────────────
