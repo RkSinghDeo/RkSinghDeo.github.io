@@ -1367,18 +1367,23 @@ footer {
 
     <div class="contact-right">
       <span class="contact-form-label-top">Drop me a line</span>
-      <form class="contact-form" onsubmit="handleContactForm(event)">
+      <form class="contact-form" action="https://formsubmit.co/ramneek2307@gmail.com" method="POST">
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="New message from rksinghdeo.github.io">
+        <input type="hidden" name="_next" value="https://rksinghdeo.github.io/?sent=1">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
         <div class="form-field">
           <label class="form-label" for="contact-name">What's your name?</label>
-          <input type="text" class="form-input" id="contact-name" name="name" placeholder="Your name" autocomplete="name">
+          <input type="text" class="form-input" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required>
         </div>
         <div class="form-field">
           <label class="form-label" for="contact-email">Your email</label>
-          <input type="email" class="form-input" id="contact-email" name="email" placeholder="you@company.com" autocomplete="email">
+          <input type="email" class="form-input" id="contact-email" name="email" placeholder="you@company.com" autocomplete="email" required>
         </div>
         <div class="form-field">
           <label class="form-label" for="contact-msg">What's on your mind?</label>
-          <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works."></textarea>
+          <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works." required></textarea>
         </div>
         <button type="submit" class="form-submit">Send it →</button>
       </form>
@@ -1420,16 +1425,25 @@ const colorMap = {
   pencil:'#6B5040'
 };
 
-// ─── Contact form (mailto fallback) ─────────────────────────────────────────
-function handleContactForm(e) {
-  e.preventDefault();
-  const name    = document.getElementById('contact-name').value.trim();
-  const email   = document.getElementById('contact-email').value.trim();
-  const message = document.getElementById('contact-msg').value.trim();
-  const subject = name ? `Hey from ${name}` : 'Hey from your portfolio';
-  const body    = `${message}${email ? '\n\nReply to: ' + email : ''}`;
-  window.location.href = `mailto:ramneek2307@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
+// ─── Contact form — success toast (?sent=1 from FormSubmit redirect) ──────────
+(function() {
+  if (new URLSearchParams(window.location.search).get('sent') === '1') {
+    const toast = document.createElement('div');
+    toast.style.cssText = [
+      'position:fixed','bottom:32px','left:50%','transform:translateX(-50%)',
+      'background:#2A1F14','color:#FDFCFA',
+      'font-family:\'DM Mono\',monospace','font-size:13px',
+      'padding:14px 28px','border-radius:2px','z-index:9999',
+      'box-shadow:3px 4px 0 rgba(42,31,20,0.18)',
+      'opacity:0','transition:opacity 0.3s'
+    ].join(';');
+    toast.textContent = 'Message sent — I\'ll be in touch.';
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => { toast.style.opacity = '1'; });
+    setTimeout(() => { toast.style.opacity = '0'; }, 4000);
+    setTimeout(() => { toast.remove(); history.replaceState(null,'',window.location.pathname); }, 4400);
+  }
+})();
 
 // ─── Rough.js card borders ───────────────────────────────────────────────────
 function initCardBorders() {
