@@ -1391,12 +1391,7 @@ footer {
 
     <div class="contact-right">
       <span class="contact-form-label-top">Drop me a line</span>
-      <form class="contact-form" action="https://formsubmit.co/ramneek2307@gmail.com" method="POST">
-        <!-- FormSubmit config -->
-        <input type="hidden" name="_subject" value="New message from rksinghdeo.github.io">
-        <input type="hidden" name="_next" value="https://rksinghdeo.github.io/?sent=1">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
+      <form class="contact-form" id="contact-form" onsubmit="handleContactForm(event)">
         <div class="form-field">
           <label class="form-label" for="contact-name">What's your name?</label>
           <input type="text" class="form-input" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required>
@@ -1409,7 +1404,10 @@ footer {
           <label class="form-label" for="contact-msg">What's on your mind?</label>
           <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works." required></textarea>
         </div>
-        <button type="submit" class="form-submit">Send it →</button>
+        <button type="submit" class="form-submit" id="form-submit-btn">Send it →</button>
+        <div id="form-success" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:12px; color:var(--sage); letter-spacing:0.04em;">
+          ✓ Your email app should have opened. If not — <a href="mailto:ramneek2307@gmail.com" style="color:var(--sage)">email me directly</a>.
+        </div>
       </form>
     </div>
 
@@ -1450,25 +1448,23 @@ const colorMap = {
   pencil:'#6B5040'
 };
 
-// ─── Contact form — success toast (?sent=1 from FormSubmit redirect) ──────────
-(function() {
-  if (new URLSearchParams(window.location.search).get('sent') === '1') {
-    const toast = document.createElement('div');
-    toast.style.cssText = [
-      'position:fixed','bottom:32px','left:50%','transform:translateX(-50%)',
-      'background:#2A1F14','color:#FDFCFA',
-      'font-family:\'DM Mono\',monospace','font-size:13px',
-      'padding:14px 28px','border-radius:2px','z-index:9999',
-      'box-shadow:3px 4px 0 rgba(42,31,20,0.18)',
-      'opacity:0','transition:opacity 0.3s'
-    ].join(';');
-    toast.textContent = 'Message sent — I\'ll be in touch.';
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => { toast.style.opacity = '1'; });
-    setTimeout(() => { toast.style.opacity = '0'; }, 4000);
-    setTimeout(() => { toast.remove(); history.replaceState(null,'',window.location.pathname); }, 4400);
-  }
-})();
+// ─── Contact form handler ─────────────────────────────────────────────────────
+function handleContactForm(e) {
+  e.preventDefault();
+  var name = document.getElementById('contact-name').value.trim();
+  var email = document.getElementById('contact-email').value.trim();
+  var msg  = document.getElementById('contact-msg').value.trim();
+  var subject = encodeURIComponent('Hi from ' + name + ' — rksinghdeo.github.io');
+  var body = encodeURIComponent(
+    'Name: ' + name + '\nEmail: ' + email + '\n\n' + msg
+  );
+  window.location.href = 'mailto:ramneek2307@gmail.com?subject=' + subject + '&body=' + body;
+  // Show inline confirmation
+  var success = document.getElementById('form-success');
+  var btn = document.getElementById('form-submit-btn');
+  if (success) success.style.display = 'block';
+  if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.opacity = '0.5'; }
+}
 
 // ─── Rough.js card borders ───────────────────────────────────────────────────
 function initCardBorders() {
