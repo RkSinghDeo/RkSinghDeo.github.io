@@ -170,23 +170,6 @@ main { position: relative; z-index: 1; }
 
 .cs-content { padding-top: 4px; }
 
-.cs-section-label {
-  font-family: 'DM Mono', monospace;
-  font-style: normal;
-  font-size: 11px;
-  color: var(--pencil);
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  margin-bottom: 16px;
-  position: sticky;
-  top: 60px;
-  z-index: 10;
-  background: rgba(253,252,250,0.95);
-  backdrop-filter: blur(6px);
-  padding: 10px 0;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 24px;
-}
 
 .cs-section h2 {
   font-family: 'Fraunces', serif;
@@ -655,7 +638,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick think" id="stick-s1" width="82" height="160"></canvas>
-  <div class="cs-section-label">01 / The Situation</div>
     <h2>The Situation</h2>
     <p>An e-commerce company with a cron-triggered Lambda chain tied together by SNS. Silent failures. No retry logic. Engineers found out a pipeline had failed when analysts showed up at 9am asking why the dashboard hadn't updated.</p>
     <p>Three to four SLA misses per month. On-call engineers spending Sunday mornings replaying jobs by hand pulling logs, figuring out where it broke, manually triggering re-runs, and praying it didn't miss the next window. 600K records per week moving through a system with no observability.</p>
@@ -670,7 +652,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick create" id="stick-s2" width="82" height="160"></canvas>
-  <div class="cs-section-label">02 / What I Built</div>
     <h2>What I Built</h2>
 
     <div class="arch-diagram-label">Architecture</div>
@@ -732,7 +713,6 @@ CloudWatch Dashboard (always-on)
   </div>
   <div class="cs-content">
     <canvas class="section-stick done" id="stick-s3" width="82" height="160"></canvas>
-  <div class="cs-section-label">03 / Results</div>
     <h2>Results</h2>
 
     <div class="in-numbers">

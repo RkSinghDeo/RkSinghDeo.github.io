@@ -190,23 +190,6 @@ main { position: relative; z-index: 1; }
 
 .cs-content { padding-top: 4px; }
 
-.cs-section-label {
-  font-family: 'DM Mono', monospace;
-  font-style: normal;
-  font-size: 11px;
-  color: var(--pencil);
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  margin-bottom: 16px;
-  position: sticky;
-  top: 60px;
-  z-index: 10;
-  background: rgba(253,252,250,0.95);
-  backdrop-filter: blur(6px);
-  padding: 10px 0;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 24px;
-}
 
 .cs-section h2 {
   font-family: 'Fraunces', serif;
@@ -655,7 +638,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick think" id="stick-s1" width="82" height="160"></canvas>
-  <div class="cs-section-label">01 / The Situation</div>
     <h2>The Situation</h2>
     <p>A B2B SaaS company with 10TB+ of Hive-partitioned data in S3. Athena queries timing out. Schema changes required full partition rewrites and 4–6 hours of engineering time. Analysts waiting 10+ minutes for dashboards. Nightly refresh failing 15% of the time.</p>
     <p>The root cause: Hive's file layout was generating thousands of small files per partition, killing Athena's planning time and bloating S3 API costs. There was no CDC support, so every update was a full overwrite. Every schema change broke downstream consumers.</p>
@@ -670,7 +652,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick create" id="stick-s2" width="82" height="160"></canvas>
-  <div class="cs-section-label">02 / What I Built</div>
     <h2>What I Built</h2>
 
     <div class="arch-diagram-label">Architecture</div>
@@ -734,7 +715,6 @@ Migration (parallel, 2 weeks)
   </div>
   <div class="cs-content">
     <canvas class="section-stick done" id="stick-s3" width="82" height="160"></canvas>
-  <div class="cs-section-label">03 / Results</div>
     <h2>Results</h2>
 
     <div class="in-numbers">

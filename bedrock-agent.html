@@ -180,22 +180,6 @@ main { position: relative; z-index: 1; }
 
 .cs-content { padding-top: 4px; }
 
-.cs-section-label {
-  font-family: 'DM Mono', monospace;
-  font-style: normal;
-  font-size: 11px;
-  color: var(--pencil);
-  text-transform: uppercase;
-  letter-spacing: 0.10em;
-  position: sticky;
-  top: 60px;
-  z-index: 10;
-  background: rgba(253,252,250,0.95);
-  backdrop-filter: blur(6px);
-  padding: 10px 0;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 24px;
-}
 
 .cs-section h2 {
   font-family: 'Fraunces', serif;
@@ -695,7 +679,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick think" id="stick-s1" width="82" height="160"></canvas>
-  <div class="cs-section-label">01 / The Brief</div>
     <h2>The Brief</h2>
     <p>A product data team was handling 20+ ad-hoc analyst SQL requests per week. Business stakeholders wanted revenue cuts, cohort breakdowns, and funnel metrics but lacked SQL skills. The analyst backlog was growing and confidence in the numbers was dropping because requests were slow and inconsistently formatted.</p>
     <p>The brief was clear: give business users a plain-English interface over the existing Iceberg Gold layer on Athena. No new BI tools, no new data stores. Read-only, with PII access blocked at the architecture level, not just the policy level.</p>
@@ -709,7 +692,6 @@ footer span {
   </div>
   <div class="cs-content">
     <canvas class="section-stick create" id="stick-s2" width="82" height="160"></canvas>
-  <div class="cs-section-label">02 / What Was Delivered</div>
     <h2>What Was Delivered</h2>
 
     <div class="arch-diagram-label">Architecture</div>
@@ -765,7 +747,6 @@ Query Results")]
   </div>
   <div class="cs-content">
     <canvas class="section-stick done" id="stick-s3" width="82" height="160"></canvas>
-  <div class="cs-section-label">03 / Impact</div>
     <h2>Impact</h2>
 
     <div class="in-numbers">
