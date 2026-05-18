@@ -876,22 +876,32 @@ main { position: relative; z-index: 1; }
   display: block;
 }
 
-.form-field { margin-bottom: 20px; }
+/* ── Floating-label field wrapper ── */
+.form-field {
+  margin-bottom: 20px;
+  position: relative;
+}
 
 .form-label {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--pencil);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   display: block;
   margin-bottom: 8px;
+  transition: color 0.2s, letter-spacing 0.2s;
+}
+.form-field:focus-within .form-label {
+  color: var(--ink);
+  letter-spacing: 0.12em;
 }
 
 .form-input {
   width: 100%;
   padding: 11px 14px;
   border: 1px solid var(--rule);
+  border-bottom-width: 2px;
   background: var(--bg);
   font-family: 'Instrument Sans', sans-serif;
   font-size: 15px;
@@ -899,16 +909,50 @@ main { position: relative; z-index: 1; }
   border-radius: 2px;
   box-sizing: border-box;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
 }
-.form-input:focus { border-color: var(--pencil); }
+.form-input:focus {
+  border-color: var(--pencil);
+  background: #FAF8F5;
+  box-shadow: 0 3px 0 rgba(107,80,64,0.08);
+}
+
+/* underline sweep on focus */
+.form-field::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--ink);
+  border-radius: 0 0 2px 2px;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+.form-field:focus-within::after { width: 100%; }
 
 .form-textarea {
   resize: vertical;
   min-height: 110px;
 }
 
+/* char counter */
+.form-char-count {
+  position: absolute;
+  bottom: 8px; right: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--pencil);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+.form-field:focus-within .form-char-count { opacity: 0.55; }
+
+/* ── Submit button ── */
 .form-submit {
+  position: relative;
+  overflow: hidden;
   background: var(--ink);
   color: var(--bg);
   font-family: 'Instrument Sans', sans-serif;
@@ -918,10 +962,78 @@ main { position: relative; z-index: 1; }
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 0.15s, opacity 0.2s;
   letter-spacing: 0.01em;
 }
-.form-submit:hover { background: var(--rose); transform: translateY(-1px); }
+.form-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--rose);
+  transform: translateX(-101%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.form-submit:not(:disabled):hover::before { transform: translateX(0); }
+.form-submit span { position: relative; z-index: 1; }
+
+/* spinner ring */
+.form-submit .btn-spinner {
+  display: none;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(253,252,250,0.3);
+  border-top-color: #FDFCFA;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  position: relative; z-index: 1;
+}
+.form-submit.is-loading .btn-spinner { display: inline-block; }
+.form-submit.is-loading .btn-label { display: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Success overlay (replaces the form) ── */
+#form-success-overlay {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+#form-success-overlay.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.success-check {
+  font-size: 36px;
+  line-height: 1;
+}
+.success-headline {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.success-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+}
+
+/* ── Inline error ── */
+#form-error-msg {
+  display: none;
+  margin-top: 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--rose);
+  letter-spacing: 0.04em;
+}
+#form-error-msg a { color: var(--rose); }
 
 /* ── FLOATING SECTION STICKMEN ────────────────────────────────────────────── */
 .float-section-stick {
@@ -1391,7 +1503,8 @@ footer {
 
     <div class="contact-right">
       <span class="contact-form-label-top">Drop me a line</span>
-      <form class="contact-form" id="contact-form" onsubmit="handleContactForm(event)">
+
+      <form class="contact-form" id="contact-form" onsubmit="handleContactForm(event)" novalidate>
         <div class="form-field">
           <label class="form-label" for="contact-name">What's your name?</label>
           <input type="text" class="form-input" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required>
@@ -1402,16 +1515,24 @@ footer {
         </div>
         <div class="form-field">
           <label class="form-label" for="contact-msg">What's on your mind?</label>
-          <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works." required></textarea>
+          <textarea class="form-input form-textarea" id="contact-msg" name="message" rows="4" placeholder="Brief, project idea, vague question, anything works." maxlength="600" required></textarea>
+          <span class="form-char-count" id="msg-char-count">0 / 600</span>
         </div>
-        <button type="submit" class="form-submit" id="form-submit-btn">Send it →</button>
-        <div id="form-success" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--sage); letter-spacing:0.04em;">
-          ✓ Got it — I'll be in touch.
-        </div>
-        <div id="form-error" style="display:none; margin-top:16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--rose); letter-spacing:0.04em;">
-          Something went wrong. <a href="mailto:ramneek2307@gmail.com" style="color:var(--rose)">Email me directly →</a>
+        <button type="submit" class="form-submit" id="form-submit-btn">
+          <span class="btn-label">Send it →</span>
+          <span class="btn-spinner"></span>
+        </button>
+        <div id="form-error-msg">
+          Something went wrong. <a href="mailto:ramneek2307@gmail.com">Email me directly →</a>
         </div>
       </form>
+
+      <!-- shown after successful send -->
+      <div id="form-success-overlay" style="display:none">
+        <div class="success-check">✦</div>
+        <div class="success-headline">Message sent.</div>
+        <p class="success-sub">Got it — I'll get back to you within a day or two.<br>Talk soon.</p>
+      </div>
     </div>
 
   </div>
@@ -1451,33 +1572,64 @@ const colorMap = {
   pencil:'#6B5040'
 };
 
+// ─── Contact form — char counter ──────────────────────────────────────────────
+(function() {
+  var ta = document.getElementById('contact-msg');
+  var cc = document.getElementById('msg-char-count');
+  if (ta && cc) {
+    ta.addEventListener('input', function() {
+      var len = ta.value.length;
+      cc.textContent = len + ' / 600';
+      cc.style.opacity = len > 0 ? '0.65' : '';
+    });
+  }
+})();
+
 // ─── Contact form handler ─────────────────────────────────────────────────────
 function handleContactForm(e) {
   e.preventDefault();
+  var form    = e.target;
   var btn     = document.getElementById('form-submit-btn');
-  var success = document.getElementById('form-success');
-  var error   = document.getElementById('form-error');
-  // Reset state
-  if (success) success.style.display = 'none';
-  if (error)   error.style.display   = 'none';
-  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '0.6'; }
-  // POST to Formspree
+  var errEl   = document.getElementById('form-error-msg');
+  var overlay = document.getElementById('form-success-overlay');
+
+  // Basic validation
+  var name  = form.querySelector('#contact-name').value.trim();
+  var email = form.querySelector('#contact-email').value.trim();
+  var msg   = form.querySelector('#contact-msg').value.trim();
+  if (!name || !email || !msg) return;
+
+  // Loading state
+  errEl.style.display = 'none';
+  btn.classList.add('is-loading');
+  btn.disabled = true;
+
   fetch('https://formspree.io/f/maqkyzne', {
     method: 'POST',
-    body: new FormData(e.target),
+    body: new FormData(form),
     headers: { 'Accept': 'application/json' }
   }).then(function(res) {
+    btn.classList.remove('is-loading');
     if (res.ok) {
-      if (success) success.style.display = 'block';
-      if (btn) { btn.textContent = 'Sent ✓'; btn.style.opacity = '0.45'; }
-      e.target.reset();
+      // Fade out form, fade in success overlay
+      form.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      form.style.opacity = '0';
+      form.style.transform = 'translateY(-6px)';
+      setTimeout(function() {
+        form.style.display = 'none';
+        overlay.style.display = 'flex';
+        requestAnimationFrame(function() {
+          overlay.classList.add('visible');
+        });
+      }, 300);
     } else {
-      if (error) error.style.display = 'block';
-      if (btn) { btn.textContent = 'Send it →'; btn.disabled = false; btn.style.opacity = '1'; }
+      btn.disabled = false;
+      errEl.style.display = 'block';
     }
   }).catch(function() {
-    if (error) error.style.display = 'block';
-    if (btn) { btn.textContent = 'Send it →'; btn.disabled = false; btn.style.opacity = '1'; }
+    btn.classList.remove('is-loading');
+    btn.disabled = false;
+    errEl.style.display = 'block';
   });
 }
 
