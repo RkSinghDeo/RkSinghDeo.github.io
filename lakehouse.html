@@ -566,30 +566,17 @@ footer span {
 }
 
 
-/* ── Next project strip ──────────────────────────────────────────────────── */
+/* ── Next project strip ───────────────────────────────────────────────────── */
 .next-project-strip {
   display: block;
-  background: var(--bg-alt);
+  background: var(--bg);
   border-top: 4px solid var(--np-accent, var(--rule));
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
+  transition: background 0.2s;
 }
-/* Dark flood fills from left on hover */
-.next-project-strip::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--ink);
-  transform: translateX(-100%);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 0;
-}
-.next-project-strip:hover::before { transform: translateX(0); }
+.next-project-strip:hover { background: #F0EDE8; }
 
 .np-inner {
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -604,43 +591,40 @@ footer span {
   color: var(--pencil);
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  transition: color 0.3s;
 }
-.next-project-strip:hover .np-label { color: rgba(253,252,250,0.45); }
-
 .np-name {
   font-family: 'Fraunces', serif;
   font-weight: 700;
   font-size: clamp(30px, 3.8vw, 48px);
   letter-spacing: -0.02em;
   line-height: 1;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s ease;
 }
-.next-project-strip:hover .np-name { transform: translateX(6px); }
+.next-project-strip:hover .np-name { transform: translateX(4px); }
 
 .np-desc {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   color: var(--pencil);
   letter-spacing: 0.04em;
-  transition: color 0.3s;
 }
-.next-project-strip:hover .np-desc { color: rgba(253,252,250,0.4); }
-
 .np-arrow {
   font-family: 'Fraunces', serif;
   font-size: 52px;
   font-weight: 700;
-  color: var(--pencil);
-  opacity: 0.18;
   flex-shrink: 0;
   line-height: 1;
-  transition: opacity 0.35s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+  opacity: 0.22;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .next-project-strip:hover .np-arrow {
-  opacity: 1;
-  transform: translateX(10px);
-  color: #FDFCFA;
+  opacity: 0.85;
+  transform: translateX(8px);
+}
+@media (max-width: 700px) {
+  .np-inner { padding: 32px 20px; }
+  .np-name { font-size: 28px; }
+  .np-arrow { font-size: 36px; }
 }
 
 </style>
