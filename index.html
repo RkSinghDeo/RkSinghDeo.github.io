@@ -31,6 +31,7 @@ html {
   --sage:      #91C3AA;
   --lav:       #AFA0D2;
   --amber:     #C8A97A;
+  --teal:      #89B4BC;
 
   /* ── Spacing scale ── */
   --space-xs:  8px;
@@ -296,6 +297,7 @@ main { position: relative; z-index: 1; }
 .pin-r3 { right: 32px; transform: rotate(14deg); }
 .pin-r4 { right: 18px; transform: rotate(-11deg); }
 .pin-r5 { right: 26px; transform: rotate(5deg);  }
+.pin-r6 { right: 20px; transform: rotate(-9deg); }
 
 .metric-val-wrap { display: block; }
 
@@ -1292,6 +1294,26 @@ footer {
       </div>
     </div>
 
+    <!-- Card 6: Realtime ETL Pipeline -->
+    <div class="card-link" onclick="location.href='realtime.html'">
+      <div class="card" data-rough-color="teal">
+        <canvas class="card-canvas" data-card></canvas>
+        <div class="card-pin pin-r6"><canvas class="card-pin-canvas" width="22" height="34" data-pin-color="teal"></canvas></div>
+        <div class="card-tag">Realtime ETL Pipeline</div>
+        <div class="card-val" style="color:var(--teal)">&lt;30s</div>
+        <div class="card-unit">end-to-end latency</div>
+        <ul class="card-bullets">
+          <li>50K events/min via Kinesis</li>
+          <li>Glue Streaming → Iceberg CDC</li>
+          <li>Fraud signals: 4h → 30s</li>
+        </ul>
+        <div class="card-cta" style="color:var(--teal)">View case study →</div>
+        <div class="card-repo-link">
+          <a href="https://github.com/RkSinghDeo/aws-realtime-etl-pipeline" target="_blank" rel="noopener" class="repo-link" onclick="event.stopPropagation()">⌥ github / aws-realtime-etl-pipeline</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 </section>
@@ -1422,6 +1444,7 @@ const colorMap = {
   sage:  '#91C3AA',
   lav:   '#AFA0D2',
   amber: '#C8A97A',
+  teal:  '#89B4BC',
   pencil:'#6B5040'
 };
 

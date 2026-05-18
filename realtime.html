@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bedrock Data Agent NL2SQL on Iceberg Gold | Ramneek Singh</title>
+<title>Realtime ETL Pipeline &lt;30s Latency | Ramneek Singh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -21,7 +21,8 @@
   --sage:   #91C3AA;
   --lav:    #AFA0D2;
   --amber:  #C8A97A;
-  --accent: var(--sage);
+  --teal:   #89B4BC;
+  --accent: var(--teal);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,6 +48,7 @@ body::before {
   pointer-events: none;
 }
 
+/* NAV */
 nav {
   position: sticky;
   top: 0;
@@ -74,6 +76,7 @@ nav {
 
 main { position: relative; z-index: 1; }
 
+/* HERO */
 .cs-hero {
   padding: 80px 48px 60px 120px;
   max-width: 1280px;
@@ -85,7 +88,7 @@ main { position: relative; z-index: 1; }
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--sage);
+  color: var(--accent);
   margin-bottom: 20px;
 }
 
@@ -93,17 +96,8 @@ main { position: relative; z-index: 1; }
   font-family: 'Fraunces', serif;
   font-weight: 900;
   font-size: clamp(64px, 10vw, 100px);
-  color: var(--sage);
+  color: var(--ink);
   line-height: 0.95;
-  margin-bottom: 12px;
-}
-
-.cs-metric-unit {
-  font-family: 'DM Mono', monospace;
-  font-size: 16px;
-  color: var(--pencil);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   margin-bottom: 24px;
 }
 
@@ -128,17 +122,6 @@ main { position: relative; z-index: 1; }
   width: 100%; height: 100%;
 }
 
-/* HERO PIN */
-.hero-pin {
-  position: absolute;
-  top: 24px;
-  right: 60px;
-  z-index: 5;
-  transform: rotate(-8deg);
-  pointer-events: none;
-}
-.cs-hero { position: relative; }
-
 /* STAT STRIP */
 .cs-stat-strip {
   display: flex;
@@ -154,8 +137,9 @@ main { position: relative; z-index: 1; }
   color: var(--pencil);
   font-weight: 600;
 }
-.cs-stat-strip .sep { color: var(--sage); opacity:0.5; }
+.cs-stat-strip .sep { color: var(--accent); opacity:0.5; }
 
+/* CONTENT SECTIONS */
 .cs-section {
   padding: 64px 48px 64px 120px;
   max-width: 1280px;
@@ -179,7 +163,6 @@ main { position: relative; z-index: 1; }
 }
 
 .cs-content { padding-top: 4px; }
-
 
 .cs-section h2 {
   font-family: 'Fraunces', serif;
@@ -216,41 +199,7 @@ main { position: relative; z-index: 1; }
   content: '';
   position: absolute;
   left: 0;
-  color: var(--sage);
-}
-
-/* ARCHITECTURE DIAGRAM */
-.arch-diagram-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--pencil);
-  margin: 28px 0 12px;
-}
-.mermaid { max-width: 740px; overflow-x: auto; }
-.mermaid svg {
-  border: 1px solid var(--rule);
-  border-radius: 2px;
-  padding: 16px;
-  background: var(--bg);
-  box-shadow: 3px 4px 0 rgba(139,100,60,0.08);
-  max-width: 100%;
-  height: auto;
-}
-
-/* PIPELINE PRE */
-.pipeline-pre {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--body);
-  line-height: 1.7;
-  background: rgba(145, 195, 170, 0.06);
-  border-left: 3px solid var(--sage);
-  padding: 24px 28px;
-  margin: 24px 0;
-  overflow-x: auto;
-  max-width: 740px;
+  color: var(--accent);
 }
 
 /* IN-NUMBERS CALLOUT */
@@ -286,7 +235,53 @@ main { position: relative; z-index: 1; }
   color: var(--pencil);
 }
 
-/* CLIENT QUOTE */
+/* HERO PIN */
+.hero-pin {
+  position: absolute;
+  top: 24px;
+  right: 60px;
+  z-index: 5;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.cs-hero { position: relative; }
+
+/* ARCHITECTURE DIAGRAM */
+.arch-diagram-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pencil);
+  margin: 28px 0 12px;
+}
+.mermaid {
+  max-width: 740px;
+  overflow-x: auto;
+}
+.mermaid svg {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 16px;
+  background: var(--bg);
+  box-shadow: 3px 4px 0 rgba(139,100,60,0.08);
+  max-width: 100%;
+  height: auto;
+}
+
+/* PIPELINE DIAGRAM */
+.pipeline-pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.7;
+  background: rgba(137, 180, 188, 0.06);
+  border-left: 3px solid var(--teal);
+  padding: 24px 28px;
+  margin: 24px 0;
+  overflow-x: auto;
+  max-width: 740px;
+}
 
 /* RESULTS TABLE */
 .results-table-wrap {
@@ -322,7 +317,7 @@ main { position: relative; z-index: 1; }
 .results-table tr:last-child td { border-bottom: none; }
 
 .results-table .col-after {
-  color: var(--sage);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -559,29 +554,27 @@ footer span {
   pointer-events: none;
   z-index: 4;
   transform-origin: bottom center;
-  animation: herosway 4s ease-in-out infinite;
+  animation: herosway 4.2s ease-in-out infinite;
 }
 @keyframes herosway {
   0%, 100% { transform: rotate(-2deg) translateY(0px); }
   50%       { transform: rotate(2.5deg) translateY(-5px); }
 }
 @media (max-width: 680px) { .hero-stick { display: none; } }
+
 /* SECTION STICKMEN */
 .section-stick {
   position: absolute;
   right: 110px;
   top: 50%;
-  margin-top: -80px;        /* vertically centred, adjustments per pose below */
+  margin-top: -80px;
   pointer-events: none;
   z-index: 4;
   opacity: 0.84;
   transform-origin: bottom center;
 }
-/* Situation: slow thoughtful sway */
 .section-stick.think  { animation: ss-think  5.6s ease-in-out infinite; }
-/* Build: active irregular movement */
 .section-stick.create { animation: ss-create 3.6s ease-in-out infinite; animation-delay: 0.5s; }
-/* Results: triumphant bounce */
 .section-stick.done   { animation: ss-done   4.2s ease-in-out infinite; animation-delay: 1s; }
 @keyframes ss-think {
   0%,100% { transform: rotate(-2.5deg) translateY(0px); }
@@ -597,13 +590,11 @@ footer span {
   25%      { transform: rotate(3.5deg) translateY(-11px); }
   60%      { transform: rotate(-1deg) translateY(-5px); }
 }
-/* Give every section that holds a stickman 130px right breathing room */
 .cs-section:has(.section-stick) { padding-right: 210px; }
 @media (max-width: 1100px) {
   .section-stick { display: none; }
   .cs-section:has(.section-stick) { padding-right: 48px; }
 }
-
 
 /* ── Next project strip ───────────────────────────────────────────────────── */
 .next-project-strip {
@@ -684,12 +675,11 @@ footer span {
 
 <!-- HERO -->
 <div class="cs-hero">
-  <canvas class="hero-pin" id="hero-pin" width="28" height="42" style="transform:rotate(-12deg)"></canvas>
+  <canvas class="hero-pin" id="hero-pin" width="28" height="42"></canvas>
   <canvas class="hero-stick" id="hero-stick" width="64" height="110"></canvas>
-  <div class="cs-tag">AI Engineering / Natural Language Data Access</div>
-  <div class="cs-metric">Ask it anything</div>
-  <div class="cs-metric-unit">get SQL-backed answers in seconds</div>
-  <p class="cs-sub">A data team fielding 20+ ad-hoc analyst requests per week needed a way to put self-service data access in the hands of business users without exposing raw SQL or a BI tool they'd never adopt.</p>
+  <div class="cs-tag">Realtime ETL Pipeline</div>
+  <div class="cs-metric">&lt;30s latency</div>
+  <p class="cs-sub">50,000+ events per minute. Fraud signals went from 4 hours late to 30 seconds. Exactly-once semantics, zero duplicate records.</p>
   <div class="cs-hr-wrap">
     <canvas class="cs-hr-canvas" id="hero-hr-canvas" height="8"></canvas>
   </div>
@@ -697,105 +687,95 @@ footer span {
 
 <!-- STAT STRIP -->
 <div class="cs-stat-strip">
-  <span>NL2SQL via Bedrock Agent</span>
+  <span>50K events/min</span>
   <span class="sep">·</span>
-  <span>Iceberg Gold layer</span>
+  <span>&lt;30s end-to-end latency</span>
   <span class="sep">·</span>
-  <span>3 Athena action types</span>
+  <span>4 Kinesis shards</span>
   <span class="sep">·</span>
-  <span>Read-only enforced</span>
+  <span>Iceberg MERGE INTO CDC</span>
 </div>
 
-<!-- SECTION 01 -->
+<!-- SITUATION -->
 <div class="cs-section">
   <div class="cs-accent-line-wrap">
     <canvas class="cs-accent-canvas" id="accent-1"></canvas>
   </div>
   <div class="cs-content">
     <canvas class="section-stick think" id="stick-s1" width="82" height="160"></canvas>
-    <h2>The Brief</h2>
-    <p>A product data team was handling 20+ ad-hoc analyst SQL requests per week. Business stakeholders wanted revenue cuts, cohort breakdowns, and funnel metrics but lacked SQL skills. The analyst backlog was growing and confidence in the numbers was dropping because requests were slow and inconsistently formatted.</p>
-    <p>The brief was clear: give business users a plain-English interface over the existing Iceberg Gold layer on Athena. No new BI tools, no new data stores. Read-only, with PII access blocked at the architecture level, not just the policy level.</p>
+    <h2>The Situation</h2>
+    <p>A data team running batch ETL every 4 hours. On paper that sounds fine — until a fraud signal surfaces at 11pm and the analyst only sees it at 3am when the next batch runs. Payment failures, inventory depletion, and anomalies all landed in the warehouse four hours late.</p>
+    <p>The existing pipeline was an S3 dump → Glue job → Redshift pattern. Solid for reporting, totally wrong for anything time-sensitive. Duplicate records on retry were silently dropped or double-counted. There were no consumer lag alarms. Failures were discovered by analysts, not systems.</p>
+    <p>The ask: replace the batch window with a streaming pipeline that surfaces events within 30 seconds, handles at-least-once Kinesis delivery safely, and keeps Iceberg tables consistent.</p>
   </div>
 </div>
 
-<!-- SECTION 02 -->
+<!-- WHAT I BUILT -->
 <div class="cs-section" style="border-top:1px solid var(--rule)">
   <div class="cs-accent-line-wrap">
     <canvas class="cs-accent-canvas" id="accent-2"></canvas>
   </div>
   <div class="cs-content">
     <canvas class="section-stick create" id="stick-s2" width="82" height="160"></canvas>
-    <h2>What Was Delivered</h2>
+    <h2>What I Built</h2>
 
     <div class="arch-diagram-label">Architecture</div>
     <div class="mermaid">
 graph LR
-    USER["Business User
-Slack / Web / API"] -->|"natural language"| AGENT["Amazon Bedrock Agent
-Claude 3.5 Sonnet"]
-    AGENT --> PREP["Lambda
-Validator
-blocks writes"]
-    AGENT --> EXEC["Lambda
-Athena Executor"]
-    EXEC --> ATH["Amazon Athena"]
-    ATH --> ICE[("Iceberg Gold Layer
-S3 + Glue Catalog")]
-    ATH --> S3R[("S3
-Query Results")]
-    EXEC -->|"structured data"| AGENT
-    AGENT -->|"plain-English answer"| USER
+    PROD["Event Producers
+API · Mobile · IoT"] --> KDS["Kinesis Data Streams
+4 shards · 24h retention"]
+    KDS --> LAMBDA["Lambda Consumer
+batch 100 · parallelization 2"]
+    LAMBDA --> DLQ["SQS DLQ
+invalid records"]
+    KDS --> GLUE["Glue Streaming PySpark
+micro-batch every 60s"]
+    GLUE -->|"MERGE INTO CDC"| ICE[("Apache Iceberg
+S3 partitioned by event_date")]
+    ICE --> ATH["Amazon Athena
+real-time SQL"]
+    CW["CloudWatch
+IteratorAge alarm"] --> ALERT["Alert on lag &gt; 60s"]
     </div>
 
-
     <ul>
-      <li>Amazon Bedrock Agent with a custom action group wired to Athena run query, list tables, describe schema</li>
-      <li>Input validation Lambda rejects queries containing write keywords (INSERT, UPDATE, DELETE, DROP, CREATE, ALTER) before they reach Athena</li>
-      <li>Agent grounded on the Iceberg Gold layer only staging and raw tables are outside its scope by IAM policy</li>
-      <li>Structured prompt instructs the agent to explain what it queried, surface row counts, and flag when results might be stale</li>
-      <li>CDK-deployed with scoped IAM roles: agent execution role has athena:StartQueryExecution and s3:GetObject on results bucket only</li>
+      <li><strong>Kinesis Data Streams (4 shards):</strong> 4 MB/s ingestion, 24-hour retention for safe replay. Shard count sized at 4× peak expected throughput to leave headroom for traffic spikes.</li>
+      <li><strong>Lambda consumer (validation layer):</strong> Reads from Kinesis in batches of 100. Validates schema, enriches partition keys, routes invalid records to SQS DLQ with full payload — no silent drops.</li>
+      <li><strong>Glue Streaming PySpark job:</strong> 60-second micro-batches. Parses JSON from Kinesis, casts types, filters nulls, deduplicates on <code>event_id</code> within each micro-batch.</li>
+      <li><strong>Apache Iceberg MERGE INTO:</strong> Upserts on <code>event_id</code> make the pipeline idempotent — safe to replay any micro-batch without double-counting. Kinesis's at-least-once guarantee becomes exactly-once in storage.</li>
+      <li><strong>CloudWatch IteratorAge alarm:</strong> Fires if consumer lag exceeds 60 seconds. Catches throughput spikes or job stalls before analysts notice missing data.</li>
     </ul>
 
-    <pre class="pipeline-pre">User (plain English)
-  → Bedrock Agent (Claude foundation model)
-    → Action Group: run_query
-        → Validation Lambda (blocks writes)
-        → Athena StartQueryExecution
-        → Iceberg Gold (S3 + Glue catalog)
-        → Results → Agent → Plain-English response
+    <pre class="pipeline-pre">Event Producers (API / Mobile / IoT)
+  └─► Kinesis Data Streams (4 shards, 24h retention)
+        ├─► Lambda Consumer (batch 100, parallel 2)
+        │     └─► SQS DLQ  ← invalid records
+        └─► Glue Streaming PySpark (60s micro-batch)
+              ├─► validate_and_cast()
+              ├─► deduplicate on event_id
+              └─► MERGE INTO Apache Iceberg (S3)
+                    └─► Amazon Athena (real-time queries)
 
-    → Action Group: list_tables
-        → Athena ListTableMetadata
-        → Schema summary → Agent
+CloudWatch IteratorAge &gt; 60s
+  └─► SNS Alert → on-call engineer</pre>
 
-    → Action Group: describe_table
-        → Athena GetTableMetadata
-        → Column types + partitions → Agent</pre>  </div>
+  </div>
 </div>
 
-<!-- SECTION 03 -->
+<!-- RESULTS -->
 <div class="cs-section" style="border-top:1px solid var(--rule)">
   <div class="cs-accent-line-wrap">
     <canvas class="cs-accent-canvas" id="accent-3"></canvas>
   </div>
   <div class="cs-content">
     <canvas class="section-stick done" id="stick-s3" width="82" height="160"></canvas>
-    <h2>Impact</h2>
+    <h2>Results</h2>
 
     <div class="in-numbers">
-      <div class="in-num-item">
-        <span class="in-num-val" style="color:var(--sage)">20+</span>
-        <span class="in-num-label">weekly requests cleared</span>
-      </div>
-      <div class="in-num-item">
-        <span class="in-num-val" style="color:var(--sage)">3</span>
-        <span class="in-num-label">weekly requests remaining</span>
-      </div>
-      <div class="in-num-item">
-        <span class="in-num-val" style="color:var(--sage)">0</span>
-        <span class="in-num-label">PII exposures possible</span>
-      </div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--teal)">&lt;30s</span><span class="in-num-label">end-to-end latency</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--teal)">50K</span><span class="in-num-label">events per minute</span></div>
+      <div class="in-num-item"><span class="in-num-val" style="color:var(--teal)">−99.8%</span><span class="in-num-label">latency reduction</span></div>
     </div>
 
     <div class="results-table-wrap">
@@ -803,35 +783,40 @@ Query Results")]
         <thead>
           <tr>
             <th>Metric</th>
-            <th>Before</th>
-            <th>After</th>
+            <th>Before (Batch ETL)</th>
+            <th>After (Streaming)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="col-metric">Weekly ad-hoc requests</td>
-            <td>20+</td>
-            <td class="col-after">2-3 (complex only)</td>
+            <td class="col-metric">End-to-end latency</td>
+            <td>4+ hours</td>
+            <td class="col-after">&lt;30 seconds</td>
           </tr>
           <tr>
-            <td class="col-metric">Time to answer</td>
-            <td>1-3 days (queue)</td>
-            <td class="col-after">Seconds (self-serve)</td>
+            <td class="col-metric">Fraud signal detection</td>
+            <td>T+4h</td>
+            <td class="col-after">T+30s</td>
           </tr>
           <tr>
-            <td class="col-metric">PII access controls</td>
-            <td>Policy-level (audit risk)</td>
-            <td class="col-after">Architecture-level (agent scope)</td>
+            <td class="col-metric">Deduplication</td>
+            <td>None (duplicates on retry)</td>
+            <td class="col-after">Iceberg MERGE INTO</td>
           </tr>
           <tr>
-            <td class="col-metric">SQL required</td>
-            <td>Yes</td>
-            <td class="col-after">No</td>
+            <td class="col-metric">Invalid record handling</td>
+            <td>Silent drop</td>
+            <td class="col-after">SQS DLQ + alert</td>
           </tr>
           <tr>
-            <td class="col-metric">New tools to learn</td>
-            <td></td>
-            <td class="col-after">None</td>
+            <td class="col-metric">Consumer lag alarm</td>
+            <td>None</td>
+            <td class="col-after">CloudWatch &lt;60s</td>
+          </tr>
+          <tr>
+            <td class="col-metric">Delivery semantics</td>
+            <td>At-least-once (duplicates)</td>
+            <td class="col-after" style="font-weight:700">Exactly-once in storage</td>
           </tr>
         </tbody>
       </table>
@@ -845,21 +830,22 @@ Query Results")]
 <!-- TECH STACK -->
 <div class="tech-stack">
   <div class="tech-label">Tech Stack</div>
-  <div class="tech-pills">
-    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Bedrock Agent</span></div>
-    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Athena</span></div>
+  <div class="tech-pills" id="tech-pills">
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS CDK v2</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Kinesis Data Streams</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Glue Streaming</span></div>
     <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Apache Iceberg</span></div>
     <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Lambda</span></div>
-    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS Glue Data Catalog</span></div>
-    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon S3</span></div>
-    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">AWS CDK v2</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon Athena</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Amazon SQS</span></div>
+    <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">CloudWatch</span></div>
     <div class="tech-pill-wrap"><canvas class="tech-pill-canvas"></canvas><span class="tech-pill">Python 3.12</span></div>
   </div>
 </div>
 
 <!-- CTA -->
 <div class="cs-cta">
-  <p>Want business users self-serving on your data?</p>
+  <p>Need real-time data without the complexity?</p>
   <div class="cta-btn-wrap">
     <canvas class="cta-btn-canvas" id="cta-canvas"></canvas>
     <a href="mailto:ramneek2307@gmail.com" class="cta-btn">Get in touch →</a>
@@ -867,14 +853,14 @@ Query Results")]
 </div>
 
 <!-- NEXT PROJECT -->
-<a class="next-project-strip" href="realtime.html" style="--np-accent:#89B4BC">
+<a class="next-project-strip" href="finops.html" style="--np-accent:#D29B8C">
   <div class="np-inner">
     <div class="np-left">
       <span class="np-label">Next project</span>
-      <span class="np-name" style="color:#89B4BC">Realtime ETL Pipeline</span>
-      <span class="np-desc">&lt;30s latency · Kinesis + Glue Streaming</span>
+      <span class="np-name" style="color:#D29B8C">FinOps Audit</span>
+      <span class="np-desc">$33K/yr saved · Lambda + Glue right-sizing</span>
     </div>
-    <span class="np-arrow" style="color:#89B4BC">→</span>
+    <span class="np-arrow" style="color:#D29B8C">→</span>
   </div>
 </a>
 
@@ -886,7 +872,7 @@ Query Results")]
 
 <script>
 
-// ── Floating buttons (home stickman + back to top) ──────────────────────────
+// ── Floating buttons ──────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   if (!window.rough) return;
 
@@ -948,7 +934,7 @@ mermaid.initialize({
   themeVariables: {
     primaryColor: '#F5F3F0',
     primaryTextColor: '#2A1F14',
-    primaryBorderColor: '#91C3AA',
+    primaryBorderColor: '#89B4BC',
     lineColor: '#6B5040',
     secondaryColor: '#EAE7E2',
     tertiaryColor: '#FDFCFA',
@@ -960,9 +946,9 @@ mermaid.initialize({
 
 const colorMap = {
   rose: '#D29B8C', blue: '#9BB9D7', sage: '#91C3AA',
-  lav: '#AFA0D2', amber: '#C8A97A', pencil: '#6B5040'
+  lav: '#AFA0D2', amber: '#C8A97A', teal: '#89B4BC', pencil: '#6B5040'
 };
-const accent = colorMap.sage;
+const accent = colorMap.teal;
 
 window.addEventListener('load', () => {
   // Hero HR
@@ -975,9 +961,7 @@ window.addEventListener('load', () => {
     });
   }
 
-  // Accent lines
-  
-  // ─── Section stickmen (thinking / creating / accomplished) ─────────────────
+  // Section stickmen
   function drawSectionStick(id, color, pose) {
     const canvas = document.getElementById(id);
     if (!canvas || !window.rough) return;
@@ -988,77 +972,55 @@ window.addEventListener('load', () => {
     const oT  = { stroke: color, strokeWidth: 1.1,  roughness: 2.2 };
 
     if (pose === 'think') {
-      // ── Situation: Analyst reading the brief, finger to temple ───────────
-      // Head tilted, left index finger at temple, right arm holds a report
-      rc.circle(cx, 22, 24, o);                           // head
-      rc.line(cx, 34, cx, 90, o);                         // body
-      // left arm, upper arm out-left, forearm bends back to temple
-      rc.line(cx, 52, cx-24, 38, o);                      // upper L arm
-      rc.line(cx-24, 38, cx-18, 32, o);                   // forearm to temple
-      rc.circle(cx-18, 30, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.3 }); // fingertip dot
-      // right arm, down and slightly out, holding a report (small rect)
-      rc.line(cx, 52, cx+26, 68, o);                      // R arm down-right
-      rc.rectangle(cx+24, 66, 18, 24, { stroke: color, strokeWidth: 1.2, roughness: 2 }); // report/clipboard
-      // tiny lines on the report (text lines)
+      rc.circle(cx, 22, 24, o);
+      rc.line(cx, 34, cx, 90, o);
+      rc.line(cx, 52, cx-24, 38, o);
+      rc.line(cx-24, 38, cx-18, 32, o);
+      rc.circle(cx-18, 30, 4, { stroke: color, strokeWidth: 1.2, roughness: 1, fill: color, fillStyle: 'solid', fillWeight: 0.3 });
+      rc.line(cx, 52, cx+26, 68, o);
+      rc.rectangle(cx+24, 66, 18, 24, { stroke: color, strokeWidth: 1.2, roughness: 2 });
       rc.line(cx+26, 72, cx+40, 72, oT);
       rc.line(cx+26, 77, cx+40, 77, oT);
       rc.line(cx+26, 82, cx+36, 82, oT);
-      // legs, weight on right (slightly planted)
-      rc.line(cx, 90, cx-16, 140, o);                     // L leg
-      rc.line(cx, 90, cx+14, 140, o);                     // R leg
-      // thought bubble
+      rc.line(cx, 90, cx-16, 140, o);
+      rc.line(cx, 90, cx+14, 140, o);
       ctx.fillStyle = color; ctx.globalAlpha = 0.45;
       ctx.font = '9px serif';
       ctx.fillText('...', cx-10, 9);
       ctx.globalAlpha = 1;
 
     } else if (pose === 'create') {
-      // ── Build: Leaning into work, hands on the workbench ────────────────
-      // Body angled forward, both arms driving forward, workbench surface
-      rc.circle(cx+4, 20, 22, o);                         // head (leaning fwd)
-      rc.line(cx+4, 31, cx-2, 86, o);                     // body angled forward
-      // left arm, reaching left-forward to workbench
-      rc.line(cx+2, 52, cx-28, 66, o);                    // upper L arm
-      rc.line(cx-28, 66, cx-32, 78, o);                   // forearm down to surface
-      // right arm, reaching right-forward, slight upward energy
-      rc.line(cx+2, 52, cx+32, 44, o);                    // upper R arm out-fwd
-      rc.line(cx+32, 44, cx+36, 56, o);                   // forearm down to surface
-      // workbench/surface line
-      rc.line(cx-36, 80, cx+40, 80, oT);                  // bench top
-      rc.line(cx-36, 83, cx+40, 83, oT);                  // bench depth
-      // small tool/wrench shape on bench
+      rc.circle(cx+4, 20, 22, o);
+      rc.line(cx+4, 31, cx-2, 86, o);
+      rc.line(cx+2, 52, cx-28, 66, o);
+      rc.line(cx-28, 66, cx-32, 78, o);
+      rc.line(cx+2, 52, cx+32, 44, o);
+      rc.line(cx+32, 44, cx+36, 56, o);
+      rc.line(cx-36, 80, cx+40, 80, oT);
+      rc.line(cx-36, 83, cx+40, 83, oT);
       rc.rectangle(cx+6, 74, 10, 6, { stroke: color, strokeWidth: 1, roughness: 2.5 });
-      // sparks at tool tip
       ctx.fillStyle = color; ctx.globalAlpha = 0.6;
       ctx.font = '9px serif';
       ctx.fillText('✦', cx+34, 40);
       ctx.font = '7px serif';
       ctx.fillText('✦', cx-30, 62);
       ctx.globalAlpha = 1;
-      // legs, wide stance, grounded
       rc.line(cx-2, 86, cx-18, 136, o);
       rc.line(cx-2, 86, cx+16, 134, o);
 
     } else if (pose === 'done') {
-      // ── Results: Full V-for-victory, both arms skyward ───────────────────
-      // Body upright, slight backward-lean (triumph), wide leg stance
-      rc.circle(cx, 22, 24, o);                           // head
-      rc.line(cx, 34, cx, 90, o);                         // body
-      // both arms form a V, raised high and wide
-      rc.line(cx, 52, cx-30, 22, o);                      // L arm up-left
-      rc.line(cx, 52, cx+30, 22, o);                      // R arm up-right
-      // legs spread, landing/jumping energy
-      rc.line(cx, 90, cx-20, 142, o);                     // L leg wide
-      rc.line(cx, 90, cx+20, 142, o);                     // R leg wide
-      // stars at hand tips
+      rc.circle(cx, 22, 24, o);
+      rc.line(cx, 34, cx, 90, o);
+      rc.line(cx, 52, cx-30, 22, o);
+      rc.line(cx, 52, cx+30, 22, o);
+      rc.line(cx, 90, cx-20, 142, o);
+      rc.line(cx, 90, cx+20, 142, o);
       ctx.fillStyle = color; ctx.globalAlpha = 0.85;
       ctx.font = '13px serif';
       ctx.fillText('★', cx-38, 20);
       ctx.fillText('★', cx+26, 20);
-      // smaller star above head
       ctx.font = '9px serif';
       ctx.fillText('★', cx-4, 6);
-      // confetti dots
       ctx.globalAlpha = 0.4;
       [[cx-44, 38],[cx+40, 44],[cx-36, 64],[cx+38, 66],[cx-26, 12],[cx+28, 10]].forEach(([x,y]) => {
         ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI*2); ctx.fill();
@@ -1076,15 +1038,15 @@ window.addEventListener('load', () => {
     rough.canvas(c).line(3, 0, 3, h, {
       roughness: 1.8, strokeWidth: 3, stroke: accent
     });
-  drawSectionStick('stick-s1', colorMap.sage, 'think');
-  drawSectionStick('stick-s2', colorMap.sage, 'create');
-  drawSectionStick('stick-s3', colorMap.sage, 'done');
-
+  drawSectionStick('stick-s1', colorMap.teal, 'think');
+  drawSectionStick('stick-s2', colorMap.teal, 'create');
+  drawSectionStick('stick-s3', colorMap.teal, 'done');
   });
 
   // Tech pills
   document.querySelectorAll('.tech-pill-wrap').forEach(wrap => {
     const canvas = wrap.querySelector('.tech-pill-canvas');
+    const pill = wrap.querySelector('.tech-pill');
     if (!canvas || !window.rough) return;
     setTimeout(() => {
       const w = wrap.offsetWidth;
@@ -1114,25 +1076,26 @@ window.addEventListener('load', () => {
   const pin = document.getElementById('hero-pin');
   if (pin && window.rough) {
     const rc = rough.canvas(pin);
-    const col = colorMap.sage;
     const cx = 14, cy = 13, r = 9;
-    rc.circle(cx, cy, r*2, { stroke: col, strokeWidth: 1.5, roughness: 1.5, fill: col, fillStyle: 'solid', fillWeight: 0.6 });
+    rc.circle(cx, cy, r*2, { stroke: accent, strokeWidth: 1.5, roughness: 1.5, fill: accent, fillStyle: 'solid', fillWeight: 0.6 });
     rc.circle(cx-3, cy-3, 5, { stroke: 'rgba(255,255,255,0.45)', strokeWidth: 0.6, roughness: 1, fill: 'rgba(255,255,255,0.25)', fillStyle: 'solid', fillWeight: 0.3 });
-    rc.line(cx, cy+r, cx-1, cy+r+12, { stroke: col, strokeWidth: 2.4, roughness: 1 });
-    rc.line(cx-1, cy+r+12, cx, cy+r+18, { stroke: col, strokeWidth: 1.3, roughness: 1 });
+    rc.line(cx, cy+r, cx-1, cy+r+12, { stroke: accent, strokeWidth: 2.4, roughness: 1 });
+    rc.line(cx-1, cy+r+12, cx, cy+r+18, { stroke: accent, strokeWidth: 1.3, roughness: 1 });
   }
 
-  // Hero stickman, presenting/reaching pose (arm extended, self-serve query)
+  // Hero stickman — sprinting forward, arms pumping (speed / real-time)
   const heroStick = document.getElementById('hero-stick');
   if (heroStick && window.rough) {
     const rc = rough.canvas(heroStick);
-    const cx = 32, sw = 1.6, r = 1.4, col = colorMap.sage;
-    rc.circle(cx, 13, 18, { stroke: col, strokeWidth: sw, roughness: r });
-    rc.line(cx, 22, cx, 60, { stroke: col, strokeWidth: sw, roughness: r });
-    rc.line(cx, 36, cx-18, 48, { stroke: col, strokeWidth: sw, roughness: r });
-    rc.line(cx, 36, cx+24, 22, { stroke: col, strokeWidth: sw, roughness: r });
-    rc.line(cx, 60, cx-14, 92, { stroke: col, strokeWidth: sw, roughness: r });
-    rc.line(cx, 60, cx+14, 92, { stroke: col, strokeWidth: sw, roughness: r });
+    const cx = 32, sw = 1.6, r = 1.4, col = colorMap.teal;
+    rc.circle(cx+6, 12, 18, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+6, 21, cx+10, 58, { stroke: col, strokeWidth: sw, roughness: r });
+    // arms pumping — one fwd, one back
+    rc.line(cx+8, 36, cx+28, 24, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+8, 36, cx-14, 48, { stroke: col, strokeWidth: sw, roughness: r });
+    // legs mid-stride
+    rc.line(cx+10, 58, cx+26, 88, { stroke: col, strokeWidth: sw, roughness: r });
+    rc.line(cx+10, 58, cx-8, 84, { stroke: col, strokeWidth: sw, roughness: r });
   }
 });
 
