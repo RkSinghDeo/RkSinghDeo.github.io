@@ -606,30 +606,58 @@ footer span {
 
 
 /* ── Next project strip ──────────────────────────────────────────────────── */
+/* ── Next project strip ──────────────────────────────────────────────────── */
 .next-project-strip {
+  display: block;
+  background: var(--bg-alt);
+  border-top: 3px solid var(--np-accent, var(--rule));
+  text-decoration: none;
+  transition: background 0.22s;
+}
+.next-project-strip:hover { background: #E8E4DC; }
+.np-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 48px 22px 120px;
-  border-top: 1px solid var(--rule);
-  text-decoration: none;
-  transition: background 0.18s;
+  padding: 44px 48px 44px 120px;
   max-width: 1280px;
   margin: 0 auto;
 }
-.next-project-strip:hover { background: var(--bg-alt); }
-.next-project-strip .np-label {
+.np-left { display: flex; flex-direction: column; gap: 10px; }
+.np-label {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   color: var(--pencil);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
 }
-.next-project-strip .np-name {
+.np-name {
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.01em;
+  font-size: clamp(28px, 3.5vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.np-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--pencil);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.np-arrow {
+  font-family: 'Fraunces', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--pencil);
+  opacity: 0.25;
+  transition: opacity 0.22s, transform 0.22s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.next-project-strip:hover .np-arrow {
+  opacity: 0.7;
+  transform: translateX(8px);
 }
 
 </style>
@@ -833,9 +861,15 @@ Query Results")]
 </div>
 
 <!-- NEXT PROJECT -->
-<a class="next-project-strip" href="finops.html">
-  <span class="np-label">Next project</span>
-  <span class="np-name" style="color:#D29B8C">FinOps Audit →</span>
+<a class="next-project-strip" href="finops.html" style="--np-accent:#D29B8C">
+  <div class="np-inner">
+    <div class="np-left">
+      <span class="np-label">Next project</span>
+      <span class="np-name" style="color:#D29B8C">FinOps Audit</span>
+      <span class="np-desc">$33K saved · Lambda + Glue</span>
+    </div>
+    <span class="np-arrow" style="color:#D29B8C">→</span>
+  </div>
 </a>
 
 <!-- FOOTER -->
