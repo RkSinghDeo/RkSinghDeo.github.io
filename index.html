@@ -424,7 +424,8 @@ main { position: relative; z-index: 1; }
 .card-link {
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 3px 4px 0 rgba(139,100,60,0.12);
@@ -442,6 +443,7 @@ main { position: relative; z-index: 1; }
   position: relative;
   background: var(--bg);
   border-radius: 2px;
+  flex: 1;
 }
 
 .card-canvas {
@@ -1488,7 +1490,7 @@ function initCardBorders() {
         });
       }
     };
-    setTimeout(updateSize, 50);
+    setTimeout(updateSize, 120);
     window.addEventListener('resize', updateSize);
   });
 }
